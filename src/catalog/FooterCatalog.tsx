@@ -25,7 +25,7 @@ export function FooterCatalog() {
   return (
     <div className="pattern-catalog" id="footer">
       <article className="pattern-specimen">
-        <header className="pattern-specimen__header">
+        <header className="pattern-specimen__header page-grid">
           <div>
             <p className="type-code-01">pattern / footer</p>
             <h2 className="type-fluid-heading-04">Footer</h2>

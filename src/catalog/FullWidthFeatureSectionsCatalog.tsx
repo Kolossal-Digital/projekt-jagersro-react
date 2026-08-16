@@ -74,7 +74,7 @@ export function FullWidthFeatureSectionsCatalog() {
     <div className="pattern-catalog" id="full-width-feature-sections">
       {variants.map((variant) => (
         <article className="pattern-specimen" key={variant.id}>
-          <header className="pattern-specimen__header">
+          <header className="pattern-specimen__header page-grid">
             <div>
               <p className="type-code-01">pattern / full width feature</p>
               <h2 className="type-fluid-heading-04">{variant.label}</h2>

@@ -23,9 +23,9 @@ export function Section({
 }: SectionProps) {
   return (
     <section id={id} className={`section surface--${background}`}>
-      <div className="section__inner">
+      <div className="section__inner page-grid">
         <header className="section__header">
-          <div>
+          <div className="section__header-copy">
             <Typography as="p" className="eyebrow" variant="code-01">
               {eyebrow}
             </Typography>

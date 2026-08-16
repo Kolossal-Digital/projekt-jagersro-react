@@ -11,7 +11,7 @@ export function ImageCarouselCatalog() {
   return (
     <div className="pattern-catalog" id="image-carousel">
       <article className="pattern-specimen">
-        <header className="pattern-specimen__header">
+        <header className="pattern-specimen__header page-grid">
           <div>
             <p className="type-code-01">pattern / image carousel</p>
             <h2 className="type-fluid-heading-04">Focused image with caption</h2>

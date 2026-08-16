@@ -11,7 +11,7 @@ export function ImageGalleryCatalog() {
   return (
     <div className="pattern-catalog" id="image-gallery">
       <article className="pattern-specimen">
-        <header className="pattern-specimen__header">
+        <header className="pattern-specimen__header page-grid">
           <div>
             <p className="type-code-01">pattern / image gallery</p>
             <h2 className="type-fluid-heading-04">Editorial image mosaic</h2>

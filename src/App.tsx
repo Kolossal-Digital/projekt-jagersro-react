@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import Lenis from "lenis";
 import { ListIcon } from "@phosphor-icons/react/dist/csr/List";
 import { XIcon } from "@phosphor-icons/react/dist/csr/X";
 import { ButtonsCatalog } from "./catalog/ButtonsCatalog";
@@ -183,6 +184,7 @@ const pageContent: Record<
 };
 
 function App() {
+  const lenisRef = useRef<Lenis | null>(null);
   const [theme, setTheme] = useState<ThemeName>("Light");
   const [breakpoint, setBreakpoint] = useState<BreakpointName>(getBreakpointName);
   const [activePage, setActivePage] = useState<CatalogPage>("typography");
@@ -191,6 +193,22 @@ function App() {
   );
   const [isGridVisible, setIsGridVisible] = useState(false);
   const intro = pageContent[activePage];
+
+  useEffect(() => {
+    const lenis = new Lenis({
+      anchors: true,
+      autoRaf: true,
+      respectReducedMotion: true,
+      stopInertiaOnNavigate: true,
+    });
+
+    lenisRef.current = lenis;
+
+    return () => {
+      lenis.destroy();
+      lenisRef.current = null;
+    };
+  }, []);
 
   useEffect(() => {
     function updateBreakpoint() {
@@ -208,7 +226,11 @@ function App() {
   function selectPage(page: CatalogPage) {
     setActivePage(page);
     if (breakpoint === "Small") setIsSidebarVisible(false);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(0);
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   }
 
   return (
@@ -267,7 +289,7 @@ function App() {
         <main className="catalog-content">
           {isGridVisible && <GridOverlay />}
           {activePage !== "landing-page" && activePage !== "article-page" && (
-            <div className="page-intro">
+            <div className="page-intro page-grid">
               <Typography className="eyebrow" variant="code-01">
                 {intro.eyebrow}
               </Typography>

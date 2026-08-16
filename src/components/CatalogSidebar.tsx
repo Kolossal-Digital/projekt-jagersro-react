@@ -90,7 +90,12 @@ export function CatalogSidebar({
   onSelect,
 }: CatalogSidebarProps) {
   return (
-    <aside className="catalog-sidebar" hidden={hidden} id="catalog-sidebar">
+    <aside
+      className="catalog-sidebar"
+      data-lenis-prevent
+      hidden={hidden}
+      id="catalog-sidebar"
+    >
       {controls && <div className="catalog-sidebar__controls">{controls}</div>}
       <nav aria-label="Designsystemets delar">
         <div className="catalog-sidebar__groups">

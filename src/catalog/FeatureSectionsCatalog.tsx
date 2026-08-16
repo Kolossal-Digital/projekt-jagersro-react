@@ -99,7 +99,7 @@ export function FeatureSectionsCatalog() {
     <div className="pattern-catalog" id="feature-sections">
       {specimens.map((specimen) => (
         <article className="pattern-specimen" key={specimen.id}>
-          <header className="pattern-specimen__header">
+          <header className="pattern-specimen__header page-grid">
             <div>
               <p className="type-code-01">pattern / feature section</p>
               <h2 className="type-fluid-heading-04">{specimen.label}</h2>

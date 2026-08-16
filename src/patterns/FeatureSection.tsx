@@ -43,7 +43,7 @@ function FeatureRichText({ blocks }: { blocks: FeatureRichTextBlock[] }) {
       {blocks.map((block, index) => {
         if (block.type === "paragraph") {
           return (
-            <Typography key={`${block.type}-${index}`} variant="body-01">
+            <Typography key={`${block.type}-${index}`} variant="body-02">
               {block.text}
             </Typography>
           );
@@ -69,7 +69,7 @@ function FeatureRichText({ blocks }: { blocks: FeatureRichTextBlock[] }) {
                 <Typography as="h3" variant="fluid-heading-03">
                   {item.heading}
                 </Typography>
-                <Typography variant="body-01">{item.body}</Typography>
+                <Typography variant="body-02">{item.body}</Typography>
               </article>
             ))}
           </div>

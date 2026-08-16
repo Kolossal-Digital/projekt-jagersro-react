@@ -54,7 +54,7 @@ export function ImageSectionCatalog() {
     <div className="pattern-catalog" id="image-section">
       {specimens.map((specimen) => (
         <article className="pattern-specimen" key={specimen.id}>
-          <header className="pattern-specimen__header">
+          <header className="pattern-specimen__header page-grid">
             <div>
               <p className="type-code-01">pattern / image section</p>
               <h2 className="type-fluid-heading-04">{specimen.label}</h2>

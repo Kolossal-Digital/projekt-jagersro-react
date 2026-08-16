@@ -77,7 +77,7 @@ export function GridSpacingCatalog() {
           Large. Den har en maximal ytterbredd på {pageGridMaxWidth} px. Slå på
           Grid i debugkontrollerna för att lägga den över valfri testsida.
         </p>
-        <div aria-hidden="true" className="page-grid foundation-grid-preview">
+        <div aria-hidden="true" className="foundation-grid-preview">
           {Array.from({ length: 12 }, (_, index) => (
             <span key={index} />
           ))}

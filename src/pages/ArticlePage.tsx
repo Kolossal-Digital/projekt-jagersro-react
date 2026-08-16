@@ -44,7 +44,7 @@ export function ArticlePage({
           </div>
 
           <header className="article-page__header">
-            <h1 className="type-fluid-display-04">{article.title}</h1>
+            <h1 className="type-fluid-display-03">{article.title}</h1>
             <p className="type-body-02">{article.lead}</p>
           </header>
 
