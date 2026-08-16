@@ -1,0 +1,69 @@
+import jagersroWordmark from "../assets/jagersro-wordmark.svg";
+import { SiteFooter } from "../components/SiteFooter";
+import { SiteNavbar } from "../components/SiteNavbar";
+import { readArticlePageContent } from "../content/articlePageContent";
+import { demoLatestArticles } from "../content/demoContent";
+import { readLandingPageSections } from "../content/landingPageContent";
+import { ArticlePage } from "../pages/ArticlePage";
+
+const article = readArticlePageContent();
+const landingSections = readLandingPageSections();
+
+function getSharedSection<Type extends "navbar" | "footer">(type: Type) {
+  const section = landingSections.find(
+    (candidate): candidate is Extract<(typeof landingSections)[number], { type: Type }> =>
+      candidate.type === type,
+  );
+  if (!section) throw new Error(`Article-page example needs a shared ${type}.`);
+  return section;
+}
+
+function getArticleSummary(id: string) {
+  const summary = demoLatestArticles.find((item) => item.id === id);
+  if (!summary) throw new Error(`Unknown article: ${id}`);
+  return summary;
+}
+
+const navigation = getSharedSection("navbar");
+const footer = getSharedSection("footer");
+const articleSummary = getArticleSummary(article.image);
+
+const relatedArticles = article.relatedArticleIds.map((id) => {
+  return getArticleSummary(id);
+});
+
+export function ArticlePageCatalog() {
+  return (
+    <div className="article-page-demo" id="article-page">
+      <div className="theme--light">
+        <SiteNavbar
+          background={navigation.background}
+          brand={{ src: jagersroWordmark, alt: "Jägersro", href: "#landing-page" }}
+          links={navigation.links}
+          primaryAction={navigation.primaryAction}
+          searchAction={navigation.searchAction}
+        />
+        <ArticlePage
+          article={article}
+          breadcrumbs={[
+            { label: "Jägersro", href: "#landing-page" },
+            { label: "Aktuellt", href: "#latest-articles" },
+            { label: article.title },
+          ]}
+          image={articleSummary.image}
+          relatedArticles={relatedArticles}
+        />
+      </div>
+      <div className="theme--dark">
+        <SiteFooter
+          background={footer.background}
+          brand={{ src: jagersroWordmark, alt: "Jägersro", href: "#landing-page" }}
+          copyright={footer.copyright}
+          legalLinks={footer.legalLinks}
+          navigation={footer.navigation}
+          newsletter={footer.newsletter}
+        />
+      </div>
+    </div>
+  );
+}

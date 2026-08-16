@@ -1,0 +1,82 @@
+import { useState } from "react";
+import jagersroAerial from "../assets/jagersro-aerial.png";
+import { BackgroundPicker } from "../components/BackgroundPicker";
+import {
+  ImageSection,
+  type ImageSectionCaption,
+  type ImageSectionLayout,
+} from "../patterns/ImageSection";
+import type { BackgroundName } from "../tokens";
+
+const image = {
+  src: jagersroAerial,
+  alt: "Flygbild över Jägersro travbana och det omgivande området.",
+  width: 1024,
+  height: 683,
+};
+
+const caption: ImageSectionCaption = {
+  label: "Bild 1",
+  description:
+    "Flygbilden visar Jägersro travbana och de omgivande kvarteren före omvandlingen. Den dokumenterar platsens skala, grönska och tydliga spår av travets historia – ett landskap som steg för steg får nya användningar och berättelser.",
+};
+
+type Specimen = {
+  id: string;
+  label: string;
+  layout: ImageSectionLayout;
+  caption?: ImageSectionCaption;
+};
+
+const specimens: Specimen[] = [
+  { id: "image-grid", label: "Grid", layout: "grid" },
+  {
+    id: "image-grid-caption",
+    label: "Grid / with description",
+    layout: "grid",
+    caption,
+  },
+  { id: "image-full-width", label: "Full width", layout: "full-width" },
+];
+
+export function ImageSectionCatalog() {
+  const [backgrounds, setBackgrounds] = useState<Record<string, BackgroundName>>(
+    Object.fromEntries(
+      specimens.map(({ id }) => [id, "background-accent-01"]),
+    ) as Record<string, BackgroundName>,
+  );
+
+  function setBackground(id: string, background: BackgroundName) {
+    setBackgrounds((current) => ({ ...current, [id]: background }));
+  }
+
+  return (
+    <div className="pattern-catalog" id="image-section">
+      {specimens.map((specimen) => (
+        <article className="pattern-specimen" key={specimen.id}>
+          <header className="pattern-specimen__header">
+            <div>
+              <p className="type-code-01">pattern / image section</p>
+              <h2 className="type-fluid-heading-04">{specimen.label}</h2>
+              <code className="type-code-01">
+                layout=&quot;{specimen.layout}&quot;
+                {specimen.caption ? " · caption" : ""}
+              </code>
+            </div>
+            <BackgroundPicker
+              value={backgrounds[specimen.id]}
+              onChange={(background) => setBackground(specimen.id, background)}
+            />
+          </header>
+
+          <ImageSection
+            background={backgrounds[specimen.id]}
+            caption={specimen.caption}
+            image={image}
+            layout={specimen.layout}
+          />
+        </article>
+      ))}
+    </div>
+  );
+}

@@ -1,0 +1,33 @@
+{
+  "source": "Figma node 10:5836",
+  "containerMax": 1920,
+  "breakpoints": {
+    "Small": {
+      "min": 320,
+      "max": 767,
+      "columns": 8,
+      "margin": 16,
+      "gutter": 16
+    },
+    "Medium": {
+      "min": 768,
+      "max": 1199,
+      "columns": 8,
+      "margin": 68,
+      "gutter": 16
+    },
+    "Large": {
+      "min": 1200,
+      "max": 1919,
+      "columns": 12,
+      "margin": 64,
+      "gutter": 24
+    },
+    "Max": {
+      "min": 1920,
+      "columns": 12,
+      "margin": 64,
+      "gutter": 24
+    }
+  }
+}
