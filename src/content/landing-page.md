@@ -25,7 +25,7 @@ key: intro
 type: hero
 theme: light
 background: background-accent-02
-headingColor: text-accent-02
+headingColor: text-accent-01
 variant: split
 content:
   heading: Jägersro förändras. Berättelsen fortsätter.
@@ -40,9 +40,48 @@ content:
 key: aerial
 type: image
 theme: light
-background: background-accent-01
+background: background-accent-02
+variant: full-width
 image: aerial
 priority: true
+```
+
+## Platsens lager
+```yaml
+key: ongoing
+type: feature
+id: just-nu
+theme: light
+background: background-accent-01
+headingColor: text-accent-01
+paddingBottom: small
+layout: cta
+content:
+  tagline: Vad händer på jägersro?
+  heading: Just nu på platsen
+  richText:
+    - type: paragraph
+      text: Händelser, berättelser och nedslag från Jägersro– i takt med att området förändras.
+  actions:
+    - { label: Se alla uppdateringar, href: "#feature-sections", variant: primary, icon: arrow-right }
+```
+
+## Senaste artiklarna
+```yaml
+key: latest-articles
+type: latest-articles
+id: aktuellt
+theme: light
+background: background-accent-01
+rows: 2
+articleIds:
+  - first-spadtaget
+  - now-it-starts
+  - new-district-step
+  - jagersro-model
+  - green-rule
+  - climate-standard
+  - mobility-workshop
 ```
 
 ## Platsens lager
@@ -65,26 +104,6 @@ content:
     - { label: Vad är projekt Jägersro?, href: "#feature-sections", variant: outline }
 ```
 
-## Senaste artiklarna
-```yaml
-key: latest-articles
-type: latest-articles
-id: aktuellt
-theme: light
-background: background-accent-01
-heading: Senaste från Jägersro
-rows: 2
-allArticlesLink: { label: Se allt aktuellt, href: "https://projektjagersro.se/aktuellt/" }
-articleIds:
-  - first-spadtaget
-  - now-it-starts
-  - new-district-step
-  - jagersro-model
-  - green-rule
-  - climate-standard
-  - mobility-workshop
-```
-
 ## Jägersrolabbet
 ```yaml
 key: lab
@@ -92,8 +111,9 @@ type: full-width-feature
 id: labbet
 theme: dark
 background: background-accent-01
-image: montage
+image: featureDummy
 imagePosition: right
+imageFit: fill
 content:
   tagline: Jägersrolabbet
   heading: En öppen plats för frågor, idéer och nya perspektiv
@@ -104,12 +124,12 @@ content:
 
 ## Resan introduktion
 ```yaml
-key: journey-intro
+key: journey
 type: feature
 theme: light
 background: background-accent-01
-paddingBottom: small
-layout: split
+paddingBottom: medium
+layout: cta
 content:
   tagline: Resan
   heading: En plats i förändring
@@ -148,13 +168,52 @@ itemIds:
   - next-stage
 ```
 
+## Historiken
+```yaml
+key: history
+type: feature
+theme: light
+background: background-accent-03
+headingColor: text-accent-02
+paddingBottom: medium
+layout: media
+mediaPosition: left
+image: montage
+content:
+  tagline: Jägersro 1907–idag
+  heading: Från travbana till ny stadsdel
+  richText:
+    - type: paragraph
+      text: Jägersro har länge varit en plats för rörelse, möten och förändring. Nu står området inför sin största omvandling hittills. Här växer en ny stadsdel fram – med bostäder, arbetsplatser, grönska och liv. Vi är inte där än. Men vi är på väg.
+  actions:
+    - { label: Läs mer om platsens bakgrund, href: "#resan", variant: primary, icon: arrow-right }
+    - { label: Framtiden, href: "#resan", variant: outline, icon: arrow-right }
+```
+
+## Resan introduktion
+```yaml
+key: trip
+type: feature
+theme: dark
+background: background-accent-01
+paddingBottom: medium
+layout: cta
+content:
+  tagline: Resan
+  heading: Det vi bygger tillsammans
+  richText:
+    - type: paragraph
+      text: Jägersro utvecklas med fokus på hållbarhet, gemenskap och framtidens stadsliv. Här formas en stadsdel med bostäder, arbetsplatser, parker och mötesplatser.
+  actions:
+    - { label: Se vad som planeras, href: "#resan", variant: primary, icon: arrow-right }
+```
 ## Bildgalleri
 ```yaml
 key: gallery
 type: image-gallery
 id: galleri
-theme: light
-background: background
+theme: dark
+background: background-accent-01
 ariaLabel: Dokumentärt bildgalleri från Jägersro
 itemIds:
   - gallery-aerial
@@ -164,7 +223,23 @@ itemIds:
   - gallery-interior
   - gallery-montage
 ```
-
+## Resan introduktion
+```yaml
+key: explore
+type: feature
+theme: light
+background: background-accent-02
+paddingBottom: medium
+layout: cta
+content:
+  tagline: utforska platsen
+  heading: Upptäck Jägersro
+  richText:
+    - type: paragraph
+      text: Hur låter det här en tidig morgon? Vad finns kvar från tidigare epoker? Utforska Jägersro genom bilder, platser och berättelser från området.
+  actions:
+    - { label: Utforska området, href: "#resan", variant: primary, icon: arrow-right }
+```
 ## Bildkarusell
 ```yaml
 key: carousel
@@ -189,6 +264,22 @@ slides:
       title: Platsen förändras
       body: Rivning och återbruk blir synliga lager i berättelsen om områdets utveckling.
   - { id: horses, image: horses }
+```
+
+## Sidintroduktion
+```yaml
+key: participate
+type: hero
+theme: dark
+background: background-accent-02
+headingColor: text-accent-01
+variant: centered
+content:
+  heading: Var med längs vägen
+  body: Transformationen av Jägersro sker inte i ett vakuum. Här finns möjlighet att delta, tycka till och uppleva platsen redan idag.
+  actions:
+    - { label: Se vad som händer på platsen, href: "#resan", variant: primary, icon: arrow-right }
+    - { label: Kontakta oss, href: "#platsen", variant: outline }
 ```
 
 ## Footer

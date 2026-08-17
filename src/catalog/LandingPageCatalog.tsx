@@ -87,7 +87,7 @@ function renderSection(section: LandingPageSection) {
           caption={section.caption}
           id={section.id}
           image={resolveImage(section.image)}
-          layout={section.layout}
+          layout={section.variant ?? section.layout}
           paddingBottom={section.paddingBottom}
           paddingTop={section.paddingTop}
           priority={section.priority}
@@ -160,11 +160,9 @@ function renderSection(section: LandingPageSection) {
     case "latest-articles":
       return (
         <LatestArticlesSection
-          allArticlesLink={section.allArticlesLink}
           articles={section.articleIds.map(resolveArticle)}
           background={section.background}
           foreground={section.headingColor}
-          heading={section.heading}
           id={section.id}
           paddingBottom={section.paddingBottom}
           paddingTop={section.paddingTop}

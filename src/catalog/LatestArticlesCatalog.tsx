@@ -41,14 +41,9 @@ export function LatestArticlesCatalog() {
         </header>
 
         <LatestArticlesSection
-          allArticlesLink={{
-            label: "Se allt aktuellt",
-            href: "https://projektjagersro.se/aktuellt/",
-          }}
           articles={demoLatestArticles}
           background={background}
           foreground={foreground}
-          heading="Senaste från Jägersro"
           rows={Number(rows) as ArticleRowCount}
         />
       </article>

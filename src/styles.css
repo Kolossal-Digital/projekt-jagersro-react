@@ -1861,19 +1861,6 @@ textarea {
   padding-bottom: var(--section-padding-bottom);
 }
 
-.latest-articles__header {
-  display: flex;
-  grid-column: 1 / -1;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: var(--spacing-24);
-}
-
-.latest-articles__header h2 {
-  margin: 0;
-}
-
 .latest-articles__grid {
   display: grid;
   grid-column: 1 / -1;
@@ -3592,6 +3579,22 @@ textarea {
   .contained-feature__media {
     height: auto;
     aspect-ratio: 1;
+  }
+
+  .contained-feature--media .contained-feature__media-content {
+    grid-column: 1 / span 5;
+  }
+
+  .contained-feature--media-left .contained-feature__media-content {
+    grid-column: 8 / span 5;
+  }
+
+  .contained-feature--split .contained-feature__heading-column {
+    grid-column: 1 / span 5;
+  }
+
+  .contained-feature--split .contained-feature__content-column {
+    grid-column: 8 / span 5;
   }
 
   .hero-section {

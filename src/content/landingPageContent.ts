@@ -53,6 +53,8 @@ export type LandingPageSection =
       type: "image";
       image: string;
       caption?: ImageSectionCaption;
+      variant?: ImageSectionLayout;
+      /** @deprecated Use variant in Markdown/CMS content. */
       layout?: ImageSectionLayout;
       priority?: boolean;
     })
@@ -89,13 +91,8 @@ export type LandingPageSection =
     })
   | (SectionBase & {
       type: "latest-articles";
-      heading: string;
       rows?: ArticleRowCount;
       articleIds: ArticleSummary["id"][];
-      allArticlesLink?: {
-        label: string;
-        href: string;
-      };
     })
   | (SectionBase & {
       type: "timeline";

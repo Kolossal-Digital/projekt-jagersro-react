@@ -2,6 +2,7 @@ import demolition from "../assets/carousel-demolition.png";
 import horses from "../assets/carousel-horses.png";
 import interior from "../assets/carousel-interior.png";
 import jagersroStatues from "../assets/carousel-jagersro-statues.png";
+import featureDummy from "../assets/full-width-feature-dummy.jpg";
 import featureMontage from "../assets/full-width-feature-montage.png";
 import jagersroAerial from "../assets/jagersro-aerial.png";
 import articleFirstSpadtaget from "../assets/article-forsta-spadtaget.webp";
@@ -27,6 +28,12 @@ export const demoImages = {
   montage: {
     src: featureMontage,
     alt: "Bildmontage med patinerad byggnadsdetalj och en kock som lägger upp en maträtt.",
+  },
+  featureDummy: {
+    src: featureDummy,
+    alt: "Jägersros logotyp i vitt mot en mörkgrön bakgrund.",
+    width: 5157,
+    height: 5157,
   },
   interior: {
     src: interior,
