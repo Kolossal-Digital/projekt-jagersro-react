@@ -8,6 +8,8 @@ import {
   type ImageSectionLayout,
 } from "../patterns/ImageSection";
 import type { BackgroundName, ForegroundName } from "../tokens";
+import { SectionMarkdownDocs } from "./SectionMarkdownDocs";
+import { imageSectionMarkdownFields } from "./sectionMarkdownFields";
 
 const image = {
   src: jagersroAerial,
@@ -92,6 +94,10 @@ export function ImageSectionCatalog() {
           />
         </article>
       ))}
+      <SectionMarkdownDocs
+        fields={imageSectionMarkdownFields}
+        sectionName="Image section"
+      />
     </div>
   );
 }

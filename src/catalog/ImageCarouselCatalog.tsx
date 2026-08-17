@@ -4,6 +4,8 @@ import { ForegroundPicker } from "../components/ForegroundPicker";
 import { demoCarouselSlides } from "../content/demoContent";
 import { ImageCarousel } from "../patterns/ImageCarousel";
 import type { BackgroundName, ForegroundName } from "../tokens";
+import { SectionMarkdownDocs } from "./SectionMarkdownDocs";
+import { carouselMarkdownFields } from "./sectionMarkdownFields";
 
 export function ImageCarouselCatalog() {
   const [background, setBackground] =
@@ -33,6 +35,10 @@ export function ImageCarouselCatalog() {
           slides={demoCarouselSlides}
         />
       </article>
+      <SectionMarkdownDocs
+        fields={carouselMarkdownFields}
+        sectionName="Image carousel"
+      />
     </div>
   );
 }

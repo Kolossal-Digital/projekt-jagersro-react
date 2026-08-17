@@ -4,6 +4,8 @@ import { ForegroundPicker } from "../components/ForegroundPicker";
 import { demoGalleryItems } from "../content/demoContent";
 import { ImageGallery } from "../patterns/ImageGallery";
 import type { BackgroundName, ForegroundName } from "../tokens";
+import { SectionMarkdownDocs } from "./SectionMarkdownDocs";
+import { galleryMarkdownFields } from "./sectionMarkdownFields";
 
 export function ImageGalleryCatalog() {
   const [background, setBackground] =
@@ -32,6 +34,10 @@ export function ImageGalleryCatalog() {
           items={demoGalleryItems}
         />
       </article>
+      <SectionMarkdownDocs
+        fields={galleryMarkdownFields}
+        sectionName="Image gallery"
+      />
     </div>
   );
 }

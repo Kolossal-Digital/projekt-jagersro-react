@@ -1192,6 +1192,74 @@ textarea {
   padding: 0 0 96px;
 }
 
+.section-markdown-docs {
+  row-gap: var(--spacing-32);
+  padding-block: 64px;
+  border-top: 1px solid color-mix(in srgb, currentColor 16%, transparent);
+}
+
+.section-markdown-docs__header,
+.section-markdown-docs__table-wrap {
+  grid-column: 1 / -1;
+}
+
+.section-markdown-docs__header > * {
+  margin: 0;
+}
+
+.section-markdown-docs__header h2 {
+  margin-block: var(--spacing-08) var(--spacing-16);
+}
+
+.section-markdown-docs__header p:last-child {
+  max-width: 733px;
+  color: var(--text-secondary);
+}
+
+.section-markdown-docs__table-wrap {
+  overflow-x: auto;
+  outline: none;
+}
+
+.section-markdown-docs__table-wrap:focus-visible {
+  border-radius: var(--radius-04);
+  box-shadow: 0 0 0 4px var(--focus-shadow);
+}
+
+.section-markdown-docs__table {
+  width: 100%;
+  min-width: 880px;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.section-markdown-docs__table th,
+.section-markdown-docs__table td {
+  padding: var(--spacing-16) var(--spacing-20) var(--spacing-16) 0;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 10%, transparent);
+  vertical-align: top;
+}
+
+.section-markdown-docs__table thead th {
+  color: var(--text-secondary);
+}
+
+.section-markdown-docs__table tbody th {
+  width: 22%;
+}
+
+.section-markdown-docs__table td:nth-child(2) {
+  width: 28%;
+}
+
+.section-markdown-docs__table td:nth-child(3) {
+  width: 12%;
+}
+
+.section-markdown-docs__table code {
+  color: inherit;
+}
+
 .landing-page-demo {
   width: 100%;
   overflow: hidden;

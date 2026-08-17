@@ -4,6 +4,8 @@ import { BackgroundPicker } from "../components/BackgroundPicker";
 import { ForegroundPicker } from "../components/ForegroundPicker";
 import { SiteNavbar, type NavbarLink } from "../components/SiteNavbar";
 import type { BackgroundName, ForegroundName } from "../tokens";
+import { SectionMarkdownDocs } from "./SectionMarkdownDocs";
+import { navbarMarkdownFields } from "./sectionMarkdownFields";
 
 const navbarLinks: NavbarLink[] = [
   { label: "Aktuellt", href: "#navbar", current: true },
@@ -46,6 +48,10 @@ export function NavbarCatalog() {
           searchAction={{ label: "Sök", href: "#navbar" }}
         />
       </article>
+      <SectionMarkdownDocs
+        fields={navbarMarkdownFields}
+        sectionName="Navbar"
+      />
     </div>
   );
 }

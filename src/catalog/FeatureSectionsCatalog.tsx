@@ -9,6 +9,8 @@ import {
   type FeatureSectionMediaPosition,
 } from "../patterns/FeatureSection";
 import type { BackgroundName, ForegroundName } from "../tokens";
+import { SectionMarkdownDocs } from "./SectionMarkdownDocs";
+import { featureMarkdownFields } from "./sectionMarkdownFields";
 
 const body =
   "Jägersro är en plats med många lager. Här möts minnen från travbanan, vardagen i området och berättelsen om den stadsdel som nu tar form.";
@@ -169,6 +171,10 @@ export function FeatureSectionsCatalog() {
           />
         </article>
       ))}
+      <SectionMarkdownDocs
+        fields={featureMarkdownFields}
+        sectionName="Feature section"
+      />
     </div>
   );
 }

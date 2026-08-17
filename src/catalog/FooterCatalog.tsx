@@ -4,6 +4,8 @@ import { BackgroundPicker } from "../components/BackgroundPicker";
 import { ForegroundPicker } from "../components/ForegroundPicker";
 import { SiteFooter, type FooterLink } from "../components/SiteFooter";
 import type { BackgroundName, ForegroundName } from "../tokens";
+import { SectionMarkdownDocs } from "./SectionMarkdownDocs";
+import { footerMarkdownFields } from "./sectionMarkdownFields";
 
 const footerNavigation: FooterLink[] = [
   { label: "Aktuellt", href: "#footer" },
@@ -56,6 +58,10 @@ export function FooterCatalog() {
           }}
         />
       </article>
+      <SectionMarkdownDocs
+        fields={footerMarkdownFields}
+        sectionName="Footer"
+      />
     </div>
   );
 }

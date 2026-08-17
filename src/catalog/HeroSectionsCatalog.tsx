@@ -7,6 +7,8 @@ import {
   type HeroVariant,
 } from "../patterns/HeroSection";
 import type { BackgroundName, ForegroundName } from "../tokens";
+import { SectionMarkdownDocs } from "./SectionMarkdownDocs";
+import { heroMarkdownFields } from "./sectionMarkdownFields";
 
 const commonActions: HeroContent["actions"] = [
   {
@@ -102,6 +104,10 @@ export function HeroSectionsCatalog() {
           />
         </article>
       ))}
+      <SectionMarkdownDocs
+        fields={heroMarkdownFields}
+        sectionName="Hero section"
+      />
     </div>
   );
 }

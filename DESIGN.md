@@ -501,6 +501,8 @@ Phosphor ersätter inte Jägersros logotyp, stämpel, travbana eller andra ident
 
 Använd den gemensamma `Section`-strukturen för större sidblock. Den yttre sektionen äger semantisk bakgrund och full bredd. Den inre containern äger maxbredd och spacing. Sektionen kan ha förrubrik, rubrik, introduktion, handling och innehåll, men ska inte dupliceras till en ny specialkomponent när samma mönster räcker.
 
+Tabellerna märkta **Markdownfält** beskriver exakt vad som kan skrivas i `landing-page.md` och visas längst ned efter specimens på respektive Section-testsida. Punktnotation visar nästlade objekt (`content.heading`) och `[]` visar ett objekt i en lista (`content.actions[].label`). En registrerad bild-, artikel-, galleri- eller tidslinjenyckel måste finnas i den delade innehållsbanken; ett okänt värde stoppar renderingen med ett tydligt fel.
+
 ### Hero section
 
 `HeroSection` är ett fullbreddsmönster med varianterna `centered`, `left` och `split`. `centered` används för en fokuserad introduktion, `left` när sidans fortsatta läsordning ska börja tydligt från vänster och `split` när en stor displayrubrik ska balanseras mot förklarande text. Split-rubriken använder alltid `fluid-display-02`; centered och left använder `fluid-heading-06`. Alla varianter använder `.page-grid`; fasta inre paddingvärden från Figma får inte användas för att efterlikna kolumnlinjer.
@@ -511,6 +513,29 @@ Innehållet ska kunna komma direkt från CMS och skickas därför som serialiser
 
 Hero är normalt sidans `h1`. I kataloger, previews eller sidor där en tidigare `h1` redan finns används `headingAs="h2"`. Bakgrunden begränsas till de fyra semantiska section-tokensen. CTA som navigerar renderas som länkar med knappens visuella komponent, inte som `button`.
 
+#### Markdownfält — Hero section
+
+| Fält | Typ eller tillåtna värden | Krav | Standard och användning |
+| --- | --- | --- | --- |
+| `key` | unik sträng | Ja | Stabil nyckel för sektionen, exempelvis `intro`. |
+| `type` | `hero` | Ja | Väljer Hero-renderaren. |
+| `theme` | `light` \| `dark` | Ja | Sätter lokalt temaläge runt sektionen. |
+| `background` | `background` \| `background-accent-01` \| `background-accent-02` \| `background-accent-03` | Ja | Sektionens semantiska bakgrund. |
+| `headingColor` | `text-primary` \| `text-secondary` \| `text-accent-01` \| `text-accent-02` \| `text-placeholder` | Nej | `text-primary`. Påverkar endast rubriken. |
+| `id` | sträng | Nej | Ankarmål utan `#`, exempelvis `sidintroduktion`. |
+| `paddingTop` | `large` \| `medium` \| `small` | Nej | `large`. Styr övre sektionspadding. |
+| `paddingBottom` | `large` \| `medium` \| `small` | Nej | `large`. Styr nedre sektionspadding. |
+| `variant` | `centered` \| `left` \| `split` | Ja | Väljer den godkända kompositionen. |
+| `headingAs` | `h1` \| `h2` | Nej | `h1`. Använd `h2` endast när sidan redan har en `h1`. |
+| `bodyVariant` | `body-01` \| `body-02` | Nej | `body-02`. |
+| `content.heading` | sträng | Ja | Sektionens rubrik. |
+| `content.body` | sträng | Ja | Förklarande brödtext. |
+| `content.actions` | lista | Nej | Lista med noll eller flera CTA:er. |
+| `content.actions[].label` | sträng | Ja, per action | Synlig och beskrivande knapptext. |
+| `content.actions[].href` | sträng | Ja, per action | Ankare eller URL. |
+| `content.actions[].variant` | `primary` \| `outline` | Nej | `primary`. |
+| `content.actions[].icon` | `arrow-right` | Nej | Lägger till den godkända högerpilen. |
+
 ### Full width feature section
 
 `FullWidthFeatureSection` är en berättande fullbreddssektion med två oberoende presentationsval: `imagePosition="left" | "right"` och `imageFit="fit" | "fill"`. Det ger kombinationerna text/bild och bild/text med både inpassad och fyllande bild, utan fyra separata komponenter. På Small visas alltid texten först och bildfältet därefter, oavsett desktopvariant, så att läsordningen förblir konsekvent.
@@ -519,9 +544,33 @@ CMS-kontraktet består av `tagline`, `heading`, `body`, en valfri lista av `acti
 
 Sektionen använder `fluid-heading-06`, `body-02` och `code-02` samt den befintliga Button-komponenten. På Small staplas text och bild med 16 px mellanrum och bilden är kvadratisk. Från Medium består sektionen av två lika breda fullbleed-paneler med sidgridens gutter mellan sig. Texten upptar fyra gridkolumner på Medium och fem gridkolumner, upp till 733 px, från Large; dess ytterkant följer alltid den gemensamma sidgriden och centreras därför korrekt även vid 3300 px. Textblocket centreras vertikalt med 64 px minsta luft ovan och under. `fit` visar hela bilden i ett kvadratiskt fält på högst 884 px, vänt mot mittengapet. `fill` låter bildpanelen följa sektionens fulla höjd och använder `cover`, vilket tillåter beskärning. Knappar får radbrytas när kolumnen blir för smal. Bakgrunden ligger fortsatt fullbredd och väljs endast bland de fyra semantiska section-tokensen.
 
+#### Markdownfält — Full width feature section
+
+| Fält | Typ eller tillåtna värden | Krav | Standard och användning |
+| --- | --- | --- | --- |
+| `key` | unik sträng | Ja | Stabil nyckel för sektionen. |
+| `type` | `full-width-feature` | Ja | Väljer Full Width Feature-renderaren. |
+| `theme` | `light` \| `dark` | Ja | Sätter lokalt temaläge. |
+| `background` | `background` \| `background-accent-01` \| `background-accent-02` \| `background-accent-03` | Ja | Sektionens semantiska bakgrund. |
+| `headingColor` | `text-primary` \| `text-secondary` \| `text-accent-01` \| `text-accent-02` \| `text-placeholder` | Nej | `text-primary`. Påverkar endast rubriken. |
+| `id` | sträng | Nej | Ankarmål utan `#`. |
+| `paddingTop` | `large` \| `medium` \| `small` | Nej | `large`. |
+| `paddingBottom` | `large` \| `medium` \| `small` | Nej | `large`. |
+| `image` | registrerad bildnyckel | Ja | Måste finnas i den delade bildbanken, exempelvis `featureDummy` eller `montage`. |
+| `imagePosition` | `left` \| `right` | Nej | `right`. På Small visas texten alltid först. |
+| `imageFit` | `fit` \| `fill` | Nej | `fit`. `fit` visar hela bilden; `fill` beskär med `cover`. |
+| `content.tagline` | sträng | Nej | Kort förrubrik. |
+| `content.heading` | sträng | Ja | Sektionens rubrik. |
+| `content.body` | sträng | Ja | Brödtext. |
+| `content.actions` | lista | Nej | Lista med noll eller flera CTA:er. |
+| `content.actions[].label` | sträng | Ja, per action | Synlig knapptext. |
+| `content.actions[].href` | sträng | Ja, per action | Ankare eller URL. |
+| `content.actions[].variant` | `primary` \| `outline` | Nej | `primary`. |
+| `content.actions[].icon` | `arrow-right` | Nej | Lägger till den godkända högerpilen. |
+
 ### Feature section
 
-`FeatureSection` är det gridbegränsade syskonet till full width feature. Den yttre ytan kan använda en av de fyra semantiska bakgrunderna, medan innehållet följer den gemensamma, centrerade sidgriden upp till 1920 px. De fem exemplen i Figma byggs med samma komponent: layoutlägena är `split`, `media` och `cta`; i `media` väljs bildens sida separat med `mediaPosition="left" | "right"`.
+`FeatureSection` är det gridbegränsade syskonet till full width feature. Den yttre ytan kan använda en av de fyra semantiska bakgrunderna, medan innehållet följer den gemensamma, centrerade sidgriden upp till 1920 px. Samma komponent bygger layoutlägena `split`, `media`, `cta` och `centered`; i `media` väljs bildens sida separat med `mediaPosition="left" | "right"`.
 
 Innehållskontraktet är serialiserbart och består av valfri `tagline`, `heading`, `richText` och valfria `actions`. Rich text representeras tills CMS har valts av en liten blockmodell med `paragraph`, `bullet-list` och `columns`. Det gör att stycken, listor och underkolumner kan kombineras utan nya layoutvarianter. När CMS införs ska ett mappningslager översätta CMS-formatet till dessa block, eller ersätta blocktypen om editorns modell kräver det. Skicka aldrig färdig React-markup genom kontraktet.
 
@@ -533,13 +582,64 @@ På Small staplas allt i läsordning: den sammanhållna textgruppen först och b
 
 `centered` följer den centrerade kompositionen från `HeroSection`: tagline, rubrik, brödtext och handlingar centreras i en vertikal läsordning, men typografin förblir Feature Sections `code-02`, `fluid-heading-06` och `body-02`. Från Medium begränsas rubrikgruppen till 794 px och innehållsgruppen till 690 px; från Large och Max är motsvarande maxbredder 1024 px och Feature Sections etablerade läsbredd 733 px. Varianten använder samma serialiserbara innehållskontrakt som övriga Feature Section-layouter och väljs med `layout="centered"`.
 
+#### Markdownfält — Feature section
+
+| Fält | Typ eller tillåtna värden | Krav | Standard och användning |
+| --- | --- | --- | --- |
+| `key` | unik sträng | Ja | Stabil nyckel för sektionen. |
+| `type` | `feature` | Ja | Väljer Feature Section-renderaren. |
+| `theme` | `light` \| `dark` | Ja | Sätter lokalt temaläge. |
+| `background` | `background` \| `background-accent-01` \| `background-accent-02` \| `background-accent-03` | Ja | Sektionens semantiska bakgrund. |
+| `headingColor` | `text-primary` \| `text-secondary` \| `text-accent-01` \| `text-accent-02` \| `text-placeholder` | Nej | `text-primary`. Påverkar endast rubriken. |
+| `id` | sträng | Nej | Ankarmål utan `#`. |
+| `paddingTop` | `large` \| `medium` \| `small` | Nej | `large`. |
+| `paddingBottom` | `large` \| `medium` \| `small` | Nej | `large`. |
+| `layout` | `split` \| `media` \| `cta` \| `centered` | Ja | Väljer sektionens komposition. |
+| `mediaPosition` | `left` \| `right` | Nej | `right`. Används endast med `layout: media`. |
+| `image` | registrerad bildnyckel | Villkorligt | Krävs i praktiken med `layout: media`. |
+| `headingVariant` | `fluid-heading-05` \| `fluid-heading-06` | Nej | `fluid-heading-06`. |
+| `align` | `start` \| `end` | Nej | `start`. Styr vertikal justering i relevanta splitlägen. |
+| `content.tagline` | sträng | Nej | Kort förrubrik. |
+| `content.heading` | sträng | Ja | Sektionens rubrik. |
+| `content.richText` | lista med block | Ja | Ordnad lista av `paragraph`, `bullet-list` eller `columns`. |
+| `content.richText[].type` | `paragraph` | Ja, per styckeblock | Kräver `text`. |
+| `content.richText[].text` | sträng | Ja, för `paragraph` | Styckets text. |
+| `content.richText[].type` | `bullet-list` | Ja, per listblock | Kräver `items`. |
+| `content.richText[].items` | lista av strängar | Ja, för `bullet-list` | Listans punkter. |
+| `content.richText[].type` | `columns` | Ja, per kolumnblock | Kräver `items`. |
+| `content.richText[].items[].heading` | sträng | Ja, för `columns` | Kolumnens underrubrik. |
+| `content.richText[].items[].body` | sträng | Ja, för `columns` | Kolumnens brödtext. |
+| `content.actions` | lista | Nej | Lista med noll eller flera CTA:er. |
+| `content.actions[].label` | sträng | Ja, per action | Synlig knapptext. |
+| `content.actions[].href` | sträng | Ja, per action | Ankare eller URL. |
+| `content.actions[].variant` | `primary` \| `outline` | Nej | `primary`. |
+| `content.actions[].icon` | `arrow-right` | Nej | Lägger till den godkända högerpilen. |
+
 ### Image och image section
 
 Den återanvändbara `Image`-komponenten renderar CMS-bilder med obligatoriskt definierad alternativtext, valfria intrinsiska dimensioner, `cover` eller `contain`, responsiva `sizes` och lazy loading som standard. Sätt `priority` endast för bilder som verkligen ligger i sidans första synliga vy. Bildens layout, proportion och beskärningsyta ägs av den omgivande komponenten, inte av `Image`.
 
 `ImageSection` visar dokumentära bilder i två layoutlägen. React-komponenten använder `layout="grid" | "full-width"`, medan serialiserbara Markdown-/CMS-poster använder det redaktionella fältet `variant: grid | full-width`; mappningslagret översätter `variant` till `layout`. `grid` följer hela den gemensamma sidgriden upp till 1792 px bildbredd, medan `full-width` låter bilden gå kant till kant utan yttre spacing. Båda använder proportionen 1792:813 och `object-fit: cover`, så redaktionen måste välja material som tål den breda beskärningen.
 
-Gridläget har 64 px vertikal spacing på Small, 80 px på Medium, skalar mellan 80 och 112 px genom Large och använder 120 px på Max. En valfri `caption` innehåller en kort etikett och en beskrivning. På Small staplas de med 16 px mellanrum; från Medium ligger de på samma rad och beskrivningen har högst 733 px läsbredd. Etiketten använder `label-03` och beskrivningen `label-02`. CMS-kontraktet består av `image` med `src`, `alt` och om möjligt `width` och `height`, `layout` samt valfri `caption`. Rent dekorativa bilder använder uttryckligen tom alternativtext.
+Gridläget har 64 px vertikal spacing på Small, 80 px på Medium, skalar mellan 80 och 112 px genom Large och använder 120 px på Max. En valfri `caption` innehåller en kort etikett och en beskrivning. På Small staplas de med 16 px mellanrum; från Medium ligger de på samma rad och beskrivningen har högst 733 px läsbredd. Etiketten använder `label-03` och beskrivningen `label-02`. Markdown-/CMS-kontraktet består av en registrerad `image`-nyckel, `variant` och valfri `caption`; bildbanken ansvarar för `src`, `alt` och om möjligt `width` och `height`. Rent dekorativa bilder använder uttryckligen tom alternativtext i bildbanken.
+
+#### Markdownfält — Image section
+
+| Fält | Typ eller tillåtna värden | Krav | Standard och användning |
+| --- | --- | --- | --- |
+| `key` | unik sträng | Ja | Stabil nyckel för sektionen. |
+| `type` | `image` | Ja | Väljer Image Section-renderaren. |
+| `theme` | `light` \| `dark` | Ja | Sätter lokalt temaläge. |
+| `background` | `background` \| `background-accent-01` \| `background-accent-02` \| `background-accent-03` | Ja | Sektionens semantiska bakgrund. |
+| `id` | sträng | Nej | Ankarmål utan `#`. |
+| `paddingTop` | `large` \| `medium` \| `small` | Nej | `large`. Fullbreddsvarianten visar ingen yttre padding. |
+| `paddingBottom` | `large` \| `medium` \| `small` | Nej | `large`. Fullbreddsvarianten visar ingen yttre padding. |
+| `variant` | `grid` \| `full-width` | Nej | `grid`. Detta är det redaktionella Markdownfältet; använd inte det äldre `layout`. |
+| `image` | registrerad bildnyckel | Ja | Måste finnas i den delade bildbanken, exempelvis `aerial`. |
+| `priority` | boolean | Nej | `false`. Sätt endast `true` för en bild i första synliga vyn. |
+| `caption` | objekt | Nej | Valfri bildtext. |
+| `caption.label` | sträng | Ja, om `caption` finns | Kort etikett. |
+| `caption.description` | sträng | Ja, om `caption` finns | Beskrivande bildtext. |
 
 ### Image carousel
 
@@ -553,6 +653,27 @@ CMS-kontraktet består av en lista med stabilt `id`, `image` och valfri `caption
 
 Bildbytet använder stabila virtuella positioner runt fokusbilden. Samma bildelement flyttar mellan höger sidoläge, fokus och vänster sidoläge; den tidigare fokusbildens bredd och höjd minskar samtidigt som den flyttar åt sidan, medan den nya växer in i fokus. Nya loopbilder monteras först i ett osynligt yttre läge, så ingen synlig återställning av hela bildföljden behövs. Bildtextlägen finns kvar i DOM och tonas mellan tillstånden för att undvika blinkningar. Den lokala tillståndsrörelsen använder CSS transitions på numeriska mått och positioner; GSAP reserveras för tidslinjer och mer samordnade sekvens- eller scrollanimationer. Standardrörelsen är 700 ms med lugn in/ut-easing. Vid `prefers-reduced-motion` sker bytet omedelbart.
 
+#### Markdownfält — Image carousel
+
+| Fält | Typ eller tillåtna värden | Krav | Standard och användning |
+| --- | --- | --- | --- |
+| `key` | unik sträng | Ja | Stabil nyckel för sektionen. |
+| `type` | `carousel` | Ja | Väljer karusellrenderaren. |
+| `theme` | `light` \| `dark` | Ja | Sätter lokalt temaläge. |
+| `background` | `background` \| `background-accent-01` \| `background-accent-02` \| `background-accent-03` | Ja | Sektionens semantiska bakgrund. |
+| `id` | sträng | Nej | Ankarmål utan `#`. |
+| `paddingTop` | `large` \| `medium` \| `small` | Nej | `large`. |
+| `paddingBottom` | `large` \| `medium` \| `small` | Nej | `large`. |
+| `ariaLabel` | sträng | Nej | `Bildkarusell`. Beskriver karusellens innehåll för hjälpmedel. |
+| `initialIndex` | heltal från `0` | Nej | `0`. Index utanför listan klampas till närmaste giltiga bild. |
+| `slides` | lista | Ja | Minst en bildruta; ordningen styr karusellen. |
+| `slides[].id` | unik sträng | Ja, per bildruta | Stabil identitet inom karusellen. |
+| `slides[].image` | registrerad bildnyckel | Ja, per bildruta | Exempelvis `interior`, `statues`, `demolition` eller `horses`. |
+| `slides[].caption` | objekt | Nej | Bildtext som endast visas när bilden är i fokus. |
+| `slides[].caption.label` | sträng | Nej | Kort figur- eller kategorietikett. |
+| `slides[].caption.title` | sträng | Nej | Bildtextens titel. |
+| `slides[].caption.body` | sträng | Nej | Bildtextens brödtext. |
+
 ### Image gallery
 
 `ImageGallery` är ett redaktionellt bildpattern för en levande men kontrollerad mosaik. Layouten upprepar en fast rytm om sex positioner med breda, kvadratiska och stående bildytor. CMS-kontraktet behöver därför bara innehålla en ordnad lista med stabilt `id`, `image` och valfri `caption`; redaktören ska inte komponera CSS-kolumner eller skicka layoutkod. Ytterytan använder en valbar surface och innehållet följer `.page-grid`.
@@ -560,6 +681,20 @@ Bildbytet använder stabila virtuella positioner runt fokusbilden. Samma bildele
 På Small staplas bilderna i en förskjuten rytm över sex till åtta kolumner. På Medium bildar mindre och större bilder asymmetriska par över åttakolumnsgridden. På Large och Max använder mönstret 12 kolumner: positionerna fördelas 8/4, 4/8 och 7/5. Det ger varierad skala men behåller tydliga gemensamma kanter. Bilder beskärs med `cover` i patternet; helskärmsläget visar hela originalbilden med `contain`.
 
 Varje bild är en riktig knapp med beskrivande label. Aktivering öppnar ett native `dialog` i helskärmsläge. Dialogen kan stängas med synlig stängknapp, Escape eller klick på bakgrunden. Vänster och höger piltangent samt märkta Phosphor-knappar bläddrar cirkulärt mellan bilderna. Bildnummer meddelas i en live-region, bakgrundssidan låses medan dialogen är öppen och fokus återgår till den aktiverande bilden när dialogen stängs. Den diskreta hover-zoomen och dialogens intoning stängs av vid `prefers-reduced-motion`.
+
+#### Markdownfält — Image gallery
+
+| Fält | Typ eller tillåtna värden | Krav | Standard och användning |
+| --- | --- | --- | --- |
+| `key` | unik sträng | Ja | Stabil nyckel för sektionen. |
+| `type` | `image-gallery` | Ja | Väljer gallerirenderaren. |
+| `theme` | `light` \| `dark` | Ja | Sätter lokalt temaläge. |
+| `background` | `background` \| `background-accent-01` \| `background-accent-02` \| `background-accent-03` | Ja | Sektionens semantiska bakgrund. |
+| `id` | sträng | Nej | Ankarmål utan `#`. |
+| `paddingTop` | `large` \| `medium` \| `small` | Nej | `large`. |
+| `paddingBottom` | `large` \| `medium` \| `small` | Nej | `large`. |
+| `ariaLabel` | sträng | Nej | `Bildgalleri`. Beskriver galleriets innehåll för hjälpmedel. |
+| `itemIds` | lista av registrerade galleri-ID:n | Ja | Minst ett ID. Ordningen styr mosaiken och helskärmsvisningen. |
 
 ### Latest articles
 
@@ -569,6 +704,21 @@ Sektionen följer `.page-grid`. På Small staplas artiklarna i läsordning och h
 
 Hela artikelkortet är en semantisk länk. Datum renderas med `time`, bilder går genom den gemensamma `Image`-komponenten och visuella hover-effekter är sekundära till tydlig fokusmarkering. Rubriker och utdrag får aldrig bära information som bara är tillgänglig genom hover. Demo-innehållet speglar de sju senaste posterna på Projekt Jägersros befintliga Aktuellt-sida, men produktionsimplementationen ska mappa samma kontrakt från det framtida CMS:et.
 
+#### Markdownfält — Latest articles
+
+| Fält | Typ eller tillåtna värden | Krav | Standard och användning |
+| --- | --- | --- | --- |
+| `key` | unik sträng | Ja | Stabil nyckel för sektionen. |
+| `type` | `latest-articles` | Ja | Väljer artikelgridden. |
+| `theme` | `light` \| `dark` | Ja | Sätter lokalt temaläge. |
+| `background` | `background` \| `background-accent-01` \| `background-accent-02` \| `background-accent-03` | Ja | Sektionens semantiska bakgrund. |
+| `headingColor` | `text-primary` \| `text-secondary` \| `text-accent-01` \| `text-accent-02` \| `text-placeholder` | Nej | `text-primary`. Påverkar artikelrubrikerna, inte metadata eller utdrag. |
+| `id` | sträng | Nej | Ankarmål utan `#`. |
+| `paddingTop` | `large` \| `medium` \| `small` | Nej | `large`. |
+| `paddingBottom` | `large` \| `medium` \| `small` | Nej | `large`. |
+| `rows` | `2` \| `3` \| `4` | Nej | `4`. Visar högst 4, 6 respektive 7 artiklar. |
+| `articleIds` | lista av registrerade artikel-ID:n | Ja | Minst ett ID i publiceringsordning; första posten blir featured. |
+
 ### Timeline
 
 `TimelineSection` visar Projekt Jägersros genomförda, pågående och planerade milstolpar. En fristående introduktion ovanför tidslinjen ska byggas med `FeatureSection`, vanligtvis `Split / CTA`; tidslinjen duplicerar inte introduktionsmönstret. På desktop ska både listan, den valda markeringen och detaljinnehållet följa sina tilldelade gridkolumner utan extra horisontell inset. Det valda objektet har full opacitet, närmaste objekt före och efter har 75 %, nästa par har 50 % och övriga objekt är osynliga. Detta fokusmönster följer det valda objektet när listan förflyttas. CMS-kontraktet är en kronologiskt sorterad lista med stabilt `id`, `year`, `title`, `summary`, `status` (`completed`, `current`, `future`), valfri detaljrubrik, brödtext och länk samt en valfri bild med bildtext. CMS-data innehåller inga gridpositioner. Flerbildsläget är borttaget tills en separat komposition med förutsägbar höjd har formgivits och verifierats.
@@ -576,6 +726,22 @@ Hela artikelkortet är en semantisk länk. Datum renderas med `time`, bilder gå
 På Small och Medium visas händelserna i en horisontell scroll-yta ovanför detaljinnehållet. De två yttre navigationsspåren är 48 px breda, samma som ikonknapparnas träffyta, så kontrollerna alltid ryms innanför sidgriden. På Large visas en vertikal tidsaxel i gridens första fem kolumner och detaljytan i de sista sju. På Max blir listan en kolumn smalare och använder kolumn 1–4; kolumn 5 lämnas som redaktionell luft före detaljytan som fortsatt använder kolumn 6–12. Föregående pil ligger ovanför tidsaxeln och nästa pil under den, med en symmetrisk 36 px kantzon så att kontrollerna hör visuellt ihop med listan utan att överlappa posterna. Desktoplistan scrollas inte manuellt: klick, pilar eller tangentbord ändrar vald händelse och komponenten flyttar listan bakom en fast markeringsyta i mitten. Förflyttningen tar 520 ms med en lugn in/ut-easing och samordnas med opacitetsbytet; vid reducerad rörelse sker den omedelbart. Opaciteten styrs endast av listpostens avstånd från fokus: fokus är `1`, ett steg bort `0.75`, två steg bort `0.5` och längre bort `0`. Status som Genomfört, Pågår eller Planerat får inte skriva över den skalan. Den mörka markeringsytan ändrar därför aldrig vertikal position; aktiv rad centreras före målning och får inverterad text ovanpå ytan. Desktopsektionen är viewportstyrd och högst 900 px hög. Desktop-raderna är 120 px höga och sammanfattningen begränsas till en rad, så fem hela milstolpar normalt är synliga samtidigt. Detaljens text, handling och eventuella media behandlas som en sammanhållen grupp och centreras vertikalt i detaljkolumnen. Noll bilder ger en fokuserad textyta; en bild får en höjdbegränsad detaljyta. Bilden beskärs till 3:2 och bildtexten hör semantiskt till sin `figure`.
 
 Händelserna implementeras som tabs med en tillhörande tabpanel. Klick, föregående/nästa-knappar, piltangenter samt Home och End kan ändra händelse. Pilarna blir inaktiva vid kronologins början och slut; tidslinjen loopar aldrig. Aktiv milstolpe annonseras i en live-region. Genomförda, pågående och framtida poster skiljs med textstatus och inte enbart färg. Detaljbytet tonas och förskjuts diskret; animationen tas bort vid `prefers-reduced-motion`.
+
+#### Markdownfält — Timeline
+
+| Fält | Typ eller tillåtna värden | Krav | Standard och användning |
+| --- | --- | --- | --- |
+| `key` | unik sträng | Ja | Stabil nyckel för sektionen. |
+| `type` | `timeline` | Ja | Väljer tidslinjerenderaren. |
+| `theme` | `light` \| `dark` | Ja | Sätter lokalt temaläge. |
+| `background` | `background` \| `background-accent-01` \| `background-accent-02` \| `background-accent-03` | Ja | Sektionens semantiska bakgrund. |
+| `headingColor` | `text-primary` \| `text-secondary` \| `text-accent-01` \| `text-accent-02` \| `text-placeholder` | Nej | `text-primary`. Påverkar detaljpanelens rubrik. |
+| `id` | sträng | Nej | Ankarmål utan `#`. |
+| `paddingTop` | `large` \| `medium` \| `small` | Nej | `large`. |
+| `paddingBottom` | `large` \| `medium` \| `small` | Nej | `large`. |
+| `ariaLabel` | sträng | Nej | `Projektets tidslinje`. Beskriver tidslinjen och tablistan. |
+| `initialIndex` | heltal från `0` | Nej | `0`. Index utanför listan klampas till närmaste giltiga post. |
+| `itemIds` | lista av registrerade tidslinje-ID:n | Ja | Minst ett ID i kronologisk ordning. |
 
 ### Navbar
 
@@ -586,6 +752,25 @@ Navbarens stängda rad är 64 px hög i samtliga breakpoints och följer den gem
 Den öppna Small-menyn fyller minst återstående viewport under den 64 px höga raden. Navigationslänkarna ligger överst och sök- samt kontaktåtgärderna längst ned. Från Medium blir menyn 232 px hög: länkarna använder gridens första fyra kolumner och åtgärderna de sista fyra. Desktop visar ingen utfälld meny. Innehållskontraktet och DOM:s läsordning är oförändrade mellan lägena.
 
 Figma visar generiska knappetiketter längst ned i Mobile-menyn. Produktimplementationen får inte använda platshållaren “Button”; etiketterna hämtas från `searchAction` och den valfria `primaryAction`. Den gamla `fixed-heading/heading-compact-01` som förekommer i Figma-referensen används inte, eftersom projektet uttryckligen har tagit bort fixed heading-stilar.
+
+#### Markdownfält — Navbar
+
+| Fält | Typ eller tillåtna värden | Krav | Standard och användning |
+| --- | --- | --- | --- |
+| `key` | unik sträng | Ja | Stabil nyckel för sektionen. |
+| `type` | `navbar` | Ja | Väljer Navbar-renderaren. |
+| `theme` | `light` \| `dark` | Ja | Sätter lokalt temaläge. |
+| `background` | `background` \| `background-accent-01` \| `background-accent-02` \| `background-accent-03` | Ja | Navigationens semantiska bakgrund. |
+| `links` | lista | Ja | Ordnad lista av huvudlänkar. |
+| `links[].label` | sträng | Ja, per länk | Synlig länktext. |
+| `links[].href` | sträng | Ja, per länk | Ankare eller URL. |
+| `links[].current` | boolean | Nej | `false`. Sätter `aria-current="page"`; högst en länk ska vara aktuell. |
+| `searchAction` | objekt | Ja | Sökåtgärden i desktop- och mobilnavigationen. |
+| `searchAction.label` | sträng | Ja | Synlig knapptext. |
+| `searchAction.href` | sträng | Ja | Ankare eller URL. |
+| `primaryAction` | objekt | Nej | Extra primär handling i den öppna mobilmenyn. |
+| `primaryAction.label` | sträng | Ja, om objektet finns | Synlig knapptext. |
+| `primaryAction.href` | sträng | Ja, om objektet finns | Ankare eller URL. |
 
 ### Breadcrumb
 
@@ -601,11 +786,52 @@ Yttre vertikal padding är 64 px på Small, 80 px på Medium, fluid 80–112 px 
 
 Figma-referensens mobila copyright “© 2026 KODL” normaliseras till Projekt Jägersro. CaretDown-ikonen som ligger i e-postfältet på Small betraktas som ett designfel och används inte. `fixed-heading/heading-compact-02` ersätts av den stödda `body-01`.
 
+#### Markdownfält — Footer
+
+| Fält | Typ eller tillåtna värden | Krav | Standard och användning |
+| --- | --- | --- | --- |
+| `key` | unik sträng | Ja | Stabil nyckel för sektionen. |
+| `type` | `footer` | Ja | Väljer Footer-renderaren. |
+| `theme` | `light` \| `dark` | Ja | Sätter lokalt temaläge. |
+| `background` | `background` \| `background-accent-01` \| `background-accent-02` \| `background-accent-03` | Ja | Sidfotens semantiska bakgrund. |
+| `headingColor` | `text-primary` \| `text-secondary` \| `text-accent-01` \| `text-accent-02` \| `text-placeholder` | Nej | `text-primary`. Påverkar nyhetsbrevsrubriken. |
+| `id` | sträng | Nej | Ankarmål utan `#`; sätts på footerns yttre temascope. |
+| `navigation` | lista | Ja | Sidfotens huvudnavigation. |
+| `navigation[].label` | sträng | Ja, per länk | Synlig länktext. |
+| `navigation[].href` | sträng | Ja, per länk | Ankare eller URL. |
+| `legalLinks` | lista | Ja | Juridiska länkar. |
+| `legalLinks[].label` | sträng | Ja, per länk | Synlig länktext. |
+| `legalLinks[].href` | sträng | Ja, per länk | Ankare eller URL. |
+| `newsletter.title` | sträng | Ja | Nyhetsbrevssektionens rubrik. |
+| `newsletter.inputLabel` | sträng | Ja | Tillgänglig label för e-postfältet. |
+| `newsletter.placeholder` | sträng | Ja | Exempeltext i e-postfältet. |
+| `newsletter.submitLabel` | sträng | Ja | Prenumerationsknappens text. |
+| `newsletter.consentText` | sträng | Ja | Texten före integritetslänken. |
+| `newsletter.privacyLink.label` | sträng | Ja | Integritetslänkens synliga text. |
+| `newsletter.privacyLink.href` | sträng | Ja | Integritetslänkens ankare eller URL. |
+| `copyright` | sträng | Ja | Fullständig copyrighttext. |
+
 ### Article page
 
 `ArticlePage` är den redaktionella undersidan under Aktuellt. Ordningen är Navbar, Breadcrumb, metadata, huvudbild, rubrik och ingress, artikelns rich text, relaterade artiklar och Footer. Huvudbilden följer hela sidgridden medan rubrik och löptext begränsas till en läsbredd på sex kolumner på Large och Max. På Medium används sex av åtta kolumner och på Small hela gridden. Relaterade artiklar återanvänder samma `ArticleCard` som `LatestArticlesSection`.
 
 Sidinnehållet är serialiserbart och kommer i demoimplementationen från `article-page.md`. Kontraktet innehåller metadata, stabil bildreferens, rubrik, ingress, ordnade rich-text-block och stabila ID:n för relaterade artiklar. Navbar och Footer hämtas från samma gemensamma sidinställningar som landningssidan och dupliceras inte i artikeldatan.
+
+#### Markdownfält — Article page
+
+| Fält | Typ eller tillåtna värden | Krav | Standard och användning |
+| --- | --- | --- | --- |
+| `id` | unik sträng | Ja | Artikelns stabila ID. |
+| `category` | sträng | Ja | Visuell kategori, exempelvis `Aktuellt`. |
+| `publishedAt` | ISO-datum `YYYY-MM-DD` | Ja | Maskinläsbart datum för `time`. |
+| `displayDate` | lokaliserad sträng | Ja | Datumet som visas för läsaren. |
+| `image` | registrerad artikelbildnyckel | Ja | Måste kunna lösas av artikelmappningen. |
+| `title` | sträng | Ja | Sidans `h1`. |
+| `lead` | sträng | Ja | Artikelns ingress. |
+| `blocks` | lista med block | Ja | Ordnad artikeltext. |
+| `blocks[].type` | `paragraph` \| `heading` \| `quote` | Ja, per block | Väljer blockets semantik och typografi. |
+| `blocks[].text` | sträng | Ja, per block | Blockets innehåll. |
+| `relatedArticleIds` | lista av registrerade artikel-ID:n | Ja | Artiklar som visas i relaterat-flödet. |
 
 ### Knappar och länkar
 

@@ -8,6 +8,8 @@ import {
   type ArticleRowCount,
 } from "../patterns/LatestArticlesSection";
 import type { BackgroundName, ForegroundName } from "../tokens";
+import { SectionMarkdownDocs } from "./SectionMarkdownDocs";
+import { latestArticlesMarkdownFields } from "./sectionMarkdownFields";
 
 const rowOptions = ["2", "3", "4"] as const;
 type RowOption = (typeof rowOptions)[number];
@@ -47,6 +49,10 @@ export function LatestArticlesCatalog() {
           rows={Number(rows) as ArticleRowCount}
         />
       </article>
+      <SectionMarkdownDocs
+        fields={latestArticlesMarkdownFields}
+        sectionName="Latest articles"
+      />
     </div>
   );
 }

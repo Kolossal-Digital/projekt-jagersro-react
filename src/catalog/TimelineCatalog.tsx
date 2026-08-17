@@ -4,6 +4,8 @@ import { ForegroundPicker } from "../components/ForegroundPicker";
 import { demoTimelineItems } from "../content/demoContent";
 import { TimelineSection } from "../patterns/TimelineSection";
 import type { BackgroundName, ForegroundName } from "../tokens";
+import { SectionMarkdownDocs } from "./SectionMarkdownDocs";
+import { timelineMarkdownFields } from "./sectionMarkdownFields";
 
 export function TimelineCatalog() {
   const [background, setBackground] =
@@ -33,6 +35,10 @@ export function TimelineCatalog() {
           paddingTop="small"
         />
       </article>
+      <SectionMarkdownDocs
+        fields={timelineMarkdownFields}
+        sectionName="Timeline"
+      />
     </div>
   );
 }

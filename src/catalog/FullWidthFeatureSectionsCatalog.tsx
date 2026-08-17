@@ -7,6 +7,8 @@ import {
   type FeatureContent,
 } from "../patterns/FullWidthFeatureSection";
 import type { BackgroundName, ForegroundName } from "../tokens";
+import { SectionMarkdownDocs } from "./SectionMarkdownDocs";
+import { fullWidthFeatureMarkdownFields } from "./sectionMarkdownFields";
 
 const featureContent: FeatureContent = {
   tagline: "Projekt Jägersro",
@@ -121,6 +123,10 @@ export function FullWidthFeatureSectionsCatalog() {
           />
         </article>
       ))}
+      <SectionMarkdownDocs
+        fields={fullWidthFeatureMarkdownFields}
+        sectionName="Full width feature section"
+      />
     </div>
   );
 }
