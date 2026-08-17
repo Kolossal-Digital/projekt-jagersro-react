@@ -1,5 +1,7 @@
 import { ArrowLeftIcon } from "@phosphor-icons/react/dist/csr/ArrowLeft";
 import { ArrowRightIcon } from "@phosphor-icons/react/dist/csr/ArrowRight";
+import { MagnifyingGlassIcon } from "@phosphor-icons/react/dist/csr/MagnifyingGlass";
+import { XIcon } from "@phosphor-icons/react/dist/csr/X";
 import { useState } from "react";
 import { BackgroundPicker } from "../components/BackgroundPicker";
 import {
@@ -7,6 +9,7 @@ import {
   type ButtonSize,
   type ButtonVariant,
 } from "../components/Button";
+import { IconButton } from "../components/IconButton";
 import { Section } from "../components/Section";
 import type { BackgroundName } from "../tokens";
 
@@ -28,7 +31,7 @@ export function ButtonsCatalog() {
       id="buttons"
       eyebrow="components / button"
       title="Knappar"
-      intro="Fyra hierarkier och tre storlekar från Figma. Testa hover, focus och active direkt; disabled visas separat."
+      intro="Fyra knapphierarkier, tre storlekar och en kompakt Icon Button. Testa hover, focus och active direkt; disabled visas separat."
       background={background}
       action={<BackgroundPicker value={background} onChange={setBackground} />}
     >
@@ -69,6 +72,48 @@ export function ButtonsCatalog() {
             </div>
           </article>
         ))}
+
+        <article className="button-specimen">
+          <header className="button-specimen__header">
+            <h3 className="type-fluid-heading-03">Icon Button</h3>
+            <code className="type-code-01">&lt;IconButton label=&quot;…&quot; /&gt;</code>
+          </header>
+
+          <div className="button-specimen__rows">
+            <div className="button-specimen__row">
+              <span className="button-specimen__label type-code-01">48 px</span>
+              <div className="button-specimen__icon-example">
+                <IconButton
+                  icon={<ArrowLeftIcon weight="regular" />}
+                  label="Föregående"
+                />
+                <code className="type-code-01">Föregående</code>
+              </div>
+              <div className="button-specimen__icon-example">
+                <IconButton
+                  icon={<ArrowRightIcon weight="regular" />}
+                  label="Nästa"
+                />
+                <code className="type-code-01">Nästa</code>
+              </div>
+              <div className="button-specimen__icon-example">
+                <IconButton
+                  icon={<MagnifyingGlassIcon weight="regular" />}
+                  label="Sök"
+                />
+                <code className="type-code-01">Sök</code>
+              </div>
+              <div className="button-specimen__icon-example">
+                <IconButton
+                  disabled
+                  icon={<XIcon weight="regular" />}
+                  label="Stäng"
+                />
+                <code className="type-code-01">Disabled</code>
+              </div>
+            </div>
+          </div>
+        </article>
       </div>
     </Section>
   );

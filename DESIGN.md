@@ -545,6 +545,8 @@ Gridläget har 64 px vertikal spacing på Small, 80 px på Medium, skalar mellan
 
 `ImageCarousel` används för en kuraterad följd av dokumentära bilder. Sektionens surface är fullbredd och sidobilderna får löpa utanför innehållsgridden, men fokusbilden centreras inom gridens innehållsyta och kontrollerna följer `.page-grid` exakt. Karusellens storlekar utgår från komponentens egen inline-bredd i stället för hela viewporten, så den behåller sina proportioner även i katalogen och andra inbäddade sammanhang.
 
+Bildrutorna behåller proportionen 3:2 under hela förflyttningen. Övergången animerar deras explicita vänsterposition och bredd; höjden härleds från proportionen. Undvik procentbaserad transform tillsammans med samtidiga bredd- och höjdövergångar eller permanenta `will-change`-lager, eftersom den kombinationen kan få Safari att tillfälligt tappa hela bildlagret.
+
 En bild är i fokus åt gången, visas störst och är den enda som visar sin valfria bildtext. Alla karusellbilder visas i ett enhetligt liggande 3:2-format med `object-fit: cover`. På Max är fokusbilden högst 650 px hög och 975 px bred. Bilden direkt till vänster är högst 432 × 648 px och bilden direkt till höger högst 346 × 519 px. Samtliga storlekar skalar fluid nedåt på mindre breakpoints. Fokusytans reserverade höjd gör att sektionen förblir stabil under navigering. Fokusbilden har ingen skugga. På Small visas bara fokusbilden; kontrollerna ligger ovanför och en reserverad bildtextyta ligger direkt under bilden. Från Medium ligger bildtexten ovanpå fokusbildens nedre högra del.
 
 CMS-kontraktet består av en lista med stabilt `id`, `image` och valfri `caption` (`label`, `title`, `body`). Pilar använder återanvändbar `IconButton` med Phosphor `CaretLeft` och `CaretRight`. Punkterna är riktiga knappar för direktval, vänster/höger piltangent byter bild och en dold live-region meddelar positionen.
@@ -612,6 +614,8 @@ Primär knapp används för sidans viktigaste nästa steg, ofta kontakt, deltaga
 Använd textlänk när handlingen navigerar i löpande eller redaktionellt innehåll. Använd knapp när handlingen ändrar tillstånd, skickar data eller behöver framstå som en central CTA. Etiketter ska beskriva destinationen eller resultatet, inte bara säga “Läs mer”.
 
 Den återanvändbara `Button`-komponenten följer Figma-varianterna `primary`, `secondary`, `outline` och `text` samt storlekarna `large` (48 px), `medium` (40 px) och `small` (32 px). Den kan ha en dekorativ Phosphor-ikon till vänster eller höger om en synlig etikett. Hover, focus och active ska uppstå genom native interaktion och CSS-pseudoklasser; de får inte exponeras som manuella state-props i produktkod. Disabled sätts med det riktiga `disabled`-attributet.
+
+`IconButton` är den kompakta 48 × 48 px-kontrollen för fristående ikonhandlingar, exempelvis karusellnavigation, sök och stäng. Den använder samma secondary-tokens och interaktionstillstånd som övriga knappar. Ikonen är dekorativ och varje instans måste få en kort, beskrivande `label` som blir knappens tillgängliga namn. Disabled anges med det riktiga `disabled`-attributet. Knappsidan i verifieringskatalogen visar både vanliga knappar och Icon Button.
 
 ### Select
 
