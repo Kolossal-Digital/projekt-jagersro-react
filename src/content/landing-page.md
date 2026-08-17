@@ -25,6 +25,7 @@ key: intro
 type: hero
 theme: light
 background: background-accent-02
+headingColor: text-accent-02
 variant: split
 content:
   heading: Jägersro förändras. Berättelsen fortsätter.
@@ -51,6 +52,7 @@ type: feature
 id: platsen
 theme: light
 background: background-accent-02
+headingColor: text-accent-01
 layout: split
 content:
   tagline: Projekt Jägersro

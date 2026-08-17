@@ -30,7 +30,7 @@ type SectionBase = {
   id?: string;
   theme: Theme;
   background: BackgroundName;
-  foreground?: ForegroundName;
+  headingColor?: ForegroundName;
   paddingTop?: SectionPaddingSize;
   paddingBottom?: SectionPaddingSize;
 };

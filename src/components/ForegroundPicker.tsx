@@ -11,7 +11,7 @@ export function ForegroundPicker({ value, onChange }: ForegroundPickerProps) {
   return (
     <Select
       className="foreground-picker"
-      label="Rubrik färg"
+      label="Rubrikfärg"
       value={value}
       options={availableForegrounds}
       onChange={onChange}
