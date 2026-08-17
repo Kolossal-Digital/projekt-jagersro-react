@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { BackgroundPicker } from "../components/BackgroundPicker";
+import { ForegroundPicker } from "../components/ForegroundPicker";
 import {
   HeroSection,
   type HeroContent,
   type HeroVariant,
 } from "../patterns/HeroSection";
-import type { BackgroundName } from "../tokens";
+import type { BackgroundName, ForegroundName } from "../tokens";
 
 const commonActions: HeroContent["actions"] = [
   {
@@ -55,9 +56,18 @@ export function HeroSectionsCatalog() {
     left: "background-accent-01",
     split: "background-accent-01",
   });
+  const [foregrounds, setForegrounds] = useState<Record<HeroVariant, ForegroundName>>({
+    centered: "text-primary",
+    left: "text-primary",
+    split: "text-primary",
+  });
 
   function setBackground(variant: HeroVariant, background: BackgroundName) {
     setBackgrounds((current) => ({ ...current, [variant]: background }));
+  }
+
+  function setForeground(variant: HeroVariant, foreground: ForegroundName) {
+    setForegrounds((current) => ({ ...current, [variant]: foreground }));
   }
 
   return (
@@ -72,13 +82,20 @@ export function HeroSectionsCatalog() {
                 variant=&quot;{variant.id}&quot;
               </code>
             </div>
-            <BackgroundPicker
-              value={backgrounds[variant.id]}
-              onChange={(background) => setBackground(variant.id, background)}
-            />
+            <div className="pattern-specimen__controls">
+              <BackgroundPicker
+                value={backgrounds[variant.id]}
+                onChange={(background) => setBackground(variant.id, background)}
+              />
+              <ForegroundPicker
+                value={foregrounds[variant.id]}
+                onChange={(foreground) => setForeground(variant.id, foreground)}
+              />
+            </div>
           </header>
           <HeroSection
             background={backgrounds[variant.id]}
+            foreground={foregrounds[variant.id]}
             content={contentByVariant[variant.id]}
             headingAs="h2"
             variant={variant.id}

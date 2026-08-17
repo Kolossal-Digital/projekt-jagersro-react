@@ -3,11 +3,11 @@ import { ArrowRightIcon } from "@phosphor-icons/react/dist/csr/ArrowRight";
 import { ButtonLink } from "../components/Button";
 import { Image, type ImageAsset } from "../components/Image";
 import { Typography } from "../components/Typography";
-import type { BackgroundName } from "../tokens";
+import type { BackgroundName, ForegroundName } from "../tokens";
 import type { FeatureAction } from "./FullWidthFeatureSection";
 import { getSectionSpacingClasses, type SectionSpacingProps } from "./sectionSpacing";
 
-export type FeatureSectionLayout = "split" | "media";
+export type FeatureSectionLayout = "split" | "media" | "cta";
 export type FeatureSectionMediaPosition = "left" | "right";
 
 export type FeatureRichTextBlock =
@@ -32,6 +32,7 @@ export type FeatureSectionProps = SectionSpacingProps & {
   mediaPosition?: FeatureSectionMediaPosition;
   image?: ImageAsset;
   background?: BackgroundName;
+  foreground?: ForegroundName;
   headingAs?: "h1" | "h2";
   headingVariant?: "fluid-heading-05" | "fluid-heading-06";
   align?: "start" | "end";
@@ -55,7 +56,7 @@ function FeatureRichText({ blocks }: { blocks: FeatureRichTextBlock[] }) {
               {block.items.map((item) => (
                 <li key={item}>
                   <ArrowDownRightIcon aria-hidden="true" />
-                  <Typography variant="body-compact-02">{item}</Typography>
+                  <Typography variant="body-02">{item}</Typography>
                 </li>
               ))}
             </ul>
@@ -100,7 +101,7 @@ function FeatureActions({ actions }: { actions?: FeatureAction[] }) {
   );
 }
 
-/** Max-width feature pattern with split and media layouts. */
+/** Max-width feature pattern with split, media and CTA layouts. */
 export function FeatureSection({
   id,
   layout,
@@ -108,6 +109,7 @@ export function FeatureSection({
   mediaPosition = "right",
   image,
   background = "background",
+  foreground = "text-primary",
   headingAs = "h2",
   headingVariant = "fluid-heading-06",
   align = "start",
@@ -120,6 +122,7 @@ export function FeatureSection({
     `contained-feature--align-${align}`,
     layout === "media" ? `contained-feature--media-${mediaPosition}` : "",
     `surface--${background}`,
+    `foreground--${foreground}`,
     getSectionSpacingClasses({ paddingTop, paddingBottom }),
   ]
     .filter(Boolean)
@@ -143,6 +146,19 @@ export function FeatureSection({
     </div>
   );
 
+  const ctaCopyColumn = (
+    <div className="contained-feature__cta-copy">
+      {headingColumn}
+      <FeatureRichText blocks={content.richText} />
+    </div>
+  );
+
+  const ctaActionsColumn = (
+    <div className="contained-feature__cta-actions">
+      <FeatureActions actions={content.actions} />
+    </div>
+  );
+
   return (
     <section className={classes} id={id}>
       <div className="contained-feature__container">
@@ -152,6 +168,11 @@ export function FeatureSection({
               {headingColumn}
               {contentColumn}
             </div>
+          ) : layout === "cta" ? (
+            <>
+              {ctaCopyColumn}
+              {ctaActionsColumn}
+            </>
           ) : (
             <>
               {headingColumn}

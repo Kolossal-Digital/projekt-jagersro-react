@@ -1,7 +1,7 @@
 import { ArrowRightIcon } from "@phosphor-icons/react/dist/csr/ArrowRight";
 import { ButtonLink } from "../components/Button";
 import { Image, type ImageAsset } from "../components/Image";
-import type { BackgroundName } from "../tokens";
+import type { BackgroundName, ForegroundName } from "../tokens";
 import { getSectionSpacingClasses, type SectionSpacingProps } from "./sectionSpacing";
 
 export type ArticleSummary = {
@@ -28,6 +28,7 @@ export type LatestArticlesSectionProps = SectionSpacingProps & {
     href: string;
   };
   background?: BackgroundName;
+  foreground?: ForegroundName;
 };
 
 const articleCountByRows: Record<ArticleRowCount, number> = {
@@ -99,6 +100,7 @@ export function LatestArticlesSection({
   rows = 4,
   allArticlesLink,
   background = "background",
+  foreground = "text-primary",
   paddingTop,
   paddingBottom,
 }: LatestArticlesSectionProps) {
@@ -107,7 +109,7 @@ export function LatestArticlesSection({
   const visibleArticles = articles.slice(0, articleCountByRows[rows]);
 
   return (
-    <section className={`latest-articles surface--${background} ${getSectionSpacingClasses({ paddingTop, paddingBottom })}`} id={id}>
+    <section className={`latest-articles surface--${background} foreground--${foreground} ${getSectionSpacingClasses({ paddingTop, paddingBottom })}`} id={id}>
       <div className="latest-articles__container page-grid">
         <header className="latest-articles__header">
           <h2 className="type-fluid-heading-04">{heading}</h2>

@@ -1,12 +1,13 @@
 import { useState } from "react";
 import jagersroAerial from "../assets/jagersro-aerial.png";
 import { BackgroundPicker } from "../components/BackgroundPicker";
+import { ForegroundPicker } from "../components/ForegroundPicker";
 import {
   ImageSection,
   type ImageSectionCaption,
   type ImageSectionLayout,
 } from "../patterns/ImageSection";
-import type { BackgroundName } from "../tokens";
+import type { BackgroundName, ForegroundName } from "../tokens";
 
 const image = {
   src: jagersroAerial,
@@ -45,9 +46,16 @@ export function ImageSectionCatalog() {
       specimens.map(({ id }) => [id, "background-accent-01"]),
     ) as Record<string, BackgroundName>,
   );
+  const [foregrounds, setForegrounds] = useState<Record<string, ForegroundName>>(
+    Object.fromEntries(specimens.map(({ id }) => [id, "text-primary"])) as Record<string, ForegroundName>,
+  );
 
   function setBackground(id: string, background: BackgroundName) {
     setBackgrounds((current) => ({ ...current, [id]: background }));
+  }
+
+  function setForeground(id: string, foreground: ForegroundName) {
+    setForegrounds((current) => ({ ...current, [id]: foreground }));
   }
 
   return (
@@ -63,14 +71,21 @@ export function ImageSectionCatalog() {
                 {specimen.caption ? " · caption" : ""}
               </code>
             </div>
-            <BackgroundPicker
-              value={backgrounds[specimen.id]}
-              onChange={(background) => setBackground(specimen.id, background)}
-            />
+            <div className="pattern-specimen__controls">
+              <BackgroundPicker
+                value={backgrounds[specimen.id]}
+                onChange={(background) => setBackground(specimen.id, background)}
+              />
+              <ForegroundPicker
+                value={foregrounds[specimen.id]}
+                onChange={(foreground) => setForeground(specimen.id, foreground)}
+              />
+            </div>
           </header>
 
           <ImageSection
             background={backgrounds[specimen.id]}
+            foreground={foregrounds[specimen.id]}
             caption={specimen.caption}
             image={image}
             layout={specimen.layout}

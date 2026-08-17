@@ -125,7 +125,7 @@ const pageContent: Record<
     eyebrow: "Designsystem / sections",
     title: "Feature sections.",
     description:
-      "Två maxbreddsbegränsade layoutlägen, visade i sex innehållskombinationer med rich text, bildmontage och handlingar.",
+      "Tre maxbreddsbegränsade layoutlägen, visade i fem innehållskombinationer med rich text, bildmontage och handlingar.",
   },
   "image-section": {
     eyebrow: "Designsystem / sections",

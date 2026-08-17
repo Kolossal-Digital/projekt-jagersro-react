@@ -61,7 +61,7 @@ export function TypographyCatalog({ breakpoint }: TypographyCatalogProps) {
             <strong>{token.name}</strong>
             <span>{group}</span>
             <code>
-              {token.fontFamily} · {token.fontWeight} · {token.fontSize}/{token.lineHeight} ·
+              {token.fontFamily} · {token.fontWeight} · {token.fontStyle} · {token.fontSize}/{token.lineHeight} ·
               {` ${token.letterSpacing}px`}
             </code>
           </div>

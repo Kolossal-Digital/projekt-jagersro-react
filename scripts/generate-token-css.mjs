@@ -30,8 +30,10 @@ function cssName(value) {
 }
 
 function fontStack(family) {
-  if (family === "Source Serif 4") return `"Geist", sans-serif`;
-  if (family === "Geist Mono") return `"${family}", monospace`;
+  if (family === "Source Serif 4" || family === "Geist") {
+    return `"Geist Variable", sans-serif`;
+  }
+  if (family === "Geist Mono") return `"Geist Mono Variable", monospace`;
   return `"${family}", sans-serif`;
 }
 
@@ -72,10 +74,17 @@ for (const modeName of ["Medium", "Large", "Max"]) {
 for (const [themeName, mode] of Object.entries(collections.Mode.modes)) {
   lines.push(`.theme--${cssName(themeName)} {`);
   lines.push(`  --background: ${resolveToken(mode.background.background, "Mode")};`);
-  lines.push(`  --text-primary: ${resolveToken(mode.text["text-primary"], "Mode")};`);
-  lines.push(`  --text-secondary: ${resolveToken(mode.text["text-secondary"], "Mode")};`);
-  lines.push(`  --text-accent-01: ${resolveToken(mode.text["text-accent-01"], "Mode")};`);
-  lines.push(`  --text-accent-02: ${resolveToken(mode.text["text-accent-02"], "Mode")};`);
+  for (const name of [
+    "text-primary",
+    "text-secondary",
+    "text-accent-01",
+    "text-accent-02",
+    "text-placeholder",
+    "text-on-color",
+  ]) {
+    lines.push(`  --theme-${name}: ${resolveToken(mode.text[name], "Mode")};`);
+    lines.push(`  --${name}: var(--theme-${name});`);
+  }
 
   for (const name of [
     "background",
@@ -129,6 +138,20 @@ for (const name of [
   lines.push("}", "");
 }
 
+const foregroundNames = [
+  "text-primary",
+  "text-secondary",
+  "text-accent-01",
+  "text-accent-02",
+  "text-placeholder",
+];
+
+for (const name of foregroundNames) {
+  lines.push(`.foreground--${name} {`);
+  lines.push(`  --heading-color: var(--theme-${name});`);
+  lines.push("}", "");
+}
+
 const typographyNames = new Set();
 
 function typographyVariables(mode, indent = "  ") {
@@ -137,14 +160,15 @@ function typographyVariables(mode, indent = "  ") {
     if (group === "fixed-heading") continue;
 
     for (const [name, style] of Object.entries(styles)) {
-      if (name === "fluid-display-02") continue;
-
       typographyNames.add(name);
       variables.push(
         `${indent}--type-${name}-family: ${fontStack(resolveToken(style["font-family"], "Breakpoint"))};`,
       );
       variables.push(`${indent}--type-${name}-size: ${resolveToken(style["font-size"], "Breakpoint")}px;`);
       variables.push(`${indent}--type-${name}-weight: ${resolveToken(style["font-weight"], "Breakpoint")};`);
+      variables.push(
+        `${indent}--type-${name}-style: ${style["font-style"] ? resolveToken(style["font-style"], "Breakpoint") : "normal"};`,
+      );
       variables.push(
         `${indent}--type-${name}-line-height: ${resolveToken(style["line-height"], "Breakpoint")}px;`,
       );
@@ -181,6 +205,7 @@ for (const name of typographyNames) {
   lines.push(`  font-family: var(--type-${name}-family);`);
   lines.push(`  font-size: var(--type-${name}-size);`);
   lines.push(`  font-weight: var(--type-${name}-weight);`);
+  lines.push(`  font-style: var(--type-${name}-style);`);
   lines.push(`  line-height: var(--type-${name}-line-height);`);
   lines.push(`  letter-spacing: var(--type-${name}-letter-spacing);`);
   lines.push("}", "");

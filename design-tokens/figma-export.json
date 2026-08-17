@@ -1338,6 +1338,13 @@
               "$type": "float",
               "$value": 122
             },
+            "font-size-142": {
+              "$scopes": [
+                "ALL_SCOPES"
+              ],
+              "$type": "float",
+              "$value": 142
+            },
             "font-size-156": {
               "$scopes": [
                 "ALL_SCOPES"
@@ -1493,6 +1500,13 @@
               ],
               "$type": "float",
               "$value": 130
+            },
+            "line-height-150": {
+              "$scopes": [
+                "ALL_SCOPES"
+              ],
+              "$type": "float",
+              "$value": 150
             },
             "line-height-164": {
               "$scopes": [
@@ -1983,100 +1997,6 @@
               }
             },
             "body": {
-              "body-compact-01": {
-                "font-family": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "string",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Font family.font-sans}"
-                },
-                "font-size": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Font size.font-size-16}"
-                },
-                "line-height": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Line height.line-height-22}"
-                },
-                "font-weight": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Font weight.regular}"
-                },
-                "letter-spacing": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Letter spacing.letter-spacing-01}"
-                }
-              },
-              "body-compact-02": {
-                "font-family": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "string",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Font family.font-sans}"
-                },
-                "font-size": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Font size.font-size-20}"
-                },
-                "line-height": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Line height.line-height-28}"
-                },
-                "font-weight": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Font weight.regular}"
-                },
-                "letter-spacing": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Letter spacing.letter-spacing-0}"
-                }
-              },
               "body-01": {
                 "font-family": {
                   "$scopes": [
@@ -2121,7 +2041,7 @@
                   "$type": "float",
                   "$libraryName": "",
                   "$collectionName": "_typography",
-                  "$value": "{Letter spacing.letter-spacing-01}"
+                  "$value": "{Letter spacing.letter-spacing-0}"
                 }
               },
               "body-02": {
@@ -2788,53 +2708,6 @@
               }
             },
             "fluid-display": {
-              "fluid-paragraph-01": {
-                "font-family": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "string",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Font family.font-sans}"
-                },
-                "font-size": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Font size.font-size-32}"
-                },
-                "line-height": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Line height.line-height-40}"
-                },
-                "font-weight": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Font weight.regular}"
-                },
-                "letter-spacing": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Letter spacing.letter-spacing-0}"
-                }
-              },
               "fluid-quotation-01": {
                 "font-family": {
                   "$scopes": [
@@ -2870,7 +2743,16 @@
                   "$type": "float",
                   "$libraryName": "",
                   "$collectionName": "_typography",
-                  "$value": "{Font weight.regular}"
+                  "$value": "{Font weight.light}"
+                },
+                "font-style": {
+                  "$scopes": [
+                    "ALL_SCOPES"
+                  ],
+                  "$type": "string",
+                  "$libraryName": "",
+                  "$collectionName": "_typography",
+                  "$value": "italic"
                 },
                 "letter-spacing": {
                   "$scopes": [
@@ -2917,7 +2799,16 @@
                   "$type": "float",
                   "$libraryName": "",
                   "$collectionName": "_typography",
-                  "$value": "{Font weight.regular}"
+                  "$value": "{Font weight.light}"
+                },
+                "font-style": {
+                  "$scopes": [
+                    "ALL_SCOPES"
+                  ],
+                  "$type": "string",
+                  "$libraryName": "",
+                  "$collectionName": "_typography",
+                  "$value": "italic"
                 },
                 "letter-spacing": {
                   "$scopes": [
@@ -2993,7 +2884,7 @@
                   "$type": "float",
                   "$libraryName": "",
                   "$collectionName": "_typography",
-                  "$value": "{Font size.font-size-76}"
+                  "$value": "{Font size.font-size-92}"
                 },
                 "line-height": {
                   "$scopes": [
@@ -3002,7 +2893,7 @@
                   "$type": "float",
                   "$libraryName": "",
                   "$collectionName": "_typography",
-                  "$value": "{Line height.line-height-86}"
+                  "$value": "{Line height.line-height-102}"
                 },
                 "letter-spacing 2": {
                   "$scopes": [
@@ -3020,7 +2911,7 @@
                   "$type": "float",
                   "$libraryName": "",
                   "$collectionName": "_typography",
-                  "$value": "{Font weight.semibold}"
+                  "$value": "{Font weight.light}"
                 },
                 "letter-spacing": {
                   "$scopes": [
@@ -3096,7 +2987,7 @@
                   "$type": "float",
                   "$libraryName": "",
                   "$collectionName": "_typography",
-                  "$value": "{Font size.font-size-156}"
+                  "$value": "{Font size.font-size-142}"
                 },
                 "line-height": {
                   "$scopes": [
@@ -3105,7 +2996,7 @@
                   "$type": "float",
                   "$libraryName": "",
                   "$collectionName": "_typography",
-                  "$value": "{Line height.line-height-164}"
+                  "$value": "{Line height.line-height-150}"
                 },
                 "font-weight": {
                   "$scopes": [
@@ -3664,100 +3555,6 @@
               }
             },
             "body": {
-              "body-compact-01": {
-                "font-family": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "string",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Font family.font-sans}"
-                },
-                "font-size": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Font size.font-size-16}"
-                },
-                "line-height": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Line height.line-height-22}"
-                },
-                "font-weight": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Font weight.regular}"
-                },
-                "letter-spacing": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Letter spacing.letter-spacing-01}"
-                }
-              },
-              "body-compact-02": {
-                "font-family": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "string",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Font family.font-sans}"
-                },
-                "font-size": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Font size.font-size-20}"
-                },
-                "line-height": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Line height.line-height-28}"
-                },
-                "font-weight": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Font weight.regular}"
-                },
-                "letter-spacing": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Letter spacing.letter-spacing-0}"
-                }
-              },
               "body-01": {
                 "font-family": {
                   "$scopes": [
@@ -3802,7 +3599,7 @@
                   "$type": "float",
                   "$libraryName": "",
                   "$collectionName": "_typography",
-                  "$value": "{Letter spacing.letter-spacing-01}"
+                  "$value": "{Letter spacing.letter-spacing-0}"
                 }
               },
               "body-02": {
@@ -4469,53 +4266,6 @@
               }
             },
             "fluid-display": {
-              "fluid-paragraph-01": {
-                "font-family": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "string",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Font family.font-sans}"
-                },
-                "font-size": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Font size.font-size-28}"
-                },
-                "line-height": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Line height.line-height-36}"
-                },
-                "font-weight": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Font weight.regular}"
-                },
-                "letter-spacing": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Letter spacing.letter-spacing-0}"
-                }
-              },
               "fluid-quotation-01": {
                 "font-family": {
                   "$scopes": [
@@ -4551,7 +4301,16 @@
                   "$type": "float",
                   "$libraryName": "",
                   "$collectionName": "_typography",
-                  "$value": "{Font weight.regular}"
+                  "$value": "{Font weight.light}"
+                },
+                "font-style": {
+                  "$scopes": [
+                    "ALL_SCOPES"
+                  ],
+                  "$type": "string",
+                  "$libraryName": "",
+                  "$collectionName": "_typography",
+                  "$value": "italic"
                 },
                 "letter-spacing": {
                   "$scopes": [
@@ -4598,7 +4357,16 @@
                   "$type": "float",
                   "$libraryName": "",
                   "$collectionName": "_typography",
-                  "$value": "{Font weight.regular}"
+                  "$value": "{Font weight.light}"
+                },
+                "font-style": {
+                  "$scopes": [
+                    "ALL_SCOPES"
+                  ],
+                  "$type": "string",
+                  "$libraryName": "",
+                  "$collectionName": "_typography",
+                  "$value": "italic"
                 },
                 "letter-spacing": {
                   "$scopes": [
@@ -4674,7 +4442,7 @@
                   "$type": "float",
                   "$libraryName": "",
                   "$collectionName": "_typography",
-                  "$value": "{Font size.font-size-60}"
+                  "$value": "{Font size.font-size-76}"
                 },
                 "line-height": {
                   "$scopes": [
@@ -4683,7 +4451,7 @@
                   "$type": "float",
                   "$libraryName": "",
                   "$collectionName": "_typography",
-                  "$value": "{Line height.line-height-70}"
+                  "$value": "{Line height.line-height-86}"
                 },
                 "letter-spacing 2": {
                   "$scopes": [
@@ -4701,7 +4469,7 @@
                   "$type": "float",
                   "$libraryName": "",
                   "$collectionName": "_typography",
-                  "$value": "{Font weight.semibold}"
+                  "$value": "{Font weight.light}"
                 },
                 "letter-spacing": {
                   "$scopes": [
@@ -5345,100 +5113,6 @@
               }
             },
             "body": {
-              "body-compact-01": {
-                "font-family": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "string",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Font family.font-sans}"
-                },
-                "font-size": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Font size.font-size-16}"
-                },
-                "line-height": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Line height.line-height-22}"
-                },
-                "font-weight": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Font weight.regular}"
-                },
-                "letter-spacing": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Letter spacing.letter-spacing-01}"
-                }
-              },
-              "body-compact-02": {
-                "font-family": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "string",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Font family.font-sans}"
-                },
-                "font-size": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Font size.font-size-20}"
-                },
-                "line-height": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Line height.line-height-28}"
-                },
-                "font-weight": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Font weight.regular}"
-                },
-                "letter-spacing": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Letter spacing.letter-spacing-0}"
-                }
-              },
               "body-01": {
                 "font-family": {
                   "$scopes": [
@@ -5483,7 +5157,7 @@
                   "$type": "float",
                   "$libraryName": "",
                   "$collectionName": "_typography",
-                  "$value": "{Letter spacing.letter-spacing-01}"
+                  "$value": "{Letter spacing.letter-spacing-0}"
                 }
               },
               "body-02": {
@@ -6150,53 +5824,6 @@
               }
             },
             "fluid-display": {
-              "fluid-paragraph-01": {
-                "font-family": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "string",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Font family.font-sans}"
-                },
-                "font-size": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Font size.font-size-28}"
-                },
-                "line-height": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Line height.line-height-36}"
-                },
-                "font-weight": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Font weight.regular}"
-                },
-                "letter-spacing": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Letter spacing.letter-spacing-0}"
-                }
-              },
               "fluid-quotation-01": {
                 "font-family": {
                   "$scopes": [
@@ -6232,7 +5859,16 @@
                   "$type": "float",
                   "$libraryName": "",
                   "$collectionName": "_typography",
-                  "$value": "{Font weight.regular}"
+                  "$value": "{Font weight.light}"
+                },
+                "font-style": {
+                  "$scopes": [
+                    "ALL_SCOPES"
+                  ],
+                  "$type": "string",
+                  "$libraryName": "",
+                  "$collectionName": "_typography",
+                  "$value": "italic"
                 },
                 "letter-spacing": {
                   "$scopes": [
@@ -6279,7 +5915,16 @@
                   "$type": "float",
                   "$libraryName": "",
                   "$collectionName": "_typography",
-                  "$value": "{Font weight.regular}"
+                  "$value": "{Font weight.light}"
+                },
+                "font-style": {
+                  "$scopes": [
+                    "ALL_SCOPES"
+                  ],
+                  "$type": "string",
+                  "$libraryName": "",
+                  "$collectionName": "_typography",
+                  "$value": "italic"
                 },
                 "letter-spacing": {
                   "$scopes": [
@@ -6355,7 +6000,7 @@
                   "$type": "float",
                   "$libraryName": "",
                   "$collectionName": "_typography",
-                  "$value": "{Font size.font-size-54}"
+                  "$value": "{Font size.font-size-60}"
                 },
                 "line-height": {
                   "$scopes": [
@@ -6364,7 +6009,7 @@
                   "$type": "float",
                   "$libraryName": "",
                   "$collectionName": "_typography",
-                  "$value": "{Line height.line-height-64}"
+                  "$value": "{Line height.line-height-70}"
                 },
                 "letter-spacing 2": {
                   "$scopes": [
@@ -6382,7 +6027,7 @@
                   "$type": "float",
                   "$libraryName": "",
                   "$collectionName": "_typography",
-                  "$value": "{Font weight.semibold}"
+                  "$value": "{Font weight.light}"
                 },
                 "letter-spacing": {
                   "$scopes": [
@@ -7026,100 +6671,6 @@
               }
             },
             "body": {
-              "body-compact-01": {
-                "font-family": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "string",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Font family.font-sans}"
-                },
-                "font-size": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Font size.font-size-16}"
-                },
-                "line-height": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Line height.line-height-22}"
-                },
-                "font-weight": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Font weight.regular}"
-                },
-                "letter-spacing": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Letter spacing.letter-spacing-01}"
-                }
-              },
-              "body-compact-02": {
-                "font-family": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "string",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Font family.font-sans}"
-                },
-                "font-size": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Font size.font-size-20}"
-                },
-                "line-height": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Line height.line-height-28}"
-                },
-                "font-weight": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Font weight.regular}"
-                },
-                "letter-spacing": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Letter spacing.letter-spacing-0}"
-                }
-              },
               "body-01": {
                 "font-family": {
                   "$scopes": [
@@ -7164,7 +6715,7 @@
                   "$type": "float",
                   "$libraryName": "",
                   "$collectionName": "_typography",
-                  "$value": "{Letter spacing.letter-spacing-01}"
+                  "$value": "{Letter spacing.letter-spacing-0}"
                 }
               },
               "body-02": {
@@ -7831,53 +7382,6 @@
               }
             },
             "fluid-display": {
-              "fluid-paragraph-01": {
-                "font-family": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "string",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Font family.font-sans}"
-                },
-                "font-size": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Font size.font-size-24}"
-                },
-                "line-height": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Line height.line-height-30}"
-                },
-                "font-weight": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Font weight.regular}"
-                },
-                "letter-spacing": {
-                  "$scopes": [
-                    "ALL_SCOPES"
-                  ],
-                  "$type": "float",
-                  "$libraryName": "",
-                  "$collectionName": "_typography",
-                  "$value": "{Letter spacing.letter-spacing-0}"
-                }
-              },
               "fluid-quotation-01": {
                 "font-family": {
                   "$scopes": [
@@ -7913,7 +7417,16 @@
                   "$type": "float",
                   "$libraryName": "",
                   "$collectionName": "_typography",
-                  "$value": "{Font weight.regular}"
+                  "$value": "{Font weight.light}"
+                },
+                "font-style": {
+                  "$scopes": [
+                    "ALL_SCOPES"
+                  ],
+                  "$type": "string",
+                  "$libraryName": "",
+                  "$collectionName": "_typography",
+                  "$value": "italic"
                 },
                 "letter-spacing": {
                   "$scopes": [
@@ -7960,7 +7473,16 @@
                   "$type": "float",
                   "$libraryName": "",
                   "$collectionName": "_typography",
-                  "$value": "{Font weight.regular}"
+                  "$value": "{Font weight.light}"
+                },
+                "font-style": {
+                  "$scopes": [
+                    "ALL_SCOPES"
+                  ],
+                  "$type": "string",
+                  "$libraryName": "",
+                  "$collectionName": "_typography",
+                  "$value": "italic"
                 },
                 "letter-spacing": {
                   "$scopes": [
@@ -8036,7 +7558,7 @@
                   "$type": "float",
                   "$libraryName": "",
                   "$collectionName": "_typography",
-                  "$value": "{Font size.font-size-42}"
+                  "$value": "{Font size.font-size-48}"
                 },
                 "line-height": {
                   "$scopes": [
@@ -8045,7 +7567,7 @@
                   "$type": "float",
                   "$libraryName": "",
                   "$collectionName": "_typography",
-                  "$value": "{Line height.line-height-50}"
+                  "$value": "{Line height.line-height-56}"
                 },
                 "letter-spacing 2": {
                   "$scopes": [
@@ -8063,7 +7585,7 @@
                   "$type": "float",
                   "$libraryName": "",
                   "$collectionName": "_typography",
-                  "$value": "{Font weight.semibold}"
+                  "$value": "{Font weight.light}"
                 },
                 "letter-spacing": {
                   "$scopes": [
@@ -8139,7 +7661,7 @@
                   "$type": "float",
                   "$libraryName": "",
                   "$collectionName": "_typography",
-                  "$value": "{Font size.font-size-54}"
+                  "$value": "{Font size.font-size-60}"
                 },
                 "line-height": {
                   "$scopes": [
@@ -8148,7 +7670,7 @@
                   "$type": "float",
                   "$libraryName": "",
                   "$collectionName": "_typography",
-                  "$value": "{Line height.line-height-64}"
+                  "$value": "{Line height.line-height-70}"
                 },
                 "font-weight": {
                   "$scopes": [

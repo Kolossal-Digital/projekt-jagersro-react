@@ -4,7 +4,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Button, ButtonLink } from "./Button";
 import { TextField } from "./TextField";
-import type { BackgroundName } from "../tokens";
+import type { BackgroundName, ForegroundName } from "../tokens";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -35,6 +35,7 @@ export type SiteFooterProps = {
   newsletter: FooterNewsletter;
   copyright: string;
   background?: BackgroundName;
+  foreground?: ForegroundName;
 };
 
 /** Responsive site footer with serializable navigation and newsletter content. */
@@ -45,6 +46,7 @@ export function SiteFooter({
   newsletter,
   copyright,
   background = "background",
+  foreground = "text-primary",
 }: SiteFooterProps) {
   const newsletterTitleId = useId();
   const footerRef = useRef<HTMLElement>(null);
@@ -94,7 +96,7 @@ export function SiteFooter({
 
   return (
     <footer
-      className={`site-footer surface--${background}`}
+      className={`site-footer surface--${background} foreground--${foreground}`}
       ref={footerRef}
     >
       <div className="site-footer__inner page-grid">
@@ -112,7 +114,7 @@ export function SiteFooter({
           </nav>
 
           <section aria-labelledby={newsletterTitleId} className="site-footer__newsletter">
-            <h2 className="type-body-compact-01" id={newsletterTitleId}>
+            <h2 className="type-body-01" id={newsletterTitleId}>
               {newsletter.title}
             </h2>
             <form className="site-footer__newsletter-form" onSubmit={handleSubmit}>

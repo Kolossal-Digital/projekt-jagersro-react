@@ -3,7 +3,7 @@ import { CaretLeftIcon } from "@phosphor-icons/react/dist/csr/CaretLeft";
 import { CaretRightIcon } from "@phosphor-icons/react/dist/csr/CaretRight";
 import { IconButton } from "../components/IconButton";
 import { Image, type ImageAsset } from "../components/Image";
-import type { BackgroundName } from "../tokens";
+import type { BackgroundName, ForegroundName } from "../tokens";
 import { getSectionSpacingClasses, type SectionSpacingProps } from "./sectionSpacing";
 
 export type ImageCarouselCaption = {
@@ -23,6 +23,7 @@ export type ImageCarouselProps = SectionSpacingProps & {
   slides: ImageCarouselSlide[];
   ariaLabel?: string;
   background?: BackgroundName;
+  foreground?: ForegroundName;
   initialIndex?: number;
 };
 
@@ -38,6 +39,7 @@ export function ImageCarousel({
   slides,
   ariaLabel = "Bildkarusell",
   background = "background",
+  foreground = "text-primary",
   initialIndex = 0,
   paddingTop,
   paddingBottom,
@@ -94,7 +96,7 @@ export function ImageCarousel({
     <section
       aria-label={ariaLabel}
       aria-roledescription="karusell"
-      className={`image-carousel surface--${background} ${getSectionSpacingClasses({ paddingTop, paddingBottom })}`}
+      className={`image-carousel surface--${background} foreground--${foreground} ${getSectionSpacingClasses({ paddingTop, paddingBottom })}`}
       id={id}
     >
       <div className="image-carousel__container">
@@ -150,7 +152,7 @@ export function ImageCarousel({
                       className="image-carousel__caption"
                     >
                       {(slide.caption.label || slide.caption.title) && (
-                        <p className="image-carousel__caption-title type-body-compact-01">
+                        <p className="image-carousel__caption-title type-body-01">
                           {slide.caption.label && (
                             <span>{slide.caption.label} – </span>
                           )}
@@ -160,7 +162,7 @@ export function ImageCarousel({
                         </p>
                       )}
                       {slide.caption.body && (
-                        <p className="type-body-compact-01">
+                        <p className="type-body-01">
                           {slide.caption.body}
                         </p>
                       )}

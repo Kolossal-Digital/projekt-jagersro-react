@@ -62,7 +62,7 @@ export function TextField({
           {...inputProps}
           aria-describedby={descriptionIds}
           aria-invalid={error ? true : ariaInvalid}
-          className="text-field__input type-body-compact-01"
+          className="text-field__input type-body-01"
           disabled={disabled}
           id={id}
         />

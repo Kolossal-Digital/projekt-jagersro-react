@@ -106,7 +106,7 @@ export function GridSpacingCatalog() {
               </div>
               <h4 className="type-label-03">{grid.title}</h4>
               <code className="type-code-01">{grid.definition}</code>
-              <p className="type-body-compact-01">{grid.usage}</p>
+              <p className="type-body-01">{grid.usage}</p>
             </article>
           ))}
         </div>

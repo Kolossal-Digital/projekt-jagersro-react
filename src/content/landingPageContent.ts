@@ -1,7 +1,7 @@
 import { parse } from "yaml";
 import type { NavbarAction, NavbarLink } from "../components/SiteNavbar";
 import type { FooterLink, FooterNewsletter } from "../components/SiteFooter";
-import type { BackgroundName } from "../tokens";
+import type { BackgroundName, ForegroundName } from "../tokens";
 import type { HeroContent, HeroVariant } from "../patterns/HeroSection";
 import type {
   FeatureSectionContent,
@@ -30,6 +30,7 @@ type SectionBase = {
   id?: string;
   theme: Theme;
   background: BackgroundName;
+  foreground?: ForegroundName;
   paddingTop?: SectionPaddingSize;
   paddingBottom?: SectionPaddingSize;
 };
@@ -46,7 +47,7 @@ export type LandingPageSection =
       variant: HeroVariant;
       content: HeroContent;
       headingAs?: "h1" | "h2";
-      bodyVariant?: "body-01" | "body-02" | "body-compact-01" | "body-compact-02";
+      bodyVariant?: "body-01" | "body-02";
     })
   | (SectionBase & {
       type: "image";

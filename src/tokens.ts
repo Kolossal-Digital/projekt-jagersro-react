@@ -7,6 +7,12 @@ export type BackgroundName =
   | "background-accent-01"
   | "background-accent-02"
   | "background-accent-03";
+export type ForegroundName =
+  | "text-primary"
+  | "text-secondary"
+  | "text-accent-01"
+  | "text-accent-02"
+  | "text-placeholder";
 
 type TokenNode = {
   $collectionName?: string;
@@ -25,6 +31,7 @@ export type TypographyToken = {
   fontSize: number;
   lineHeight: number;
   fontWeight: number;
+  fontStyle: string;
   letterSpacing: number;
 };
 
@@ -85,6 +92,15 @@ function numericProperty(
   return value;
 }
 
+function stringProperty(
+  style: Record<string, unknown>,
+  property: string,
+  fallback: string,
+): string {
+  if (!style[property]) return fallback;
+  return String(resolveToken(style[property], "Breakpoint"));
+}
+
 function webFontFamily(family: string): string {
   return family === "Source Serif 4" ? "Geist" : family;
 }
@@ -100,8 +116,6 @@ export function getTypography(mode: BreakpointName): TypographyToken[] {
     if (group === "fixed-heading") return [];
 
     return Object.entries(styles).flatMap(([name, style]) => {
-      if (name === "fluid-display-02") return [];
-
       return [{
         name,
         group,
@@ -111,6 +125,7 @@ export function getTypography(mode: BreakpointName): TypographyToken[] {
         fontSize: numericProperty(style, "font-size"),
         lineHeight: numericProperty(style, "line-height"),
         fontWeight: numericProperty(style, "font-weight"),
+        fontStyle: stringProperty(style, "font-style", "normal"),
         letterSpacing: numericProperty(style, "letter-spacing"),
       }];
     });
@@ -147,3 +162,10 @@ export const fontFamilies = [
 ] as const;
 
 export const availableBackgrounds = backgroundNames;
+export const availableForegrounds: ForegroundName[] = [
+  "text-primary",
+  "text-secondary",
+  "text-accent-01",
+  "text-accent-02",
+  "text-placeholder",
+];

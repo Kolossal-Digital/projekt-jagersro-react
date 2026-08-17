@@ -1,5 +1,5 @@
 import { ArrowRightIcon } from "@phosphor-icons/react/dist/csr/ArrowRight";
-import type { BackgroundName } from "../tokens";
+import type { BackgroundName, ForegroundName } from "../tokens";
 import { getSectionSpacingClasses, type SectionSpacingProps } from "./sectionSpacing";
 import { ButtonLink, type ButtonVariant } from "../components/Button";
 import { Typography } from "../components/Typography";
@@ -24,8 +24,9 @@ export type HeroSectionProps = SectionSpacingProps & {
   variant: HeroVariant;
   content: HeroContent;
   background?: BackgroundName;
+  foreground?: ForegroundName;
   headingAs?: "h1" | "h2";
-  bodyVariant?: "body-01" | "body-02" | "body-compact-01" | "body-compact-02";
+  bodyVariant?: "body-01" | "body-02";
 };
 
 /** Full-width, CMS-ready hero pattern with serializable content props. */
@@ -34,17 +35,18 @@ export function HeroSection({
   variant,
   content,
   background = "background-accent-01",
+  foreground = "text-primary",
   headingAs = "h1",
   bodyVariant,
   paddingTop,
   paddingBottom,
 }: HeroSectionProps) {
   const isSplit = variant === "split";
-  const headingVariant = isSplit ? "fluid-display-03" : "fluid-heading-06";
+  const headingVariant = isSplit ? "fluid-display-02" : "fluid-heading-06";
 
   return (
     <section
-      className={`hero-section hero-section--${variant} surface--${background} ${getSectionSpacingClasses({ paddingTop, paddingBottom })}`}
+      className={`hero-section hero-section--${variant} surface--${background} foreground--${foreground} ${getSectionSpacingClasses({ paddingTop, paddingBottom })}`}
       id={id}
     >
       <div className="hero-section__container page-grid">
@@ -57,7 +59,7 @@ export function HeroSection({
         <div className="hero-section__supporting-content">
           <Typography
             className="hero-section__body"
-            variant={bodyVariant ?? (isSplit ? "body-02" : "body-compact-02")}
+            variant={bodyVariant ?? "body-02"}
           >
             {content.body}
           </Typography>

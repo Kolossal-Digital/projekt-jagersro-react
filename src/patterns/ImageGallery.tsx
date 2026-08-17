@@ -4,7 +4,7 @@ import { CaretRightIcon } from "@phosphor-icons/react/dist/csr/CaretRight";
 import { XIcon } from "@phosphor-icons/react/dist/csr/X";
 import { IconButton } from "../components/IconButton";
 import { Image, type ImageAsset } from "../components/Image";
-import type { BackgroundName } from "../tokens";
+import type { BackgroundName, ForegroundName } from "../tokens";
 import { getSectionSpacingClasses, type SectionSpacingProps } from "./sectionSpacing";
 
 export type ImageGalleryItem = {
@@ -18,6 +18,7 @@ export type ImageGalleryProps = SectionSpacingProps & {
   items: ImageGalleryItem[];
   ariaLabel?: string;
   background?: BackgroundName;
+  foreground?: ForegroundName;
 };
 
 /** Editorial image mosaic with a native, keyboard-accessible fullscreen viewer. */
@@ -26,6 +27,7 @@ export function ImageGallery({
   items,
   ariaLabel = "Bildgalleri",
   background = "background",
+  foreground = "text-primary",
   paddingTop,
   paddingBottom,
 }: ImageGalleryProps) {
@@ -84,7 +86,7 @@ export function ImageGallery({
   return (
     <section
       aria-label={ariaLabel}
-      className={`image-gallery surface--${background} ${getSectionSpacingClasses({ paddingTop, paddingBottom })}`}
+      className={`image-gallery surface--${background} foreground--${foreground} ${getSectionSpacingClasses({ paddingTop, paddingBottom })}`}
       id={id}
     >
       <div className="image-gallery__grid page-grid">
@@ -140,7 +142,7 @@ export function ImageGallery({
                 <Image asset={activeItem.image} fit="contain" priority />
               </div>
               {activeItem.caption && (
-                <figcaption className="image-gallery__lightbox-caption type-body-compact-01">
+                <figcaption className="image-gallery__lightbox-caption type-body-01">
                   {activeItem.caption}
                 </figcaption>
               )}

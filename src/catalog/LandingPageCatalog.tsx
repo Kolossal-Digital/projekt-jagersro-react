@@ -52,6 +52,7 @@ function renderSection(section: LandingPageSection) {
       return (
         <SiteNavbar
           background={section.background}
+          foreground={section.foreground}
           brand={{
             src: jagersroWordmark,
             alt: "Jägersro",
@@ -67,6 +68,7 @@ function renderSection(section: LandingPageSection) {
       return (
         <HeroSection
           background={section.background}
+          foreground={section.foreground}
           bodyVariant={section.bodyVariant}
           content={section.content}
           headingAs={section.headingAs}
@@ -81,6 +83,7 @@ function renderSection(section: LandingPageSection) {
       return (
         <ImageSection
           background={section.background}
+          foreground={section.foreground}
           caption={section.caption}
           id={section.id}
           image={resolveImage(section.image)}
@@ -96,6 +99,7 @@ function renderSection(section: LandingPageSection) {
         <FeatureSection
           align={section.align}
           background={section.background}
+          foreground={section.foreground}
           content={section.content}
           headingVariant={section.headingVariant}
           id={section.id}
@@ -111,6 +115,7 @@ function renderSection(section: LandingPageSection) {
       return (
         <FullWidthFeatureSection
           background={section.background}
+          foreground={section.foreground}
           content={section.content}
           id={section.id}
           image={resolveImage(section.image)}
@@ -126,6 +131,7 @@ function renderSection(section: LandingPageSection) {
         <ImageCarousel
           ariaLabel={section.ariaLabel}
           background={section.background}
+          foreground={section.foreground}
           id={section.id}
           initialIndex={section.initialIndex}
           slides={section.slides.map((slide) => ({
@@ -143,6 +149,7 @@ function renderSection(section: LandingPageSection) {
         <ImageGallery
           ariaLabel={section.ariaLabel}
           background={section.background}
+          foreground={section.foreground}
           id={section.id}
           items={section.itemIds.map(resolveGalleryItem)}
           paddingBottom={section.paddingBottom}
@@ -156,6 +163,7 @@ function renderSection(section: LandingPageSection) {
           allArticlesLink={section.allArticlesLink}
           articles={section.articleIds.map(resolveArticle)}
           background={section.background}
+          foreground={section.foreground}
           heading={section.heading}
           id={section.id}
           paddingBottom={section.paddingBottom}
@@ -169,6 +177,7 @@ function renderSection(section: LandingPageSection) {
         <TimelineSection
           ariaLabel={section.ariaLabel}
           background={section.background}
+          foreground={section.foreground}
           id={section.id}
           initialIndex={section.initialIndex}
           items={section.itemIds.map(resolveTimelineItem)}
@@ -181,6 +190,7 @@ function renderSection(section: LandingPageSection) {
       return (
         <SiteFooter
           background={section.background}
+          foreground={section.foreground}
           brand={{
             src: jagersroWordmark,
             alt: "Jägersro",

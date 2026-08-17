@@ -1,8 +1,9 @@
 import { useState } from "react";
 import jagersroWordmark from "../assets/jagersro-wordmark.svg";
 import { BackgroundPicker } from "../components/BackgroundPicker";
+import { ForegroundPicker } from "../components/ForegroundPicker";
 import { SiteNavbar, type NavbarLink } from "../components/SiteNavbar";
-import type { BackgroundName } from "../tokens";
+import type { BackgroundName, ForegroundName } from "../tokens";
 
 const navbarLinks: NavbarLink[] = [
   { label: "Aktuellt", href: "#navbar", current: true },
@@ -15,6 +16,7 @@ const navbarLinks: NavbarLink[] = [
 export function NavbarCatalog() {
   const [background, setBackground] =
     useState<BackgroundName>("background-accent-01");
+  const [foreground, setForeground] = useState<ForegroundName>("text-primary");
 
   return (
     <div className="pattern-catalog" id="navbar">
@@ -25,11 +27,15 @@ export function NavbarCatalog() {
             <h2 className="type-fluid-heading-04">Navbar</h2>
             <code className="type-code-01">responsive=&quot;automatic&quot;</code>
           </div>
-          <BackgroundPicker value={background} onChange={setBackground} />
+          <div className="pattern-specimen__controls">
+            <BackgroundPicker value={background} onChange={setBackground} />
+            <ForegroundPicker value={foreground} onChange={setForeground} />
+          </div>
         </header>
 
         <SiteNavbar
           background={background}
+          foreground={foreground}
           brand={{
             src: jagersroWordmark,
             alt: "Jägersro",

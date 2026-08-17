@@ -590,7 +590,8 @@ textarea {
   grid-column: 1 / -1;
 }
 
-.background-picker {
+.background-picker,
+.foreground-picker {
   flex: 0 0 250px;
   font-size: 12px;
   line-height: 16px;
@@ -1238,7 +1239,15 @@ textarea {
 .pattern-specimen__controls {
   display: flex;
   align-items: flex-end;
+  flex-direction: column;
   gap: var(--spacing-16);
+}
+
+.pattern-specimen__controls .background-picker,
+.pattern-specimen__controls .foreground-picker {
+  flex: 1 1 0;
+  min-width: 0;
+  width: 100%;
 }
 
 .pattern-specimen__controls .article-row-picker {
@@ -1250,7 +1259,7 @@ textarea {
   width: 100%;
   padding-top: var(--section-padding-top);
   padding-bottom: var(--section-padding-bottom);
-  color: var(--text-accent-01);
+  color: var(--text-primary);
 }
 
 .hero-section__container {
@@ -1659,6 +1668,16 @@ textarea {
   .image-carousel__caption {
     transition: none;
   }
+}
+
+:is(
+  .foreground--text-primary,
+  .foreground--text-secondary,
+  .foreground--text-accent-01,
+  .foreground--text-accent-02,
+  .foreground--text-placeholder
+) :is(h1, h2, h3, h4, h5, h6) {
+  color: var(--heading-color);
 }
 
 .image-gallery {
@@ -2571,6 +2590,8 @@ textarea {
 .contained-feature__heading-column,
 .contained-feature__content-column,
 .contained-feature__media-content,
+.contained-feature__cta-copy,
+.contained-feature__cta-actions,
 .contained-feature__rich-text,
 .contained-feature__columns,
 .contained-feature__columns article {
@@ -2595,6 +2616,24 @@ textarea {
 .contained-feature__media-content {
   grid-column: 1 / -1;
   gap: var(--spacing-24);
+}
+
+.contained-feature__cta-copy,
+.contained-feature__cta-actions {
+  grid-column: 1 / -1;
+}
+
+.contained-feature__cta-copy {
+  gap: var(--spacing-24);
+}
+
+.contained-feature__cta-actions {
+  display: flex;
+  align-items: stretch;
+}
+
+.contained-feature--cta .contained-feature__layout {
+  row-gap: 40px;
 }
 
 .contained-feature__rich-text {
@@ -3127,6 +3166,20 @@ textarea {
     grid-column: 5 / span 4;
   }
 
+  .contained-feature--cta .contained-feature__cta-copy {
+    grid-column: 1 / span 4;
+  }
+
+  .contained-feature--cta .contained-feature__cta-actions {
+    grid-column: 5 / span 4;
+    align-self: end;
+    justify-content: flex-end;
+  }
+
+  .contained-feature--cta .contained-feature__actions {
+    justify-content: flex-end;
+  }
+
   .contained-feature--split.contained-feature--align-end
     .contained-feature__layout {
     align-items: end;
@@ -3357,6 +3410,14 @@ textarea {
   }
 
   .contained-feature--split .contained-feature__content-column {
+    grid-column: 7 / span 6;
+  }
+
+  .contained-feature--cta .contained-feature__cta-copy {
+    grid-column: 1 / span 6;
+  }
+
+  .contained-feature--cta .contained-feature__cta-actions {
     grid-column: 7 / span 6;
   }
 
@@ -3596,7 +3657,7 @@ textarea {
   .section__header > :not(.section__header-copy),
   .pattern-specimen__header > .background-picker,
   .pattern-specimen__header > .pattern-specimen__controls {
-    grid-column: 7 / -1;
+    grid-column: 6 / -1;
     justify-self: stretch;
   }
 
@@ -3668,6 +3729,15 @@ textarea {
     grid-column: 10 / -1;
   }
 
+  .pattern-specimen__controls {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .pattern-specimen__controls .article-row-picker {
+    width: 100%;
+  }
+
   .font-card:nth-child(odd),
   .page-grid-composition-card:nth-child(odd),
   .image-specimen:nth-child(odd) {
@@ -3716,6 +3786,12 @@ textarea {
 
   .button-specimen__header code {
     grid-column: 10 / -1;
+  }
+}
+
+@media (min-width: 1920px) {
+  .pattern-specimen__header > .pattern-specimen__controls {
+    grid-column: 9 / -1;
   }
 }
 
@@ -3787,7 +3863,8 @@ textarea {
   .grid-control,
   .grid-control button,
   .segmented-control button,
-  .background-picker {
+  .background-picker,
+  .foreground-picker {
     width: 100%;
   }
 
@@ -3795,7 +3872,8 @@ textarea {
     flex: 1;
   }
 
-  .background-picker {
+  .background-picker,
+  .foreground-picker {
     flex-basis: auto;
   }
 
@@ -3814,7 +3892,8 @@ textarea {
     flex-direction: column;
   }
 
-  .pattern-specimen__header .background-picker {
+  .pattern-specimen__header .background-picker,
+  .pattern-specimen__header .foreground-picker {
     width: 100%;
   }
 

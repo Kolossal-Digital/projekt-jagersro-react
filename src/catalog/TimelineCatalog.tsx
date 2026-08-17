@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { BackgroundPicker } from "../components/BackgroundPicker";
+import { ForegroundPicker } from "../components/ForegroundPicker";
 import { demoTimelineItems } from "../content/demoContent";
 import { TimelineSection } from "../patterns/TimelineSection";
-import type { BackgroundName } from "../tokens";
+import type { BackgroundName, ForegroundName } from "../tokens";
 
 export function TimelineCatalog() {
   const [background, setBackground] =
     useState<BackgroundName>("background-accent-01");
+  const [foreground, setForeground] = useState<ForegroundName>("text-primary");
 
   return (
     <div className="pattern-catalog" id="timeline">
@@ -17,11 +19,15 @@ export function TimelineCatalog() {
             <h2 className="type-fluid-heading-04">Project milestones</h2>
             <code className="type-code-01">media=&quot;optional image&quot;</code>
           </div>
-          <BackgroundPicker value={background} onChange={setBackground} />
+          <div className="pattern-specimen__controls">
+            <BackgroundPicker value={background} onChange={setBackground} />
+            <ForegroundPicker value={foreground} onChange={setForeground} />
+          </div>
         </header>
 
         <TimelineSection
           background={background}
+          foreground={foreground}
           initialIndex={5}
           items={demoTimelineItems}
           paddingTop="small"

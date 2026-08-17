@@ -71,7 +71,7 @@ export function TextArea({
         {...textAreaProps}
         aria-describedby={descriptionIds}
         aria-invalid={error ? true : ariaInvalid}
-        className="text-area__control type-body-compact-01"
+        className="text-area__control type-body-01"
         defaultValue={defaultValue}
         disabled={disabled}
         id={id}

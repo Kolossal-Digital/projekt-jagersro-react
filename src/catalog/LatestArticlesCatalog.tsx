@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { BackgroundPicker } from "../components/BackgroundPicker";
+import { ForegroundPicker } from "../components/ForegroundPicker";
 import { Select } from "../components/Select";
 import { demoLatestArticles } from "../content/demoContent";
 import {
   LatestArticlesSection,
   type ArticleRowCount,
 } from "../patterns/LatestArticlesSection";
-import type { BackgroundName } from "../tokens";
+import type { BackgroundName, ForegroundName } from "../tokens";
 
 const rowOptions = ["2", "3", "4"] as const;
 type RowOption = (typeof rowOptions)[number];
@@ -14,6 +15,7 @@ type RowOption = (typeof rowOptions)[number];
 export function LatestArticlesCatalog() {
   const [background, setBackground] =
     useState<BackgroundName>("background-accent-01");
+  const [foreground, setForeground] = useState<ForegroundName>("text-primary");
   const [rows, setRows] = useState<RowOption>("4");
 
   return (
@@ -34,6 +36,7 @@ export function LatestArticlesCatalog() {
               value={rows}
             />
             <BackgroundPicker value={background} onChange={setBackground} />
+            <ForegroundPicker value={foreground} onChange={setForeground} />
           </div>
         </header>
 
@@ -44,6 +47,7 @@ export function LatestArticlesCatalog() {
           }}
           articles={demoLatestArticles}
           background={background}
+          foreground={foreground}
           heading="Senaste från Jägersro"
           rows={Number(rows) as ArticleRowCount}
         />

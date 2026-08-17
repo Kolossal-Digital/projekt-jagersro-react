@@ -1,6 +1,6 @@
 import { Image, type ImageAsset } from "../components/Image";
 import { Typography } from "../components/Typography";
-import type { BackgroundName } from "../tokens";
+import type { BackgroundName, ForegroundName } from "../tokens";
 import { getSectionSpacingClasses, type SectionSpacingProps } from "./sectionSpacing";
 
 export type ImageSectionLayout = "grid" | "full-width";
@@ -14,6 +14,7 @@ export type ImageSectionProps = SectionSpacingProps & {
   id?: string;
   image: ImageAsset;
   background?: BackgroundName;
+  foreground?: ForegroundName;
   caption?: ImageSectionCaption;
   layout?: ImageSectionLayout;
   priority?: boolean;
@@ -24,6 +25,7 @@ export function ImageSection({
   id,
   image,
   background = "background",
+  foreground = "text-primary",
   caption,
   layout = "grid",
   priority = false,
@@ -34,6 +36,7 @@ export function ImageSection({
     "image-section",
     `image-section--${layout}`,
     `surface--${background}`,
+    `foreground--${foreground}`,
     getSectionSpacingClasses({ paddingTop, paddingBottom }),
   ].join(" ");
 

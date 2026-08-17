@@ -1,11 +1,12 @@
 import { useState } from "react";
 import featureDummyImage from "../assets/full-width-feature-dummy.jpg";
 import { BackgroundPicker } from "../components/BackgroundPicker";
+import { ForegroundPicker } from "../components/ForegroundPicker";
 import {
   FullWidthFeatureSection,
   type FeatureContent,
 } from "../patterns/FullWidthFeatureSection";
-import type { BackgroundName } from "../tokens";
+import type { BackgroundName, ForegroundName } from "../tokens";
 
 const featureContent: FeatureContent = {
   tagline: "Projekt Jägersro",
@@ -65,9 +66,19 @@ export function FullWidthFeatureSectionsCatalog() {
     "right-fill": "background-accent-01",
     "left-fill": "background-accent-01",
   });
+  const [foregrounds, setForegrounds] = useState<Record<VariantId, ForegroundName>>({
+    "right-fit": "text-primary",
+    "left-fit": "text-primary",
+    "right-fill": "text-primary",
+    "left-fill": "text-primary",
+  });
 
   function setBackground(id: VariantId, background: BackgroundName) {
     setBackgrounds((current) => ({ ...current, [id]: background }));
+  }
+
+  function setForeground(id: VariantId, foreground: ForegroundName) {
+    setForegrounds((current) => ({ ...current, [id]: foreground }));
   }
 
   return (
@@ -84,16 +95,21 @@ export function FullWidthFeatureSectionsCatalog() {
                 imageFit=&quot;{variant.imageFit}&quot;
               </code>
             </div>
-            <BackgroundPicker
-              value={backgrounds[variant.id]}
-              onChange={(background) =>
-                setBackground(variant.id, background)
-              }
-            />
+            <div className="pattern-specimen__controls">
+              <BackgroundPicker
+                value={backgrounds[variant.id]}
+                onChange={(background) => setBackground(variant.id, background)}
+              />
+              <ForegroundPicker
+                value={foregrounds[variant.id]}
+                onChange={(foreground) => setForeground(variant.id, foreground)}
+              />
+            </div>
           </header>
 
           <FullWidthFeatureSection
             background={backgrounds[variant.id]}
+            foreground={foregrounds[variant.id]}
             content={featureContent}
             headingAs="h2"
             image={{

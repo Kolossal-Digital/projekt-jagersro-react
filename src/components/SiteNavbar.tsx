@@ -3,7 +3,7 @@ import { ListIcon } from "@phosphor-icons/react/dist/csr/List";
 import { MagnifyingGlassIcon } from "@phosphor-icons/react/dist/csr/MagnifyingGlass";
 import { XIcon } from "@phosphor-icons/react/dist/csr/X";
 import { Button, ButtonLink } from "./Button";
-import type { BackgroundName } from "../tokens";
+import type { BackgroundName, ForegroundName } from "../tokens";
 
 export type NavbarLink = {
   label: string;
@@ -28,6 +28,7 @@ export type SiteNavbarProps = {
   searchAction: NavbarAction;
   primaryAction?: NavbarAction;
   background?: BackgroundName;
+  foreground?: ForegroundName;
 };
 
 /** Responsive primary navigation with serializable site-settings content. */
@@ -37,6 +38,7 @@ export function SiteNavbar({
   searchAction,
   primaryAction,
   background = "background",
+  foreground = "text-primary",
 }: SiteNavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuId = useId();
@@ -63,6 +65,7 @@ export function SiteNavbar({
     "site-navbar",
     isMenuOpen ? "site-navbar--menu-open" : "",
     `surface--${background}`,
+    `foreground--${foreground}`,
   ]
     .filter(Boolean)
     .join(" ");

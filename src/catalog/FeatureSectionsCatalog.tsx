@@ -1,13 +1,14 @@
 import { useState } from "react";
 import featureMontage from "../assets/full-width-feature-montage.png";
 import { BackgroundPicker } from "../components/BackgroundPicker";
+import { ForegroundPicker } from "../components/ForegroundPicker";
 import {
   FeatureSection,
   type FeatureSectionContent,
   type FeatureSectionLayout,
   type FeatureSectionMediaPosition,
 } from "../patterns/FeatureSection";
-import type { BackgroundName } from "../tokens";
+import type { BackgroundName, ForegroundName } from "../tokens";
 
 const body =
   "Jägersro är en plats med många lager. Här möts minnen från travbanan, vardagen i området och berättelsen om den stadsdel som nu tar form.";
@@ -77,6 +78,22 @@ const specimens: Specimen[] = [
       richText: [{ type: "paragraph", text: body }],
     },
   },
+  {
+    id: "cta-actions-right",
+    label: "CTA / actions right",
+    layout: "cta",
+    content: {
+      tagline: "Tagline",
+      heading: "Medium leight section heading goes here",
+      richText: [
+        {
+          type: "paragraph",
+          text: "Mi tincidunt elit, id quisque ligula ac diam, amet. Vel etiam suspendisse morbi eleifend faucibus eget vestibulum felis. Dictum quis montes, sit sit. Tellus aliquam enim urna, etiam. Mauris posuere vulputate arcu amet, vitae nisi, tellus tincidunt. At feugiat sapien varius id.",
+        },
+      ],
+      actions,
+    },
+  },
 ];
 
 const image = {
@@ -90,9 +107,16 @@ export function FeatureSectionsCatalog() {
       specimens.map(({ id }) => [id, "background-accent-01"]),
     ) as Record<string, BackgroundName>,
   );
+  const [foregrounds, setForegrounds] = useState<Record<string, ForegroundName>>(
+    Object.fromEntries(specimens.map(({ id }) => [id, "text-primary"])) as Record<string, ForegroundName>,
+  );
 
   function setBackground(id: string, background: BackgroundName) {
     setBackgrounds((current) => ({ ...current, [id]: background }));
+  }
+
+  function setForeground(id: string, foreground: ForegroundName) {
+    setForegrounds((current) => ({ ...current, [id]: foreground }));
   }
 
   return (
@@ -109,15 +133,22 @@ export function FeatureSectionsCatalog() {
                   ` · mediaPosition="${specimen.mediaPosition}"`}
               </code>
             </div>
-            <BackgroundPicker
-              value={backgrounds[specimen.id]}
-              onChange={(background) => setBackground(specimen.id, background)}
-            />
+            <div className="pattern-specimen__controls">
+              <BackgroundPicker
+                value={backgrounds[specimen.id]}
+                onChange={(background) => setBackground(specimen.id, background)}
+              />
+              <ForegroundPicker
+                value={foregrounds[specimen.id]}
+                onChange={(foreground) => setForeground(specimen.id, foreground)}
+              />
+            </div>
           </header>
 
           <FeatureSection
             align={specimen.align}
             background={backgrounds[specimen.id]}
+            foreground={foregrounds[specimen.id]}
             content={specimen.content}
             headingAs="h2"
             headingVariant={specimen.headingVariant}

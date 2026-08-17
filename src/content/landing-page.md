@@ -23,7 +23,7 @@ primaryAction: { label: Kontakta oss, href: "#kontakt" }
 ```yaml
 key: intro
 type: hero
-theme: dark
+theme: light
 background: background-accent-02
 variant: split
 content:

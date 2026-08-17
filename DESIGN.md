@@ -120,6 +120,7 @@ light:
   text-secondary: "rgba(34, 38, 42, 0.8)" # Metadata och sekundär information.
   text-accent-01: "#454B3F"               # Accenttext på ljusa ytor.
   text-accent-02: "#001849"               # Alternativ accenttext på ljusa ytor.
+  text-placeholder: "rgba(34, 38, 42, 0.7)" # Dämpad förgrund; använd med särskild kontrastkontroll.
   link-primary: "#432DD7"                 # Interaktiva textlänkar, inte dekoration.
   link-primary-hover: "#372AAC"           # Hover för textlänkar.
   focus-border: "#432DD7"                 # Synlig tangentbordsfokus.
@@ -130,6 +131,7 @@ dark:
   text-secondary: "rgba(255, 255, 255, 0.8)"
   text-accent-01: "#DCD7BF"
   text-accent-02: "#B6CBEC"
+  text-placeholder: "rgba(255, 255, 255, 0.7)"
   link-primary: "#CEFF64"
   link-primary-hover: "#B1F625"
   focus-border: "#BFDBFE"
@@ -137,6 +139,8 @@ dark:
 ```
 
 Länkar ska kännas som länkar genom mer än enbart färg, exempelvis understrykning eller tydlig kontext. Fokusmarkering får aldrig tas bort. Färgkombinationer ska verifieras i både Light och Dark, särskilt när text ligger på accentbakgrunder.
+
+Alla section-patterns har separata semantiska val för `background` och `foreground`, där katalogen presenterar `foreground` som **Rubrik färg**. Valet får vara `text-primary`, `text-secondary`, `text-accent-01`, `text-accent-02` eller `text-placeholder`; standard är `text-primary`. Det påverkar enbart sektionens `h1`–`h6`. Taglines, paragrafer, listor, bildtexter, metadata och övrig copy behåller sina ordinarie semantiska texttokens, normalt `text-primary`, och knappar behåller sina egna färgkontrakt. Varje vald kombination av bakgrund och rubrikfärg måste kontrastkontrolleras i aktuellt tema; `text-placeholder` är ett avsiktligt dämpat alternativ och får inte användas för kritiska rubriker.
 
 ### Knappar och status
 
@@ -235,17 +239,9 @@ legal-02:
   all-modes: "Geist 14/18, weight 400, letter-spacing 0.06px"
   usage: "Juridisk text som måste vara tydligare eller längre."
 
-body-compact-01:
-  all-modes: "Geist 16/22, weight 400, letter-spacing 0.06px"
-  usage: "Kompakta kort, listor och redaktionella sammanfattningar."
-
-body-compact-02:
-  all-modes: "Geist 20/28, weight 400"
-  usage: "Större kortintroduktion eller kort ingress. Inte långa textmassor."
-
 body-01:
-  small-medium: "Geist 14/20, weight 400, letter-spacing 0.06px"
-  large-max: "Geist 16/22, weight 400, letter-spacing 0.06px"
+  small-medium: "Geist 14/20, weight 400, letter-spacing 0"
+  large-max: "Geist 16/22, weight 400, letter-spacing 0"
   usage: "Standardbrödtext och komponentbeskrivningar."
 
 body-02:
@@ -295,24 +291,18 @@ fluid-heading-06:
 ### Fluid display, stycke och citat
 
 ```yaml
-fluid-paragraph-01:
-  small: "Geist 24/30"
-  medium-large: "Geist 28/36"
-  max: "Geist 32/40"
-  usage: "Fristående redaktionellt stycke eller kort manifesttext. Inte normal brödtext."
-
 fluid-quotation-01:
-  small: "Geist 20/26"
-  medium: "Geist 24/30"
-  large: "Geist 28/36"
-  max: "Geist 32/40"
+  small: "Geist Light Italic 20/26"
+  medium: "Geist Light Italic 24/30"
+  large: "Geist Light Italic 28/36"
+  max: "Geist Light Italic 32/40"
   usage: "Kort citat med tydlig avsändare."
 
 fluid-quotation-02:
-  small: "Geist 32/40"
-  medium: "Geist 42/50"
-  large: "Geist 48/56"
-  max: "Geist 60/70"
+  small: "Geist Light Italic 32/40"
+  medium: "Geist Light Italic 42/50"
+  large: "Geist Light Italic 48/56"
+  max: "Geist Light Italic 60/70"
   usage: "Stort, sällsynt nyckelcitat. Aldrig för löpande text."
 
 fluid-display-01:
@@ -322,6 +312,13 @@ fluid-display-01:
   max: "Geist Light 76/86"
   usage: "Mindre sidtitel eller kompakt hero. Högst en per vy."
 
+fluid-display-02:
+  small: "Geist Light 48/56"
+  medium: "Geist Light 60/70"
+  large: "Geist Light 76/86"
+  max: "Geist Light 92/102"
+  usage: "Displayrubrik mellan display-01 och display-03 i skalan. Aldrig inne i kontroller eller löptext."
+
 fluid-display-03:
   small: "Geist Light 54/64"
   medium: "Geist Light 76/86"
@@ -330,14 +327,14 @@ fluid-display-03:
   usage: "Stor redaktionell sidtitel eller hero. Aldrig inne i komponenter."
 
 fluid-display-04:
-  small: "Geist Light 54/64"
+  small: "Geist Light 60/70"
   medium: "Geist Light 92/102"
   large: "Geist Light 112/130"
-  max: "Geist Light 156/164"
+  max: "Geist Light 142/150"
   usage: "Maximal utställningsrubrik för sidans huvudintro. En per sida och endast när layouten ger den tillräckligt utrymme."
 ```
 
-`fluid-display-02` är uttryckligen borttagen. Den får inte genereras eller användas eftersom produkten inte behöver en serif display-stil i den storleken.
+`fluid-paragraph-01` är borttagen ur breakpoint-exporten eftersom ingen implementerad komponent eller sida använder den. Den får inte återinföras utan ett konkret innehållsbehov.
 
 ---
 
@@ -506,7 +503,7 @@ Använd den gemensamma `Section`-strukturen för större sidblock. Den yttre sek
 
 ### Hero section
 
-`HeroSection` är ett fullbreddsmönster med varianterna `centered`, `left` och `split`. `centered` används för en fokuserad introduktion, `left` när sidans fortsatta läsordning ska börja tydligt från vänster och `split` när en stor displayrubrik ska balanseras mot förklarande text. Alla varianter använder `.page-grid`; fasta inre paddingvärden från Figma får inte användas för att efterlikna kolumnlinjer.
+`HeroSection` är ett fullbreddsmönster med varianterna `centered`, `left` och `split`. `centered` används för en fokuserad introduktion, `left` när sidans fortsatta läsordning ska börja tydligt från vänster och `split` när en stor displayrubrik ska balanseras mot förklarande text. Split-rubriken använder alltid `fluid-display-02`; centered och left använder `fluid-heading-06`. Alla varianter använder `.page-grid`; fasta inre paddingvärden från Figma får inte användas för att efterlikna kolumnlinjer.
 
 På Small ligger innehållet över alla åtta kolumner. Från Medium använder `split` fem kolumner för rubriken och tre för brödtexten. Från Large blir fördelningen sju och fem kolumner. De två kolumnerna bottenjusteras enligt designen. `left` använder hela tillgängliga bredden på Small, en läsbredd upp till 658 px på Medium och sex gridkolumner från Large. `centered` centreras över sidgriden med responsiva läsbredder för rubrik och brödtext. Hero har 64 px vertikal spacing på Small, 80 px på Medium, skalar mellan 80 och 112 px genom Large och använder 120 px på Max. Vid viewportbredder över 1920 px förblir den 1920 px breda griden centrerad, inklusive det visualiserade 3300 px-läget.
 
@@ -524,13 +521,15 @@ Sektionen använder `fluid-heading-06`, `body-02` och `code-02` samt den befintl
 
 ### Feature section
 
-`FeatureSection` är det gridbegränsade syskonet till full width feature. Den yttre ytan kan använda en av de fyra semantiska bakgrunderna, medan innehållet följer den gemensamma, centrerade sidgriden upp till 1920 px. De fyra exemplen i Figma byggs med samma komponent: layoutlägena är `split` och `media`, och i `media` väljs bildens sida separat med `mediaPosition="left" | "right"`.
+`FeatureSection` är det gridbegränsade syskonet till full width feature. Den yttre ytan kan använda en av de fyra semantiska bakgrunderna, medan innehållet följer den gemensamma, centrerade sidgriden upp till 1920 px. De fem exemplen i Figma byggs med samma komponent: layoutlägena är `split`, `media` och `cta`; i `media` väljs bildens sida separat med `mediaPosition="left" | "right"`.
 
 Innehållskontraktet är serialiserbart och består av valfri `tagline`, `heading`, `richText` och valfria `actions`. Rich text representeras tills CMS har valts av en liten blockmodell med `paragraph`, `bullet-list` och `columns`. Det gör att stycken, listor och underkolumner kan kombineras utan nya layoutvarianter. När CMS införs ska ett mappningslager översätta CMS-formatet till dessa block, eller ersätta blocktypen om editorns modell kräver det. Skicka aldrig färdig React-markup genom kontraktet.
 
 Handlingar ligger utanför rich text eftersom CTA:er behöver ett tydligt strukturerat kontrakt för etikett, destination, hierarki och ikon. De återanvänder Button-komponenten och Phosphor Icons. `media` kräver i praktiken en `image`; ett framtida CMS-mappningslager ansvarar för validering innan datan når komponenten.
 
 På Small staplas allt i läsordning: den sammanhållna textgruppen först och bilden därefter. Från Medium använder både `split` och `media` två lika gridhalvor: 4/4 kolumner på Medium och 6/6 på Large och Max. Bildens sida påverkar bara den visuella ordningen från Medium; den semantiska läsordningen förblir text före bild. Textgruppen centreras vertikalt i medialayouten. Bildfältet är 735 px högt på Small, 644 px på Medium och Large samt kvadratiskt på Max, och bilden visas med `contain`. Sektionen har 64 px vertikal spacing på Small, 80 px på Medium, skalar mellan 80 och 112 px genom Large och använder 120 px på Max. `fluid-heading-06` är standard för rubriken; paragrafblock och brödtext i kolumnblock använder `body-02`, medan listor behåller sin kompakta stil.
+
+`cta` är den femte varianten. Från Medium ligger tagline, `fluid-heading-06` och `body-02` i vänster gridhalva, medan knappgruppen ligger högerjusterad och bottenlinjerad i den högra halvan. På Small blir läsordningen tagline, rubrik, brödtext och knappar; knapparna vänsterställs och får radbrytas. Varianten återanvänder samma innehålls- och actionkontrakt som övriga layouter och inför inga presentationsfält i CMS-datan utöver `layout="cta"`.
 
 ### Image och image section
 
@@ -596,7 +595,7 @@ Footern följer den gemensamma sidgriden och låser därför sina kanter till sa
 
 Yttre vertikal padding är 64 px på Small, 80 px på Medium, fluid 80–112 px på Large och 120 px från 1920 px. Avståndet mellan toppytan och ordmärkes-/legalytan är 64 px på Small och Medium samt 112 px på Large och Max. Navigation och juridiska länkar får radbrytas när innehållet inte ryms, men behåller dokumentets läsordning. Alla juridiska länkar förblir vanliga, understrukna länkar.
 
-Figma-referensens mobila copyright “© 2026 KODL” normaliseras till Projekt Jägersro. CaretDown-ikonen som ligger i e-postfältet på Small betraktas som ett designfel och används inte. `fixed-heading/heading-compact-02` ersätts av den stödda `body-compact-01`.
+Figma-referensens mobila copyright “© 2026 KODL” normaliseras till Projekt Jägersro. CaretDown-ikonen som ligger i e-postfältet på Small betraktas som ett designfel och används inte. `fixed-heading/heading-compact-02` ersätts av den stödda `body-01`.
 
 ### Article page
 
@@ -728,7 +727,6 @@ Råexporten innehåller äldre eller bortvalda tokens. Följande filtreras uttry
 ```yaml
 unsupported:
   group: "fixed-heading"
-  token: "fluid-display-02"
 ```
 
 Nya tokens, komponentvarianter eller grafiska uttryck ska läggas till först när ett konkret innehålls- eller användarbehov finns. Varje komponent ska kontrolleras i Light och Dark, relevanta surfaces och aktuella responsiva lägen.
@@ -754,7 +752,7 @@ open-decisions:
 
 ```text
 - Återskapa aldrig logotypen med vanlig text, CSS eller en fristående symbol.
-- Använd aldrig fixed-heading-stilar eller fluid-display-02.
+- Använd aldrig fixed-heading-stilar eller fluid-paragraph-01.
 - Hårdkoda inte färg, typografi, spacing eller radie när en godkänd token finns.
 - Skapa inte bildmontage dynamiskt i gränssnittet; använd de manuellt producerade PNG-filerna.
 - Lägg aldrig kritisk information enbart som text inuti en bild.

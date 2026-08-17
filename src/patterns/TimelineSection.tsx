@@ -7,7 +7,7 @@ import { ArrowRightIcon } from "@phosphor-icons/react/dist/csr/ArrowRight";
 import { ButtonLink } from "../components/Button";
 import { IconButton } from "../components/IconButton";
 import { Image, type ImageAsset } from "../components/Image";
-import type { BackgroundName } from "../tokens";
+import type { BackgroundName, ForegroundName } from "../tokens";
 import { getSectionSpacingClasses, type SectionSpacingProps } from "./sectionSpacing";
 
 export type TimelineStatus = "completed" | "current" | "future";
@@ -38,6 +38,7 @@ export type TimelineSectionProps = SectionSpacingProps & {
   items: TimelineItem[];
   ariaLabel?: string;
   background?: BackgroundName;
+  foreground?: ForegroundName;
   id?: string;
   initialIndex?: number;
 };
@@ -53,6 +54,7 @@ export function TimelineSection({
   items,
   ariaLabel = "Projektets tidslinje",
   background = "background",
+  foreground = "text-primary",
   id,
   initialIndex = 0,
   paddingTop,
@@ -165,7 +167,7 @@ export function TimelineSection({
   return (
     <section
       aria-label={ariaLabel}
-      className={`timeline-section surface--${background} ${getSectionSpacingClasses({ paddingTop, paddingBottom })}`}
+      className={`timeline-section surface--${background} foreground--${foreground} ${getSectionSpacingClasses({ paddingTop, paddingBottom })}`}
       id={id}
     >
       <div className="timeline-section__container page-grid">
@@ -229,7 +231,7 @@ export function TimelineSection({
                   >
                     <span className="timeline-section__year type-code-01">{item.year}</span>
                     <span className="timeline-section__item-copy">
-                      <span className="timeline-section__item-title type-body-compact-01">
+                      <span className="timeline-section__item-title type-body-01">
                         {item.title}
                       </span>
                       <span className="timeline-section__item-summary type-body-01">
@@ -298,7 +300,7 @@ export function TimelineSection({
                   sizes="(min-width: 1200px) 50vw, (min-width: 768px) calc(100vw - 136px), calc(100vw - 32px)"
                 />
                 {media.caption && (
-                  <figcaption className="type-body-compact-01">
+                  <figcaption className="type-body-01">
                     {media.caption}
                   </figcaption>
                 )}
