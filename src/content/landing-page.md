@@ -221,7 +221,6 @@ itemIds:
   - gallery-demolition
   - gallery-horses
   - gallery-interior
-  - gallery-montage
 ```
 ## Resan introduktion
 ```yaml
@@ -266,20 +265,23 @@ slides:
   - { id: horses, image: horses }
 ```
 
-## Sidintroduktion
+
+## Resan introduktion
 ```yaml
 key: participate
-type: hero
+type: feature
 theme: dark
 background: background-accent-02
-headingColor: text-accent-01
-variant: centered
+layout: centered
 content:
+  tagline: Delta
   heading: Var med längs vägen
-  body: Transformationen av Jägersro sker inte i ett vakuum. Här finns möjlighet att delta, tycka till och uppleva platsen redan idag.
+  richText:
+    - type: paragraph
+      text: Transformationen av Jägersro sker inte i ett vakuum. Här finns möjlighet att delta, tycka till och uppleva platsen redan idag.
   actions:
-    - { label: Se vad som händer på platsen, href: "#resan", variant: primary, icon: arrow-right }
-    - { label: Kontakta oss, href: "#platsen", variant: outline }
+     - { label: Se vad som händer på platsen, href: "#resan", variant: primary, icon: arrow-right }
+     - { label: Kontakta oss, href: "#platsen", variant: outline }
 ```
 
 ## Footer

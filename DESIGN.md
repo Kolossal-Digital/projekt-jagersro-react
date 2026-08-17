@@ -531,6 +531,8 @@ På Small staplas allt i läsordning: den sammanhållna textgruppen först och b
 
 `cta` är den femte varianten. Från Medium ligger tagline, `fluid-heading-06` och `body-02` i vänster gridhalva, medan knappgruppen ligger högerjusterad och bottenlinjerad i den högra halvan. På Small blir läsordningen tagline, rubrik, brödtext och knappar; knapparna vänsterställs och får radbrytas. Varianten återanvänder samma innehålls- och actionkontrakt som övriga layouter och inför inga presentationsfält i CMS-datan utöver `layout="cta"`.
 
+`centered` följer den centrerade kompositionen från `HeroSection`: tagline, rubrik, brödtext och handlingar centreras i en vertikal läsordning, men typografin förblir Feature Sections `code-02`, `fluid-heading-06` och `body-02`. Från Medium begränsas rubrikgruppen till 794 px och innehållsgruppen till 690 px; från Large och Max är motsvarande maxbredder 1024 px och Feature Sections etablerade läsbredd 733 px. Varianten använder samma serialiserbara innehållskontrakt som övriga Feature Section-layouter och väljs med `layout="centered"`.
+
 ### Image och image section
 
 Den återanvändbara `Image`-komponenten renderar CMS-bilder med obligatoriskt definierad alternativtext, valfria intrinsiska dimensioner, `cover` eller `contain`, responsiva `sizes` och lazy loading som standard. Sätt `priority` endast för bilder som verkligen ligger i sidans första synliga vy. Bildens layout, proportion och beskärningsyta ägs av den omgivande komponenten, inte av `Image`.

@@ -94,6 +94,17 @@ const specimens: Specimen[] = [
       actions,
     },
   },
+  {
+    id: "centered",
+    label: "Centered",
+    layout: "centered",
+    content: {
+      tagline: "Projekt Jägersro",
+      heading: "En plats i förändring, med historien nära",
+      richText: [{ type: "paragraph", text: body }],
+      actions,
+    },
+  },
 ];
 
 const image = {

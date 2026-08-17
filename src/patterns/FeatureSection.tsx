@@ -7,7 +7,7 @@ import type { BackgroundName, ForegroundName } from "../tokens";
 import type { FeatureAction } from "./FullWidthFeatureSection";
 import { getSectionSpacingClasses, type SectionSpacingProps } from "./sectionSpacing";
 
-export type FeatureSectionLayout = "split" | "media" | "cta";
+export type FeatureSectionLayout = "split" | "media" | "cta" | "centered";
 export type FeatureSectionMediaPosition = "left" | "right";
 
 export type FeatureRichTextBlock =
@@ -101,7 +101,7 @@ function FeatureActions({ actions }: { actions?: FeatureAction[] }) {
   );
 }
 
-/** Max-width feature pattern with split, media and CTA layouts. */
+/** Max-width feature pattern with split, media, CTA and centered layouts. */
 export function FeatureSection({
   id,
   layout,
