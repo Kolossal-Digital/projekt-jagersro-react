@@ -64,6 +64,14 @@ const headingColorField: MarkdownField = {
   description: "Standard: text-primary. Påverkar endast rubriker.",
 };
 
+const balanceHeadingField: MarkdownField = {
+  field: "balanceHeading",
+  type: "boolean",
+  required: "Nej",
+  description:
+    "Standard: true. Sätt false för att stänga av text-wrap: balance på sektionens rubriker.",
+};
+
 const actionFields: MarkdownField[] = [
   {
     field: "content.actions",
@@ -100,6 +108,7 @@ const actionFields: MarkdownField[] = [
 export const heroMarkdownFields: MarkdownField[] = [
   ...baseFields("hero"),
   headingColorField,
+  balanceHeadingField,
   ...sectionFields,
   {
     field: "variant",
@@ -137,6 +146,7 @@ export const heroMarkdownFields: MarkdownField[] = [
 export const fullWidthFeatureMarkdownFields: MarkdownField[] = [
   ...baseFields("full-width-feature"),
   headingColorField,
+  balanceHeadingField,
   ...sectionFields,
   {
     field: "image",
@@ -180,6 +190,7 @@ export const fullWidthFeatureMarkdownFields: MarkdownField[] = [
 export const featureMarkdownFields: MarkdownField[] = [
   ...baseFields("feature"),
   headingColorField,
+  balanceHeadingField,
   ...sectionFields,
   {
     field: "layout",
@@ -371,24 +382,21 @@ export const galleryMarkdownFields: MarkdownField[] = [
 export const latestArticlesMarkdownFields: MarkdownField[] = [
   ...baseFields("latest-articles"),
   headingColorField,
+  balanceHeadingField,
   ...sectionFields,
-  {
-    field: "rows",
-    type: "2 | 3 | 4",
-    required: "Nej",
-    description: "Standard: 4. Visar högst 4, 6 respektive 7 artiklar.",
-  },
   {
     field: "articleIds",
     type: "registrerade artikel-ID:n[]",
     required: "Ja",
-    description: "Publiceringsordning; första posten blir featured.",
+    description:
+      "Publiceringsordning; de fyra första visas och den första blir featured.",
   },
 ];
 
 export const timelineMarkdownFields: MarkdownField[] = [
   ...baseFields("timeline"),
   headingColorField,
+  balanceHeadingField,
   ...sectionFields,
   {
     field: "ariaLabel",
@@ -465,6 +473,7 @@ export const navbarMarkdownFields: MarkdownField[] = [
 export const footerMarkdownFields: MarkdownField[] = [
   ...baseFields("footer"),
   headingColorField,
+  balanceHeadingField,
   {
     field: "id",
     type: "sträng",

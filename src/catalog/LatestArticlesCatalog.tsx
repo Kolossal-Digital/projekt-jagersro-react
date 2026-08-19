@@ -1,24 +1,18 @@
 import { useState } from "react";
 import { BackgroundPicker } from "../components/BackgroundPicker";
 import { ForegroundPicker } from "../components/ForegroundPicker";
-import { Select } from "../components/Select";
+import { HeadingBalancePicker } from "../components/HeadingBalancePicker";
 import { demoLatestArticles } from "../content/demoContent";
-import {
-  LatestArticlesSection,
-  type ArticleRowCount,
-} from "../patterns/LatestArticlesSection";
+import { LatestArticlesSection } from "../patterns/LatestArticlesSection";
 import type { BackgroundName, ForegroundName } from "../tokens";
 import { SectionMarkdownDocs } from "./SectionMarkdownDocs";
 import { latestArticlesMarkdownFields } from "./sectionMarkdownFields";
-
-const rowOptions = ["2", "3", "4"] as const;
-type RowOption = (typeof rowOptions)[number];
 
 export function LatestArticlesCatalog() {
   const [background, setBackground] =
     useState<BackgroundName>("background-accent-01");
   const [foreground, setForeground] = useState<ForegroundName>("text-primary");
-  const [rows, setRows] = useState<RowOption>("4");
+  const [balanceHeading, setBalanceHeading] = useState(true);
 
   return (
     <div className="pattern-catalog" id="latest-articles">
@@ -30,23 +24,20 @@ export function LatestArticlesCatalog() {
             <code className="type-code-01">articles=&quot;ordered&quot;</code>
           </div>
           <div className="pattern-specimen__controls">
-            <Select
-              className="article-row-picker"
-              label="Rader"
-              onChange={setRows}
-              options={rowOptions}
-              value={rows}
-            />
             <BackgroundPicker value={background} onChange={setBackground} />
             <ForegroundPicker value={foreground} onChange={setForeground} />
+            <HeadingBalancePicker
+              value={balanceHeading}
+              onChange={setBalanceHeading}
+            />
           </div>
         </header>
 
         <LatestArticlesSection
           articles={demoLatestArticles}
           background={background}
+          balanceHeading={balanceHeading}
           foreground={foreground}
-          rows={Number(rows) as ArticleRowCount}
         />
       </article>
       <SectionMarkdownDocs

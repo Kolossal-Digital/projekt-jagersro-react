@@ -33,6 +33,7 @@ export type FeatureSectionProps = SectionSpacingProps & {
   image?: ImageAsset;
   background?: BackgroundName;
   foreground?: ForegroundName;
+  balanceHeading?: boolean;
   headingAs?: "h1" | "h2";
   headingVariant?: "fluid-heading-05" | "fluid-heading-06";
   align?: "start" | "end";
@@ -110,6 +111,7 @@ export function FeatureSection({
   image,
   background = "background",
   foreground = "text-primary",
+  balanceHeading = true,
   headingAs = "h2",
   headingVariant = "fluid-heading-06",
   align = "start",
@@ -123,6 +125,7 @@ export function FeatureSection({
     layout === "media" ? `contained-feature--media-${mediaPosition}` : "",
     `surface--${background}`,
     `foreground--${foreground}`,
+    balanceHeading ? "headings--balanced" : "",
     getSectionSpacingClasses({ paddingTop, paddingBottom }),
   ]
     .filter(Boolean)

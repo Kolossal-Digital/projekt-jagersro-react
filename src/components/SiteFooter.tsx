@@ -36,6 +36,7 @@ export type SiteFooterProps = {
   copyright: string;
   background?: BackgroundName;
   foreground?: ForegroundName;
+  balanceHeading?: boolean;
 };
 
 /** Responsive site footer with serializable navigation and newsletter content. */
@@ -47,6 +48,7 @@ export function SiteFooter({
   copyright,
   background = "background",
   foreground = "text-primary",
+  balanceHeading = true,
 }: SiteFooterProps) {
   const newsletterTitleId = useId();
   const footerRef = useRef<HTMLElement>(null);
@@ -96,7 +98,7 @@ export function SiteFooter({
 
   return (
     <footer
-      className={`site-footer surface--${background} foreground--${foreground}`}
+      className={`site-footer surface--${background} foreground--${foreground} ${balanceHeading ? "headings--balanced" : ""}`}
       ref={footerRef}
     >
       <div className="site-footer__inner page-grid">

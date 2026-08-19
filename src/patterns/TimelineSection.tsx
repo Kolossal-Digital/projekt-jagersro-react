@@ -39,6 +39,7 @@ export type TimelineSectionProps = SectionSpacingProps & {
   ariaLabel?: string;
   background?: BackgroundName;
   foreground?: ForegroundName;
+  balanceHeading?: boolean;
   id?: string;
   initialIndex?: number;
 };
@@ -55,6 +56,7 @@ export function TimelineSection({
   ariaLabel = "Projektets tidslinje",
   background = "background",
   foreground = "text-primary",
+  balanceHeading = true,
   id,
   initialIndex = 0,
   paddingTop,
@@ -167,7 +169,7 @@ export function TimelineSection({
   return (
     <section
       aria-label={ariaLabel}
-      className={`timeline-section surface--${background} foreground--${foreground} ${getSectionSpacingClasses({ paddingTop, paddingBottom })}`}
+      className={`timeline-section surface--${background} foreground--${foreground} ${balanceHeading ? "headings--balanced" : ""} ${getSectionSpacingClasses({ paddingTop, paddingBottom })}`}
       id={id}
     >
       <div className="timeline-section__container page-grid">

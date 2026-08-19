@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { BackgroundPicker } from "../components/BackgroundPicker";
 import { ForegroundPicker } from "../components/ForegroundPicker";
+import { HeadingBalancePicker } from "../components/HeadingBalancePicker";
 import {
   HeroSection,
   type HeroContent,
@@ -63,6 +64,9 @@ export function HeroSectionsCatalog() {
     left: "text-primary",
     split: "text-primary",
   });
+  const [balancedHeadings, setBalancedHeadings] = useState<
+    Record<HeroVariant, boolean>
+  >({ centered: true, left: true, split: true });
 
   function setBackground(variant: HeroVariant, background: BackgroundName) {
     setBackgrounds((current) => ({ ...current, [variant]: background }));
@@ -93,10 +97,20 @@ export function HeroSectionsCatalog() {
                 value={foregrounds[variant.id]}
                 onChange={(foreground) => setForeground(variant.id, foreground)}
               />
+              <HeadingBalancePicker
+                value={balancedHeadings[variant.id]}
+                onChange={(value) =>
+                  setBalancedHeadings((current) => ({
+                    ...current,
+                    [variant.id]: value,
+                  }))
+                }
+              />
             </div>
           </header>
           <HeroSection
             background={backgrounds[variant.id]}
+            balanceHeading={balancedHeadings[variant.id]}
             foreground={foregrounds[variant.id]}
             content={contentByVariant[variant.id]}
             headingAs="h2"

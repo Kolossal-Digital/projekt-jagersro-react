@@ -68,6 +68,7 @@ function renderSection(section: LandingPageSection) {
       return (
         <HeroSection
           background={section.background}
+          balanceHeading={section.balanceHeading}
           foreground={section.headingColor}
           bodyVariant={section.bodyVariant}
           content={section.content}
@@ -99,6 +100,7 @@ function renderSection(section: LandingPageSection) {
         <FeatureSection
           align={section.align}
           background={section.background}
+          balanceHeading={section.balanceHeading}
           foreground={section.headingColor}
           content={section.content}
           headingVariant={section.headingVariant}
@@ -115,6 +117,7 @@ function renderSection(section: LandingPageSection) {
       return (
         <FullWidthFeatureSection
           background={section.background}
+          balanceHeading={section.balanceHeading}
           foreground={section.headingColor}
           content={section.content}
           id={section.id}
@@ -162,11 +165,11 @@ function renderSection(section: LandingPageSection) {
         <LatestArticlesSection
           articles={section.articleIds.map(resolveArticle)}
           background={section.background}
+          balanceHeading={section.balanceHeading}
           foreground={section.headingColor}
           id={section.id}
           paddingBottom={section.paddingBottom}
           paddingTop={section.paddingTop}
-          rows={section.rows}
         />
       );
 
@@ -175,6 +178,7 @@ function renderSection(section: LandingPageSection) {
         <TimelineSection
           ariaLabel={section.ariaLabel}
           background={section.background}
+          balanceHeading={section.balanceHeading}
           foreground={section.headingColor}
           id={section.id}
           initialIndex={section.initialIndex}
@@ -188,6 +192,7 @@ function renderSection(section: LandingPageSection) {
       return (
         <SiteFooter
           background={section.background}
+          balanceHeading={section.balanceHeading}
           foreground={section.headingColor}
           brand={{
             src: jagersroWordmark,

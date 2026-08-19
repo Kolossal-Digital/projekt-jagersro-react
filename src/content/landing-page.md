@@ -73,7 +73,6 @@ type: latest-articles
 id: aktuellt
 theme: light
 background: background-accent-01
-rows: 2
 articleIds:
   - first-spadtaget
   - now-it-starts

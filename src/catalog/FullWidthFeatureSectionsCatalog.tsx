@@ -2,6 +2,7 @@ import { useState } from "react";
 import featureDummyImage from "../assets/full-width-feature-dummy.jpg";
 import { BackgroundPicker } from "../components/BackgroundPicker";
 import { ForegroundPicker } from "../components/ForegroundPicker";
+import { HeadingBalancePicker } from "../components/HeadingBalancePicker";
 import {
   FullWidthFeatureSection,
   type FeatureContent,
@@ -74,6 +75,14 @@ export function FullWidthFeatureSectionsCatalog() {
     "right-fill": "text-primary",
     "left-fill": "text-primary",
   });
+  const [balancedHeadings, setBalancedHeadings] = useState<
+    Record<VariantId, boolean>
+  >({
+    "right-fit": true,
+    "left-fit": true,
+    "right-fill": true,
+    "left-fill": true,
+  });
 
   function setBackground(id: VariantId, background: BackgroundName) {
     setBackgrounds((current) => ({ ...current, [id]: background }));
@@ -106,11 +115,21 @@ export function FullWidthFeatureSectionsCatalog() {
                 value={foregrounds[variant.id]}
                 onChange={(foreground) => setForeground(variant.id, foreground)}
               />
+              <HeadingBalancePicker
+                value={balancedHeadings[variant.id]}
+                onChange={(value) =>
+                  setBalancedHeadings((current) => ({
+                    ...current,
+                    [variant.id]: value,
+                  }))
+                }
+              />
             </div>
           </header>
 
           <FullWidthFeatureSection
             background={backgrounds[variant.id]}
+            balanceHeading={balancedHeadings[variant.id]}
             foreground={foregrounds[variant.id]}
             content={featureContent}
             headingAs="h2"

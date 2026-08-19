@@ -15,20 +15,12 @@ export type ArticleSummary = {
   category?: string;
 };
 
-export type ArticleRowCount = 2 | 3 | 4;
-
 export type LatestArticlesSectionProps = SectionSpacingProps & {
   id?: string;
   articles: ArticleSummary[];
-  rows?: ArticleRowCount;
   background?: BackgroundName;
   foreground?: ForegroundName;
-};
-
-const articleCountByRows: Record<ArticleRowCount, number> = {
-  2: 4,
-  3: 6,
-  4: 7,
+  balanceHeading?: boolean;
 };
 
 export type ArticleCardProps = {
@@ -90,18 +82,18 @@ export function ArticleCard({ article, featured = false, position }: ArticleCard
 export function LatestArticlesSection({
   id,
   articles,
-  rows = 4,
   background = "background",
   foreground = "text-primary",
+  balanceHeading = true,
   paddingTop,
   paddingBottom,
 }: LatestArticlesSectionProps) {
   if (articles.length === 0) return null;
 
-  const visibleArticles = articles.slice(0, articleCountByRows[rows]);
+  const visibleArticles = articles.slice(0, 4);
 
   return (
-    <section className={`latest-articles surface--${background} foreground--${foreground} ${getSectionSpacingClasses({ paddingTop, paddingBottom })}`} id={id}>
+    <section className={`latest-articles surface--${background} foreground--${foreground} ${balanceHeading ? "headings--balanced" : ""} ${getSectionSpacingClasses({ paddingTop, paddingBottom })}`} id={id}>
       <div className="latest-articles__container page-grid">
         <div className="latest-articles__grid">
           {visibleArticles.map((article, index) => (
@@ -109,7 +101,7 @@ export function LatestArticlesSection({
               article={article}
               featured={index === 0}
               key={article.id}
-              position={index === 0 ? 1 : ((index - 1) % 6) + 2}
+              position={index + 1}
             />
           ))}
         </div>

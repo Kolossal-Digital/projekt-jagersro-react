@@ -2,6 +2,7 @@ import { useState } from "react";
 import featureMontage from "../assets/full-width-feature-montage.png";
 import { BackgroundPicker } from "../components/BackgroundPicker";
 import { ForegroundPicker } from "../components/ForegroundPicker";
+import { HeadingBalancePicker } from "../components/HeadingBalancePicker";
 import {
   FeatureSection,
   type FeatureSectionContent,
@@ -123,6 +124,12 @@ export function FeatureSectionsCatalog() {
   const [foregrounds, setForegrounds] = useState<Record<string, ForegroundName>>(
     Object.fromEntries(specimens.map(({ id }) => [id, "text-primary"])) as Record<string, ForegroundName>,
   );
+  const [balancedHeadings, setBalancedHeadings] = useState<Record<string, boolean>>(
+    Object.fromEntries(specimens.map(({ id }) => [id, true])) as Record<
+      string,
+      boolean
+    >,
+  );
 
   function setBackground(id: string, background: BackgroundName) {
     setBackgrounds((current) => ({ ...current, [id]: background }));
@@ -155,12 +162,22 @@ export function FeatureSectionsCatalog() {
                 value={foregrounds[specimen.id]}
                 onChange={(foreground) => setForeground(specimen.id, foreground)}
               />
+              <HeadingBalancePicker
+                value={balancedHeadings[specimen.id]}
+                onChange={(value) =>
+                  setBalancedHeadings((current) => ({
+                    ...current,
+                    [specimen.id]: value,
+                  }))
+                }
+              />
             </div>
           </header>
 
           <FeatureSection
             align={specimen.align}
             background={backgrounds[specimen.id]}
+            balanceHeading={balancedHeadings[specimen.id]}
             foreground={foregrounds[specimen.id]}
             content={specimen.content}
             headingAs="h2"

@@ -25,6 +25,7 @@ export type HeroSectionProps = SectionSpacingProps & {
   content: HeroContent;
   background?: BackgroundName;
   foreground?: ForegroundName;
+  balanceHeading?: boolean;
   headingAs?: "h1" | "h2";
   bodyVariant?: "body-01" | "body-02";
 };
@@ -36,6 +37,7 @@ export function HeroSection({
   content,
   background = "background-accent-01",
   foreground = "text-primary",
+  balanceHeading = true,
   headingAs = "h1",
   bodyVariant,
   paddingTop,
@@ -46,7 +48,7 @@ export function HeroSection({
 
   return (
     <section
-      className={`hero-section hero-section--${variant} surface--${background} foreground--${foreground} ${getSectionSpacingClasses({ paddingTop, paddingBottom })}`}
+      className={`hero-section hero-section--${variant} surface--${background} foreground--${foreground} ${balanceHeading ? "headings--balanced" : ""} ${getSectionSpacingClasses({ paddingTop, paddingBottom })}`}
       id={id}
     >
       <div className="hero-section__container page-grid">

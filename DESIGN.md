@@ -142,6 +142,8 @@ Länkar ska kännas som länkar genom mer än enbart färg, exempelvis understry
 
 Alla section-patterns har separata semantiska val för `background` och `foreground`, där katalogen presenterar `foreground` som **Rubrikfärg**. I serialiserbara Markdown-/CMS-poster heter motsvarande fält `headingColor`; mappningslagret skickar det vidare till komponentens `foreground`-prop. Valet får vara `text-primary`, `text-secondary`, `text-accent-01`, `text-accent-02` eller `text-placeholder`; standard är `text-primary`. Det påverkar enbart sektionens `h1`–`h6`. Taglines, paragrafer, listor, bildtexter, metadata och övrig copy behåller sina ordinarie semantiska texttokens, normalt `text-primary`, och knappar behåller sina egna färgkontrakt. Varje vald kombination av bakgrund och rubrikfärg måste kontrastkontrolleras i aktuellt tema; `text-placeholder` är ett avsiktligt dämpat alternativ och får inte användas för kritiska rubriker.
 
+Alla section-patterns som renderar semantiska rubriker har även `balanceHeading`, med standardvärdet `true`. Aktivt läge applicerar `text-wrap: balance` på sektionens `h1`–`h6`; sätt `false` endast när den redaktionella radbrytningen behöver följa den naturliga inline-bredden. Katalogen visar valet som **Balansera rubrik** med På som standard. Regeln omfattar Hero, Full Width Feature, Feature, Latest Articles, Timeline och Footer, men exponeras inte för sektioner utan rubrik.
+
 ### Knappar och status
 
 ```yaml
@@ -522,6 +524,7 @@ Hero är normalt sidans `h1`. I kataloger, previews eller sidor där en tidigare
 | `theme` | `light` \| `dark` | Ja | Sätter lokalt temaläge runt sektionen. |
 | `background` | `background` \| `background-accent-01` \| `background-accent-02` \| `background-accent-03` | Ja | Sektionens semantiska bakgrund. |
 | `headingColor` | `text-primary` \| `text-secondary` \| `text-accent-01` \| `text-accent-02` \| `text-placeholder` | Nej | `text-primary`. Påverkar endast rubriken. |
+| `balanceHeading` | boolean | Nej | `true`. Sätt `false` för att stänga av `text-wrap: balance` på sektionens rubriker. |
 | `id` | sträng | Nej | Ankarmål utan `#`, exempelvis `sidintroduktion`. |
 | `paddingTop` | `large` \| `medium` \| `small` | Nej | `large`. Styr övre sektionspadding. |
 | `paddingBottom` | `large` \| `medium` \| `small` | Nej | `large`. Styr nedre sektionspadding. |
@@ -553,6 +556,7 @@ Sektionen använder `fluid-heading-06`, `body-02` och `code-02` samt den befintl
 | `theme` | `light` \| `dark` | Ja | Sätter lokalt temaläge. |
 | `background` | `background` \| `background-accent-01` \| `background-accent-02` \| `background-accent-03` | Ja | Sektionens semantiska bakgrund. |
 | `headingColor` | `text-primary` \| `text-secondary` \| `text-accent-01` \| `text-accent-02` \| `text-placeholder` | Nej | `text-primary`. Påverkar endast rubriken. |
+| `balanceHeading` | boolean | Nej | `true`. Sätt `false` för att stänga av `text-wrap: balance` på sektionens rubriker. |
 | `id` | sträng | Nej | Ankarmål utan `#`. |
 | `paddingTop` | `large` \| `medium` \| `small` | Nej | `large`. |
 | `paddingBottom` | `large` \| `medium` \| `small` | Nej | `large`. |
@@ -591,6 +595,7 @@ På Small staplas allt i läsordning: den sammanhållna textgruppen först och b
 | `theme` | `light` \| `dark` | Ja | Sätter lokalt temaläge. |
 | `background` | `background` \| `background-accent-01` \| `background-accent-02` \| `background-accent-03` | Ja | Sektionens semantiska bakgrund. |
 | `headingColor` | `text-primary` \| `text-secondary` \| `text-accent-01` \| `text-accent-02` \| `text-placeholder` | Nej | `text-primary`. Påverkar endast rubriken. |
+| `balanceHeading` | boolean | Nej | `true`. Sätt `false` för att stänga av `text-wrap: balance` på sektionens rubriker. |
 | `id` | sträng | Nej | Ankarmål utan `#`. |
 | `paddingTop` | `large` \| `medium` \| `small` | Nej | `large`. |
 | `paddingBottom` | `large` \| `medium` \| `small` | Nej | `large`. |
@@ -700,9 +705,9 @@ Varje bild är en riktig knapp med beskrivande label. Aktivering öppnar ett nat
 
 ### Latest articles
 
-`LatestArticlesSection` listar de senaste redaktionella artiklarna med en tydlig huvudartikel följd av mindre kort. Sektionen har ingen egen header, sektionsrubrik eller ”Se allt”-länk; den börjar direkt med artikelgriden. Den första posten i den sorterade listan är alltid featured; CMS ska därför leverera artiklarna i publiceringsordning och behöver inte skicka layoutvärden. Kontraktet består av `id`, `title`, `href`, `excerpt`, ISO-datum i `publishedAt`, lokaliserat `displayDate`, `image`, valfri `category` och vid behov `imageFit`. `cover` är standard; `contain` används för diagram eller annat material som inte får beskäras. Fältet `rows` väljer 2, 3 eller 4 redaktionella rader. Raderna följer den fasta artikelkapaciteten 1 + 3 + 2 + 1, vilket motsvarar högst 4, 6 eller 7 synliga artiklar; fler poster lämnas till den fullständiga artikellistan.
+`LatestArticlesSection` listar högst fyra redaktionella artiklar i en fast komposition: en tydlig huvudartikel följd av tre mindre kort. Sektionen har ingen egen header, sektionsrubrik eller ”Se allt”-länk; den börjar direkt med artikelgriden. Den första posten i den sorterade listan är alltid featured; CMS ska därför leverera artiklarna i publiceringsordning och behöver inte skicka layoutvärden. På Large och Max ligger de tre följande artiklarna som lika breda fyrakolumnskort på samma topplinje och samtliga använder bildproportionen 3:2. På Medium ligger de två kort som ryms bredvid varandra på samma topplinje med samma bildproportion. Kontraktet består av `id`, `title`, `href`, `excerpt`, ISO-datum i `publishedAt`, lokaliserat `displayDate`, `image`, valfri `category` och vid behov `imageFit`. `cover` är standard; `contain` används för diagram eller annat material som inte får beskäras. Fler än fyra levererade poster visas inte i modulen utan hör hemma i den fullständiga artikellistan.
 
-Sektionen följer `.page-grid`. På Small staplas artiklarna i läsordning och huvudartikelns text ligger under bilden. Från Medium läggs huvudartikelns textpanel ovanpå bildens nedre vänstra del, förankrad i fem av åtta kolumner. Den första gruppen bildar två kolumner; när den tredje artikeln hamnar ensam på nästa rad byter kortet till en horisontell 4/4-komposition. Nästa grupp varierar förskjutningen och dess ensamma slutkort använder samma horisontella princip med omvänd bildordning. På Large och Max ligger huvudartikeln över hela 12-kolumnsgridden med text i de första fem kolumnerna. Därefter växlar layouten mellan tre fyrakolumnskort och ett asymmetriskt 5/7-par följt av ett indraget, horisontellt tiokolumnskort. Small påverkas inte av den här regeln. Den sex positioner långa rytmen upprepas för längre listor utan att CMS behöver lagra layoutvärden.
+Sektionen följer `.page-grid`. På Small staplas artiklarna i läsordning och huvudartikelns text ligger under bilden. Från Medium läggs huvudartikelns textpanel ovanpå bildens nedre vänstra del, förankrad i fem av åtta kolumner. De två första mindre korten bildar två kolumner; det sista kortet hamnar på nästa rad och byter till en horisontell 4/4-komposition. På Large och Max ligger huvudartikeln över hela 12-kolumnsgridden med text i de första fem kolumnerna och de tre mindre korten bildar den andra raden.
 
 Hela artikelkortet är en semantisk länk. Datum renderas med `time`, bilder går genom den gemensamma `Image`-komponenten och visuella hover-effekter är sekundära till tydlig fokusmarkering. Rubriker och utdrag får aldrig bära information som bara är tillgänglig genom hover. Demo-innehållet speglar de sju senaste posterna på Projekt Jägersros befintliga Aktuellt-sida, men produktionsimplementationen ska mappa samma kontrakt från det framtida CMS:et.
 
@@ -715,11 +720,11 @@ Hela artikelkortet är en semantisk länk. Datum renderas med `time`, bilder gå
 | `theme` | `light` \| `dark` | Ja | Sätter lokalt temaläge. |
 | `background` | `background` \| `background-accent-01` \| `background-accent-02` \| `background-accent-03` | Ja | Sektionens semantiska bakgrund. |
 | `headingColor` | `text-primary` \| `text-secondary` \| `text-accent-01` \| `text-accent-02` \| `text-placeholder` | Nej | `text-primary`. Påverkar artikelrubrikerna, inte metadata eller utdrag. |
+| `balanceHeading` | boolean | Nej | `true`. Sätt `false` för att stänga av `text-wrap: balance` på artikelrubrikerna. |
 | `id` | sträng | Nej | Ankarmål utan `#`. |
 | `paddingTop` | `large` \| `medium` \| `small` | Nej | `large`. |
 | `paddingBottom` | `large` \| `medium` \| `small` | Nej | `large`. |
-| `rows` | `2` \| `3` \| `4` | Nej | `4`. Visar högst 4, 6 respektive 7 artiklar. |
-| `articleIds` | lista av registrerade artikel-ID:n | Ja | Minst ett ID i publiceringsordning; första posten blir featured. |
+| `articleIds` | lista av registrerade artikel-ID:n | Ja | Minst ett ID i publiceringsordning; de fyra första visas och den första blir featured. |
 
 ### Timeline
 
@@ -738,6 +743,7 @@ Händelserna implementeras som tabs med en tillhörande tabpanel. Klick, föreg�
 | `theme` | `light` \| `dark` | Ja | Sätter lokalt temaläge. |
 | `background` | `background` \| `background-accent-01` \| `background-accent-02` \| `background-accent-03` | Ja | Sektionens semantiska bakgrund. |
 | `headingColor` | `text-primary` \| `text-secondary` \| `text-accent-01` \| `text-accent-02` \| `text-placeholder` | Nej | `text-primary`. Påverkar detaljpanelens rubrik. |
+| `balanceHeading` | boolean | Nej | `true`. Sätt `false` för att stänga av `text-wrap: balance` på detaljpanelens rubrik. |
 | `id` | sträng | Nej | Ankarmål utan `#`. |
 | `paddingTop` | `large` \| `medium` \| `small` | Nej | `large`. |
 | `paddingBottom` | `large` \| `medium` \| `small` | Nej | `large`. |
@@ -797,6 +803,7 @@ Figma-referensens mobila copyright “© 2026 KODL” normaliseras till Projekt 
 | `theme` | `light` \| `dark` | Ja | Sätter lokalt temaläge. |
 | `background` | `background` \| `background-accent-01` \| `background-accent-02` \| `background-accent-03` | Ja | Sidfotens semantiska bakgrund. |
 | `headingColor` | `text-primary` \| `text-secondary` \| `text-accent-01` \| `text-accent-02` \| `text-placeholder` | Nej | `text-primary`. Påverkar nyhetsbrevsrubriken. |
+| `balanceHeading` | boolean | Nej | `true`. Sätt `false` för att stänga av `text-wrap: balance` på nyhetsbrevsrubriken. |
 | `id` | sträng | Nej | Ankarmål utan `#`; sätts på footerns yttre temascope. |
 | `navigation` | lista | Ja | Sidfotens huvudnavigation. |
 | `navigation[].label` | sträng | Ja, per länk | Synlig länktext. |

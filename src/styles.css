@@ -1328,10 +1328,6 @@ textarea {
   width: 100%;
 }
 
-.pattern-specimen__controls .article-row-picker {
-  width: 120px;
-}
-
 .hero-section {
   --section-padding-large: 64px;
   width: 100%;
@@ -1774,6 +1770,10 @@ textarea {
   color: var(--heading-color);
 }
 
+.headings--balanced :is(h1, h2, h3, h4, h5, h6) {
+  text-wrap: balance;
+}
+
 .image-gallery {
   --section-padding-large: 64px;
   width: 100%;
@@ -1986,28 +1986,13 @@ textarea {
   background: var(--field-01);
 }
 
-.article-card--position-2 .article-card__media {
-  aspect-ratio: 4 / 3;
-}
-
-.article-card--position-3 .article-card__media {
-  aspect-ratio: 1;
-}
-
-.article-card--position-4 .article-card__media {
-  aspect-ratio: 4 / 5;
-}
-
-.article-card--position-5 .article-card__media {
+.article-card:is(
+    .article-card--position-2,
+    .article-card--position-3,
+    .article-card--position-4
+  )
+  .article-card__media {
   aspect-ratio: 3 / 2;
-}
-
-.article-card--position-6 .article-card__media {
-  aspect-ratio: 4 / 3;
-}
-
-.article-card--position-7 .article-card__media {
-  aspect-ratio: 16 / 9;
 }
 
 .article-card__media .image {
@@ -2057,8 +2042,8 @@ textarea {
 
 .article-card__arrow {
   display: grid;
-  width: 32px;
-  height: 32px;
+  width: 48px;
+  height: 48px;
   place-items: center;
   margin-top: auto;
   border: 1px solid color-mix(in srgb, currentColor 16%, transparent);
@@ -2067,8 +2052,8 @@ textarea {
 }
 
 .article-card__arrow svg {
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
 }
 
 .article-card__link:hover .article-card__media .image {
@@ -3223,24 +3208,10 @@ textarea {
 
   .article-card--position-3 {
     grid-column: 5 / span 4;
-    margin-top: 64px;
   }
 
   .article-card--position-4 {
     grid-column: 3 / span 4;
-  }
-
-  .article-card--position-5 {
-    grid-column: 1 / span 4;
-    margin-top: 64px;
-  }
-
-  .article-card--position-6 {
-    grid-column: 5 / span 4;
-  }
-
-  .article-card--position-7 {
-    grid-column: 2 / span 6;
   }
 
   .contained-feature {
@@ -3459,43 +3430,10 @@ textarea {
 
   .article-card--position-3 {
     grid-column: 5 / span 4;
-    margin-top: 80px;
   }
 
   .article-card--position-4 {
     grid-column: 9 / span 4;
-  }
-
-  .article-card--position-5 {
-    grid-column: 1 / span 5;
-    margin-top: 96px;
-  }
-
-  .article-card--position-6 {
-    grid-column: 6 / span 7;
-  }
-
-  .article-card--position-7 {
-    grid-column: 2 / span 10;
-  }
-
-  .article-card--position-7 .article-card__link {
-    display: grid;
-    grid-template-columns: subgrid;
-    column-gap: var(--page-grid-gutter);
-  }
-
-  .article-card--position-7 .article-card__media {
-    grid-column: 1 / span 6;
-    grid-row: 1;
-    aspect-ratio: 3 / 2;
-  }
-
-  .article-card--position-7 .article-card__content {
-    grid-column: 7 / span 4;
-    grid-row: 1;
-    justify-content: center;
-    padding: 48px 0;
   }
 
   .contained-feature {
@@ -3721,14 +3659,12 @@ textarea {
 }
 
 @media (min-width: 768px) and (max-width: 1199px) {
-  .article-card--position-4,
-  .article-card--position-7 {
+  .article-card--position-4 {
     grid-column: 1 / -1;
     margin-top: 0;
   }
 
-  .article-card--position-4 .article-card__link,
-  .article-card--position-7 .article-card__link {
+  .article-card--position-4 .article-card__link {
     display: grid;
     grid-template-columns: subgrid;
     column-gap: var(--page-grid-gutter);
@@ -3747,18 +3683,6 @@ textarea {
     padding: var(--spacing-32);
   }
 
-  .article-card--position-7 .article-card__media {
-    grid-column: 5 / span 4;
-    grid-row: 1;
-    aspect-ratio: 4 / 3;
-  }
-
-  .article-card--position-7 .article-card__content {
-    grid-column: 1 / span 4;
-    grid-row: 1;
-    justify-content: center;
-    padding: var(--spacing-32);
-  }
 }
 
 @media (min-width: 768px) {
@@ -3853,10 +3777,6 @@ textarea {
   .pattern-specimen__controls {
     align-items: stretch;
     flex-direction: column;
-  }
-
-  .pattern-specimen__controls .article-row-picker {
-    width: 100%;
   }
 
   .font-card:nth-child(odd),
@@ -4023,9 +3943,6 @@ textarea {
     flex-direction: column;
   }
 
-  .pattern-specimen__controls .article-row-picker {
-    width: 100%;
-  }
 }
 
 @media (max-width: 767px) {

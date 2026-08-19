@@ -29,6 +29,7 @@ export type FullWidthFeatureSectionProps = SectionSpacingProps & {
   imageFit?: "fit" | "fill";
   background?: BackgroundName;
   foreground?: ForegroundName;
+  balanceHeading?: boolean;
   headingAs?: "h1" | "h2";
 };
 
@@ -41,13 +42,14 @@ export function FullWidthFeatureSection({
   imageFit = "fit",
   background = "background",
   foreground = "text-primary",
+  balanceHeading = true,
   headingAs = "h2",
   paddingTop,
   paddingBottom,
 }: FullWidthFeatureSectionProps) {
   return (
     <section
-      className={`feature-section feature-section--image-${imagePosition} feature-section--image-${imageFit} surface--${background} foreground--${foreground} ${getSectionSpacingClasses({ paddingTop, paddingBottom })}`}
+      className={`feature-section feature-section--image-${imagePosition} feature-section--image-${imageFit} surface--${background} foreground--${foreground} ${balanceHeading ? "headings--balanced" : ""} ${getSectionSpacingClasses({ paddingTop, paddingBottom })}`}
       id={id}
     >
       <div className="feature-section__layout">

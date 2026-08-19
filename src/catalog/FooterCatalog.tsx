@@ -2,6 +2,7 @@ import { useState } from "react";
 import jagersroWordmark from "../assets/jagersro-wordmark.svg";
 import { BackgroundPicker } from "../components/BackgroundPicker";
 import { ForegroundPicker } from "../components/ForegroundPicker";
+import { HeadingBalancePicker } from "../components/HeadingBalancePicker";
 import { SiteFooter, type FooterLink } from "../components/SiteFooter";
 import type { BackgroundName, ForegroundName } from "../tokens";
 import { SectionMarkdownDocs } from "./SectionMarkdownDocs";
@@ -25,6 +26,7 @@ export function FooterCatalog() {
   const [background, setBackground] =
     useState<BackgroundName>("background-accent-01");
   const [foreground, setForeground] = useState<ForegroundName>("text-primary");
+  const [balanceHeading, setBalanceHeading] = useState(true);
 
   return (
     <div className="pattern-catalog" id="footer">
@@ -38,11 +40,16 @@ export function FooterCatalog() {
           <div className="pattern-specimen__controls">
             <BackgroundPicker value={background} onChange={setBackground} />
             <ForegroundPicker value={foreground} onChange={setForeground} />
+            <HeadingBalancePicker
+              value={balanceHeading}
+              onChange={setBalanceHeading}
+            />
           </div>
         </header>
 
         <SiteFooter
           background={background}
+          balanceHeading={balanceHeading}
           foreground={foreground}
           brand={{ src: jagersroWordmark, alt: "Jägersro", href: "#footer" }}
           copyright="© 2026 Projekt Jägersro. Alla rättigheter förbehållna."

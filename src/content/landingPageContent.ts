@@ -11,10 +11,7 @@ import type {
 import type { FeatureContent } from "../patterns/FullWidthFeatureSection";
 import type { ImageCarouselCaption } from "../patterns/ImageCarousel";
 import type { ImageGalleryItem } from "../patterns/ImageGallery";
-import type {
-  ArticleRowCount,
-  ArticleSummary,
-} from "../patterns/LatestArticlesSection";
+import type { ArticleSummary } from "../patterns/LatestArticlesSection";
 import type {
   ImageSectionCaption,
   ImageSectionLayout,
@@ -31,6 +28,7 @@ type SectionBase = {
   theme: Theme;
   background: BackgroundName;
   headingColor?: ForegroundName;
+  balanceHeading?: boolean;
   paddingTop?: SectionPaddingSize;
   paddingBottom?: SectionPaddingSize;
 };
@@ -91,7 +89,6 @@ export type LandingPageSection =
     })
   | (SectionBase & {
       type: "latest-articles";
-      rows?: ArticleRowCount;
       articleIds: ArticleSummary["id"][];
     })
   | (SectionBase & {
