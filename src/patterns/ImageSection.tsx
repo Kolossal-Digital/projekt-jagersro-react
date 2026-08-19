@@ -1,9 +1,15 @@
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Image, type ImageAsset } from "../components/Image";
 import { Typography } from "../components/Typography";
 import type { BackgroundName, ForegroundName } from "../tokens";
 import { getSectionSpacingClasses, type SectionSpacingProps } from "./sectionSpacing";
 
-export type ImageSectionLayout = "grid" | "full-width";
+gsap.registerPlugin(useGSAP, ScrollTrigger);
+
+export type ImageSectionLayout = "grid" | "full-width" | "full-width-scroll";
 
 export type ImageSectionCaption = {
   label: string;
@@ -32,6 +38,37 @@ export function ImageSection({
   paddingTop,
   paddingBottom,
 }: ImageSectionProps) {
+  const sectionRef = useRef<HTMLElement>(null);
+  const isScrollVariant = layout === "full-width-scroll";
+
+  useGSAP(
+    () => {
+      if (!isScrollVariant || !sectionRef.current) return;
+
+      const media = gsap.matchMedia();
+
+      media.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.fromTo(
+          ".image-section__media .image",
+          { yPercent: 0 },
+          {
+            yPercent: -16.667,
+            ease: "none",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            },
+          },
+        );
+      });
+
+      return () => media.revert();
+    },
+    { scope: sectionRef, dependencies: [isScrollVariant] },
+  );
+
   const classes = [
     "image-section",
     `image-section--${layout}`,
@@ -41,7 +78,7 @@ export function ImageSection({
   ].join(" ");
 
   return (
-    <section className={classes} id={id}>
+    <section className={classes} id={id} ref={sectionRef}>
       <div
         className={`image-section__container${layout === "grid" ? " page-grid" : ""}`}
       >
@@ -51,7 +88,7 @@ export function ImageSection({
             fit="cover"
             priority={priority}
             sizes={
-              layout === "full-width"
+              layout !== "grid"
                 ? "100vw"
                 : "(min-width: 1920px) 1792px, (min-width: 1200px) calc(100vw - 128px), (min-width: 768px) calc(100vw - 136px), calc(100vw - 32px)"
             }

@@ -1549,6 +1549,25 @@ textarea {
   padding-block: 0;
 }
 
+.image-section--full-width-scroll .image-section__container {
+  padding-block: 0;
+}
+
+.image-section--full-width-scroll .image-section__media {
+  height: clamp(320px, 56vw, 800px);
+  aspect-ratio: auto;
+}
+
+.image-section--full-width-scroll .image-section__media .image {
+  height: 120%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image-section--full-width-scroll .image-section__media .image {
+    height: 100%;
+  }
+}
+
 .image-carousel {
   --section-padding-large: 64px;
   width: 100%;

@@ -40,6 +40,11 @@ const specimens: Specimen[] = [
     caption,
   },
   { id: "image-full-width", label: "Full width", layout: "full-width" },
+  {
+    id: "image-full-width-scroll",
+    label: "Full width / scroll",
+    layout: "full-width-scroll",
+  },
 ];
 
 export function ImageSectionCatalog() {

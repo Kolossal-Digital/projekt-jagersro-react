@@ -619,7 +619,9 @@ På Small staplas allt i läsordning: den sammanhållna textgruppen först och b
 
 Den återanvändbara `Image`-komponenten renderar CMS-bilder med obligatoriskt definierad alternativtext, valfria intrinsiska dimensioner, `cover` eller `contain`, responsiva `sizes` och lazy loading som standard. Sätt `priority` endast för bilder som verkligen ligger i sidans första synliga vy. Bildens layout, proportion och beskärningsyta ägs av den omgivande komponenten, inte av `Image`.
 
-`ImageSection` visar dokumentära bilder i två layoutlägen. React-komponenten använder `layout="grid" | "full-width"`, medan serialiserbara Markdown-/CMS-poster använder det redaktionella fältet `variant: grid | full-width`; mappningslagret översätter `variant` till `layout`. `grid` följer hela den gemensamma sidgriden upp till 1792 px bildbredd, medan `full-width` låter bilden gå kant till kant utan yttre spacing. Båda använder proportionen 1792:813 och `object-fit: cover`, så redaktionen måste välja material som tål den breda beskärningen.
+`ImageSection` visar dokumentära och dekorativa bilder i tre layoutlägen. React-komponenten använder `layout="grid" | "full-width" | "full-width-scroll"`, medan serialiserbara Markdown-/CMS-poster använder det redaktionella fältet `variant` med samma värden; mappningslagret översätter `variant` till `layout`. `grid` följer hela den gemensamma sidgriden upp till 1792 px bildbredd, medan `full-width` låter bilden gå kant till kant utan yttre spacing. Båda använder proportionen 1792:813 och `object-fit: cover`, så redaktionen måste välja material som tål den breda beskärningen.
+
+`full-width-scroll` är ett dekorativt fullbreddsläge med en responsiv beskärningsyta på högst 800 px. Bilden renderas med 20 procent vertikal överhöjd och panoreras långsamt genom beskärningen medan sektionen passerar viewporten. Rörelsen är kopplad direkt till scrollpositionen och stängs av vid `prefers-reduced-motion`; då visas en statisk `cover`-beskärning utan överhöjd. Rent dekorativa bilder ska ha tom alternativtext i bildbanken, medan informationsbärande motiv behåller en meningsfull alternativtext.
 
 Gridläget har 64 px vertikal spacing på Small, 80 px på Medium, skalar mellan 80 och 112 px genom Large och använder 120 px på Max. En valfri `caption` innehåller en kort etikett och en beskrivning. På Small staplas de med 16 px mellanrum; från Medium ligger de på samma rad och beskrivningen har högst 733 px läsbredd. Etiketten använder `label-03` och beskrivningen `label-02`. Markdown-/CMS-kontraktet består av en registrerad `image`-nyckel, `variant` och valfri `caption`; bildbanken ansvarar för `src`, `alt` och om möjligt `width` och `height`. Rent dekorativa bilder använder uttryckligen tom alternativtext i bildbanken.
 
@@ -634,7 +636,7 @@ Gridläget har 64 px vertikal spacing på Small, 80 px på Medium, skalar mellan
 | `id` | sträng | Nej | Ankarmål utan `#`. |
 | `paddingTop` | `large` \| `medium` \| `small` | Nej | `large`. Fullbreddsvarianten visar ingen yttre padding. |
 | `paddingBottom` | `large` \| `medium` \| `small` | Nej | `large`. Fullbreddsvarianten visar ingen yttre padding. |
-| `variant` | `grid` \| `full-width` | Nej | `grid`. Detta är det redaktionella Markdownfältet; använd inte det äldre `layout`. |
+| `variant` | `grid` \| `full-width` \| `full-width-scroll` | Nej | `grid`. `full-width-scroll` beskär bilden till högst 800 px och panorerar den vertikalt vid scroll. Detta är det redaktionella Markdownfältet; använd inte det äldre `layout`. |
 | `image` | registrerad bildnyckel | Ja | Måste finnas i den delade bildbanken, exempelvis `aerial`. |
 | `priority` | boolean | Nej | `false`. Sätt endast `true` för en bild i första synliga vyn. |
 | `caption` | objekt | Nej | Valfri bildtext. |

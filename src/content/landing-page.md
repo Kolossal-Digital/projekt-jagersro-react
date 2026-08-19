@@ -24,7 +24,7 @@ primaryAction: { label: Kontakta oss, href: "#kontakt" }
 key: intro
 type: hero
 theme: light
-background: background-accent-02
+background: background-accent-01
 headingColor: text-accent-01
 variant: split
 content:
@@ -41,7 +41,7 @@ key: aerial
 type: image
 theme: light
 background: background-accent-02
-variant: full-width
+variant: full-width-scroll
 image: aerial
 priority: true
 ```

@@ -267,9 +267,10 @@ export const imageSectionMarkdownFields: MarkdownField[] = [
   ...sectionFields,
   {
     field: "variant",
-    type: "grid | full-width",
+    type: "grid | full-width | full-width-scroll",
     required: "Nej",
-    description: "Standard: grid. Använd inte det äldre fältet layout.",
+    description:
+      "Standard: grid. full-width-scroll beskär bilden till högst 800 px och panorerar den vid scroll. Använd inte det äldre fältet layout.",
   },
   {
     field: "image",
