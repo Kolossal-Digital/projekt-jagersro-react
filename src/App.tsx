@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import Lenis from "lenis";
 import { ListIcon } from "@phosphor-icons/react/dist/csr/List";
 import { XIcon } from "@phosphor-icons/react/dist/csr/X";
+import { CornersInIcon } from "@phosphor-icons/react/dist/csr/CornersIn";
+import { CornersOutIcon } from "@phosphor-icons/react/dist/csr/CornersOut";
 import { ButtonsCatalog } from "./catalog/ButtonsCatalog";
 import { BreadcrumbCatalog } from "./catalog/BreadcrumbCatalog";
 import { ColorsCatalog } from "./catalog/ColorsCatalog";
@@ -39,6 +41,7 @@ import {
 import { Button } from "./components/Button";
 import { CatalogControls } from "./components/CatalogControls";
 import { GridOverlay } from "./components/GridOverlay";
+import { IconButton } from "./components/IconButton";
 import { Typography } from "./components/Typography";
 import { getBreakpointName as getLayoutBreakpointName } from "./layout";
 import type { BreakpointName, ThemeName } from "./tokens";
@@ -67,6 +70,26 @@ function getInitialCatalogPage(): CatalogPage {
   if (exampleRoute === "article") return "article-page";
 
   return "typography";
+}
+
+const examplePages = new Set<CatalogPage>([
+  "landing-page",
+  "aktuellt-page",
+  "labbet-page",
+  "platsen-page",
+  "resan-page",
+  "framtiden-page",
+  "article-page",
+]);
+
+function isExamplePage(page: CatalogPage) {
+  return examplePages.has(page);
+}
+
+function getInitialExampleFocusMode() {
+  if (typeof window === "undefined") return false;
+  if (!getExampleRoute(window.location.pathname)) return false;
+  return window.sessionStorage.getItem("jagersro-example-focus-mode") === "true";
 }
 
 const pageContent: Record<
@@ -161,7 +184,7 @@ const pageContent: Record<
     eyebrow: "Designsystem / sections",
     title: "Image section.",
     description:
-      "Ett responsivt bildfält med oberoende övre och undre bakgrundsytor för dokumentära bilder från CMS.",
+      "Ett responsivt mediefält med samma grid-, fullbredds- och bakgrundskontrakt för CMS-bilder och video.",
   },
   "image-carousel": {
     eyebrow: "Designsystem / sections",
@@ -264,6 +287,10 @@ function App() {
     getInitialMenuVisibility,
   );
   const [isGridVisible, setIsGridVisible] = useState(false);
+  const [isExampleFocusMode, setIsExampleFocusMode] = useState(
+    getInitialExampleFocusMode,
+  );
+  const activePageIsExample = isExamplePage(activePage);
   const intro = pageContent[activePage];
 
   useEffect(() => {
@@ -295,6 +322,45 @@ function App() {
     if (breakpoint === "Small") setIsSidebarVisible(false);
   }, [breakpoint]);
 
+  useEffect(() => {
+    if (!activePageIsExample && isExampleFocusMode) {
+      setIsExampleFocusMode(false);
+    }
+  }, [activePageIsExample, isExampleFocusMode]);
+
+  useEffect(() => {
+    window.sessionStorage.setItem(
+      "jagersro-example-focus-mode",
+      String(activePageIsExample && isExampleFocusMode),
+    );
+  }, [activePageIsExample, isExampleFocusMode]);
+
+  useEffect(() => {
+    if (!activePageIsExample) return;
+
+    function handleFocusModeShortcut(event: KeyboardEvent) {
+      const target = event.target;
+      const isEditing =
+        target instanceof HTMLElement &&
+        (target.isContentEditable ||
+          ["INPUT", "SELECT", "TEXTAREA"].includes(target.tagName));
+
+      if (isEditing) return;
+
+      if (event.key.toLowerCase() === "f" && event.shiftKey && !event.metaKey && !event.ctrlKey && !event.altKey) {
+        event.preventDefault();
+        setIsExampleFocusMode((active) => !active);
+      }
+
+      if (event.key === "Escape" && isExampleFocusMode) {
+        setIsExampleFocusMode(false);
+      }
+    }
+
+    window.addEventListener("keydown", handleFocusModeShortcut);
+    return () => window.removeEventListener("keydown", handleFocusModeShortcut);
+  }, [activePageIsExample, isExampleFocusMode]);
+
   function selectPage(page: CatalogPage) {
     setActivePage(page);
     const nextPath =
@@ -324,9 +390,9 @@ function App() {
 
   return (
     <div
-      className={`app theme--${theme.toLowerCase()} type-mode--responsive`}
+      className={`app theme--${theme.toLowerCase()} type-mode--responsive${isExampleFocusMode ? " app--example-focus" : ""}`}
     >
-      <header className="toolbar">
+      {!isExampleFocusMode && <header className="toolbar">
         <div className="toolbar-brand">
           <a className="wordmark type-code-02" href="#top" aria-label="Till sidans början">
             JÄGERSRO / DESIGN SYSTEM
@@ -353,10 +419,10 @@ function App() {
           onThemeChange={setTheme}
           theme={theme}
         />
-      </header>
+      </header>}
 
       <div
-        className={`catalog-layout${isSidebarVisible ? "" : " catalog-layout--sidebar-hidden"}`}
+        className={`catalog-layout${isSidebarVisible && !isExampleFocusMode ? "" : " catalog-layout--sidebar-hidden"}`}
         id="top"
       >
         <CatalogSidebar
@@ -371,7 +437,7 @@ function App() {
               theme={theme}
             />
           }
-          hidden={!isSidebarVisible}
+          hidden={!isSidebarVisible || isExampleFocusMode}
           onSelect={selectPage}
         />
 
@@ -425,6 +491,22 @@ function App() {
           {activePage === "article-page" && <ArticlePageCatalog />}
         </main>
       </div>
+
+      {activePageIsExample && (
+        <IconButton
+          aria-keyshortcuts="Shift+F"
+          aria-pressed={isExampleFocusMode}
+          className="example-focus-toggle"
+          icon={isExampleFocusMode ? <CornersInIcon /> : <CornersOutIcon />}
+          label={
+            isExampleFocusMode
+              ? "Lämna fullskärmsläge"
+              : "Visa exempelsidan i fullskärmsläge"
+          }
+          onClick={() => setIsExampleFocusMode((active) => !active)}
+          title={`${isExampleFocusMode ? "Lämna" : "Öppna"} fullskärmsläge (Shift+F)`}
+        />
+      )}
     </div>
   );
 }

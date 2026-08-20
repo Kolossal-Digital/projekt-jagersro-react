@@ -326,7 +326,7 @@ export const iconListMarkdownFields: MarkdownField[] = [
 ];
 
 export const imageSectionMarkdownFields: MarkdownField[] = [
-  ...baseFields("image").filter(({ field }) => field !== "background"),
+  ...baseFields("image | video").filter(({ field }) => field !== "background"),
   {
     field: "background",
     type: backgrounds,
@@ -369,8 +369,21 @@ export const imageSectionMarkdownFields: MarkdownField[] = [
   {
     field: "image",
     type: "registrerad bildnyckel",
-    required: "Ja",
-    description: "Exempel: aerial.",
+    required: "Villkorligt",
+    description: "Exempel: aerial. Används inte för type: video.",
+  },
+  {
+    field: "video",
+    type: "registrerad videonyckel",
+    required: "Villkorligt",
+    description: "Exempel: greenMotion. Videoposten innehåller src, tillgängligt namn och valfri poster/textningsfil.",
+  },
+  {
+    field: "playback",
+    type: "background | controls",
+    required: "Villkorligt",
+    description:
+      "background spelar automatiskt, loopar, är alltid mutad och saknar kontroller. controls startar pausad med synliga uppspelnings- och ljudkontroller.",
   },
   {
     field: "priority",
@@ -578,12 +591,6 @@ export const navbarMarkdownFields: MarkdownField[] = [
     type: "sträng",
     required: "Ja",
     description: "Sökåtgärdens synliga text.",
-  },
-  {
-    field: "searchAction.href",
-    type: "sträng",
-    required: "Ja",
-    description: "Ankare eller URL.",
   },
   {
     field: "primaryAction.label",

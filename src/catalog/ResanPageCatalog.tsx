@@ -1,7 +1,7 @@
 import jagersroWordmark from "../assets/jagersro-wordmark.svg";
 import { SiteFooter } from "../components/SiteFooter";
 import { SiteNavbar } from "../components/SiteNavbar";
-import { demoImages, demoTimelineItems } from "../content/demoContent";
+import { demoImages, demoTimelineItems, demoVideos } from "../content/demoContent";
 import { readLandingPageSections } from "../content/landingPageContent";
 import { readResanPageSections } from "../content/resanPageContent";
 import { exampleRoutes } from "../exampleRoutes";
@@ -28,6 +28,12 @@ function resolveImage(key: string) {
   return image;
 }
 
+function resolveVideo(key: string) {
+  const video = demoVideos[key as keyof typeof demoVideos];
+  if (!video) throw new Error(`Unknown Resan video: ${key}`);
+  return video;
+}
+
 function resolveTimelineItem(id: string) {
   const item = demoTimelineItems.find((candidate) => candidate.id === id);
   if (!item) throw new Error(`Unknown Resan timeline item: ${id}`);
@@ -45,7 +51,7 @@ export function ResanPageCatalog() {
 
   return (
     <div className="resan-page-demo" id="resan-page">
-      <div className="theme--dark">
+      <div className="site-navbar-shell theme--dark">
         <SiteNavbar
           background={navigation.background}
           brand={{ src: jagersroWordmark, alt: "Jägersro", href: exampleRoutes.landing }}
@@ -107,6 +113,24 @@ export function ResanPageCatalog() {
                 paddingBottom={section.paddingBottom}
                 paddingTop={section.paddingTop}
                 priority={section.priority}
+              />
+            )}
+
+            {section.type === "video" && (
+              <ImageSection
+                background={section.background}
+                backgroundBottom={section.backgroundBottom}
+                backgroundBottomTheme={section.backgroundBottomTheme}
+                backgroundTop={section.backgroundTop}
+                backgroundTopTheme={section.backgroundTopTheme}
+                caption={section.caption}
+                foreground={section.headingColor}
+                id={section.id}
+                layout={section.variant}
+                paddingBottom={section.paddingBottom}
+                paddingTop={section.paddingTop}
+                playback={section.playback}
+                video={resolveVideo(section.video)}
               />
             )}
 

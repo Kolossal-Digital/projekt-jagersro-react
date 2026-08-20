@@ -42,7 +42,7 @@ export function ArticlePageCatalog() {
 
   return (
     <div className="article-page-demo" id="article-page">
-      <div className="theme--light">
+      <div className="site-navbar-shell theme--light">
         <SiteNavbar
           background={navigation.background}
           brand={{ src: jagersroWordmark, alt: "Jägersro", href: exampleRoutes.landing }}
@@ -50,6 +50,8 @@ export function ArticlePageCatalog() {
           primaryAction={navigation.primaryAction}
           searchAction={navigation.searchAction}
         />
+      </div>
+      <div className="theme--light">
         <ArticlePage
           article={article}
           breadcrumbs={[

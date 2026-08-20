@@ -4,7 +4,7 @@ import resanPageMarkdown from "./resan-page.md?raw";
 
 export type ResanPageSection = Extract<
   LandingPageSection,
-  { type: "hero" | "feature" | "image" | "timeline" }
+  { type: "hero" | "feature" | "image" | "video" | "timeline" }
 >;
 
 /** Reads the ordered, serializable sections for the Resan example. */
@@ -17,10 +17,11 @@ export function readResanPageSections(): ResanPageSection[] {
         section.type !== "hero" &&
         section.type !== "feature" &&
         section.type !== "image" &&
+        section.type !== "video" &&
         section.type !== "timeline",
     )
   ) {
-    throw new Error("Resan page supports hero, feature, image and timeline sections.");
+    throw new Error("Resan page supports hero, feature, image, video and timeline sections.");
   }
 
   return sections as ResanPageSection[];

@@ -3,6 +3,7 @@ import { ListIcon } from "@phosphor-icons/react/dist/csr/List";
 import { MagnifyingGlassIcon } from "@phosphor-icons/react/dist/csr/MagnifyingGlass";
 import { XIcon } from "@phosphor-icons/react/dist/csr/X";
 import { Button, ButtonLink } from "./Button";
+import { SearchOverlay } from "./SearchOverlay";
 import type { BackgroundName, ForegroundName } from "../tokens";
 
 export type NavbarLink = {
@@ -16,6 +17,10 @@ export type NavbarAction = {
   href: string;
 };
 
+export type NavbarSearchAction = {
+  label: string;
+};
+
 export type NavbarBrand = {
   src: string;
   alt: string;
@@ -25,7 +30,7 @@ export type NavbarBrand = {
 export type SiteNavbarProps = {
   brand: NavbarBrand;
   links: NavbarLink[];
-  searchAction: NavbarAction;
+  searchAction: NavbarSearchAction;
   primaryAction?: NavbarAction;
   background?: BackgroundName;
   foreground?: ForegroundName;
@@ -41,6 +46,7 @@ export function SiteNavbar({
   foreground = "text-primary",
 }: SiteNavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const menuId = useId();
   const toggleId = useId();
 
@@ -56,6 +62,18 @@ export function SiteNavbar({
     window.addEventListener("keydown", closeOnEscape);
     return () => window.removeEventListener("keydown", closeOnEscape);
   }, [isMenuOpen, toggleId]);
+
+  useEffect(() => {
+    function openSearchFromKeyboard(event: KeyboardEvent) {
+      if (event.key.toLowerCase() !== "k" || (!event.metaKey && !event.ctrlKey)) return;
+      event.preventDefault();
+      setIsMenuOpen(false);
+      setIsSearchOpen(true);
+    }
+
+    window.addEventListener("keydown", openSearchFromKeyboard);
+    return () => window.removeEventListener("keydown", openSearchFromKeyboard);
+  }, []);
 
   function closeMenu() {
     setIsMenuOpen(false);
@@ -95,14 +113,15 @@ export function SiteNavbar({
           </ul>
 
           <div className="site-navbar__desktop-action">
-            <ButtonLink
-              href={searchAction.href}
+            <Button
+              aria-keyshortcuts="Control+K Meta+K"
               leftIcon={<MagnifyingGlassIcon weight="regular" />}
+              onClick={() => setIsSearchOpen(true)}
               size="medium"
               variant="secondary"
             >
               {searchAction.label}
-            </ButtonLink>
+            </Button>
           </div>
 
           <Button
@@ -143,15 +162,18 @@ export function SiteNavbar({
           </ul>
 
           <div className="site-navbar__mobile-actions">
-            <ButtonLink
-              href={searchAction.href}
+            <Button
+              aria-keyshortcuts="Control+K Meta+K"
               leftIcon={<MagnifyingGlassIcon weight="regular" />}
-              onClick={closeMenu}
+              onClick={() => {
+                closeMenu();
+                setIsSearchOpen(true);
+              }}
               size="medium"
               variant="secondary"
             >
               {searchAction.label}
-            </ButtonLink>
+            </Button>
             {primaryAction && (
               <ButtonLink
                 href={primaryAction.href}
@@ -165,6 +187,10 @@ export function SiteNavbar({
           </div>
         </div>
       </nav>
+      <SearchOverlay
+        onClose={() => setIsSearchOpen(false)}
+        open={isSearchOpen}
+      />
     </header>
   );
 }

@@ -38,7 +38,7 @@ export function AktuelltPageCatalog() {
 
   return (
     <div className="aktuellt-page-demo" id="aktuellt-page">
-      <div className={`theme--${page.theme}`}>
+      <div className={`site-navbar-shell theme--${page.theme}`}>
         <SiteNavbar
           background={navigation.background}
           brand={{ src: jagersroWordmark, alt: "Jägersro", href: exampleRoutes.landing }}
@@ -47,7 +47,9 @@ export function AktuelltPageCatalog() {
           primaryAction={navigation.primaryAction}
           searchAction={navigation.searchAction}
         />
+      </div>
 
+      <div className={`theme--${page.theme}`}>
         <main>
           <HeroSection
             background={page.hero.background}

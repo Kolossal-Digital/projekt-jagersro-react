@@ -1,5 +1,9 @@
 import { parse } from "yaml";
-import type { NavbarAction, NavbarLink } from "../components/SiteNavbar";
+import type {
+  NavbarAction,
+  NavbarLink,
+  NavbarSearchAction,
+} from "../components/SiteNavbar";
 import type { FooterLink, FooterNewsletter } from "../components/SiteFooter";
 import type { ArticleSummary } from "../components/ArticleCard";
 import type { BackgroundName, ForegroundName } from "../tokens";
@@ -17,6 +21,7 @@ import type { ImageGalleryItem } from "../patterns/ImageGallery";
 import type {
   ImageSectionCaption,
   ImageSectionLayout,
+  VideoPlaybackMode,
 } from "../patterns/ImageSection";
 import type { TimelineItem } from "../patterns/TimelineSection";
 import type { SectionPaddingSize } from "../patterns/sectionSpacing";
@@ -39,7 +44,7 @@ export type LandingPageSection =
   | (SectionBase & {
       type: "navbar";
       links: NavbarLink[];
-      searchAction: NavbarAction;
+      searchAction: NavbarSearchAction;
       primaryAction?: NavbarAction;
     })
   | (SectionBase & {
@@ -61,6 +66,17 @@ export type LandingPageSection =
       /** @deprecated Use variant in Markdown/CMS content. */
       layout?: ImageSectionLayout;
       priority?: boolean;
+    })
+  | (SectionBase & {
+      type: "video";
+      video: string;
+      playback: VideoPlaybackMode;
+      backgroundTop?: BackgroundName;
+      backgroundBottom?: BackgroundName;
+      backgroundTopTheme?: Theme;
+      backgroundBottomTheme?: Theme;
+      caption?: ImageSectionCaption;
+      variant?: ImageSectionLayout;
     })
   | (SectionBase & {
       type: "feature";

@@ -4,7 +4,7 @@ import platsenPageMarkdown from "./platsen-page.md?raw";
 
 export type PlatsenPageSection = Extract<
   LandingPageSection,
-  { type: "hero" | "feature" | "image" }
+  { type: "hero" | "feature" | "image" | "video" }
 >;
 
 /** Reads the ordered, serializable sections for the Platsen example. */
@@ -16,10 +16,11 @@ export function readPlatsenPageSections(): PlatsenPageSection[] {
       (section) =>
         section.type !== "hero" &&
         section.type !== "feature" &&
-        section.type !== "image",
+        section.type !== "image" &&
+        section.type !== "video",
     )
   ) {
-    throw new Error("Platsen page supports hero, feature and image sections.");
+    throw new Error("Platsen page supports hero, feature, image and video sections.");
   }
 
   return sections as PlatsenPageSection[];

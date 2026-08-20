@@ -6,7 +6,9 @@ import {
   ImageSection,
   type ImageSectionCaption,
   type ImageSectionLayout,
+  type VideoPlaybackMode,
 } from "../patterns/ImageSection";
+import { demoVideos } from "../content/demoContent";
 import type { BackgroundName, ForegroundName } from "../tokens";
 import { SectionMarkdownDocs } from "./SectionMarkdownDocs";
 import { imageSectionMarkdownFields } from "./sectionMarkdownFields";
@@ -24,11 +26,19 @@ const caption: ImageSectionCaption = {
     "Flygbilden visar Jägersro travbana och de omgivande kvarteren före omvandlingen. Den dokumenterar platsens skala, grönska och tydliga spår av travets historia – ett landskap som steg för steg får nya användningar och berättelser.",
 };
 
+const videoCaption: ImageSectionCaption = {
+  label: "Video 1",
+  description:
+    "Ett kontrollerat videoklipp startar pausat och låter besökaren styra uppspelning, paus och ljud med webbläsarens inbyggda kontroller.",
+};
+
 type Specimen = {
   id: string;
   label: string;
   layout: ImageSectionLayout;
   caption?: ImageSectionCaption;
+  media?: "image" | "video";
+  playback?: VideoPlaybackMode;
 };
 
 const specimens: Specimen[] = [
@@ -44,6 +54,28 @@ const specimens: Specimen[] = [
     id: "image-full-width-scroll",
     label: "Full width / scroll",
     layout: "full-width-scroll",
+  },
+  {
+    id: "video-background",
+    label: "Video / background loop",
+    layout: "full-width",
+    media: "video",
+    playback: "background",
+  },
+  {
+    id: "video-background-scroll",
+    label: "Video / background loop / scroll",
+    layout: "full-width-scroll",
+    media: "video",
+    playback: "background",
+  },
+  {
+    id: "video-controls",
+    label: "Video / controls",
+    layout: "grid",
+    media: "video",
+    playback: "controls",
+    caption: videoCaption,
   },
 ];
 
@@ -84,6 +116,7 @@ export function ImageSectionCatalog() {
               <h2 className="type-fluid-heading-04">{specimen.label}</h2>
               <code className="type-code-01">
                 layout=&quot;{specimen.layout}&quot;
+                {specimen.media === "video" ? ` · playback="${specimen.playback}"` : ""}
                 {specimen.caption ? " · caption" : ""}
               </code>
             </div>
@@ -105,19 +138,31 @@ export function ImageSectionCatalog() {
             </div>
           </header>
 
-          <ImageSection
-            backgroundBottom={bottomBackgrounds[specimen.id]}
-            backgroundTop={topBackgrounds[specimen.id]}
-            foreground={foregrounds[specimen.id]}
-            caption={specimen.caption}
-            image={image}
-            layout={specimen.layout}
-          />
+          {specimen.media === "video" ? (
+            <ImageSection
+              backgroundBottom={bottomBackgrounds[specimen.id]}
+              backgroundTop={topBackgrounds[specimen.id]}
+              foreground={foregrounds[specimen.id]}
+              caption={specimen.caption}
+              layout={specimen.layout}
+              playback={specimen.playback ?? "controls"}
+              video={demoVideos.greenMotion}
+            />
+          ) : (
+            <ImageSection
+              backgroundBottom={bottomBackgrounds[specimen.id]}
+              backgroundTop={topBackgrounds[specimen.id]}
+              foreground={foregrounds[specimen.id]}
+              caption={specimen.caption}
+              image={image}
+              layout={specimen.layout}
+            />
+          )}
         </article>
       ))}
       <SectionMarkdownDocs
         fields={imageSectionMarkdownFields}
-        sectionName="Image section"
+        sectionName="Image / video section"
       />
     </div>
   );

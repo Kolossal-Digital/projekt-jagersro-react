@@ -28,7 +28,7 @@ export function NavbarCatalog() {
             <p className="type-code-01">pattern / navigation</p>
             <h2 className="type-fluid-heading-04">Navbar</h2>
             <code className="type-code-01">
-              responsive=&quot;automatic&quot; · current=&quot;Aktuellt&quot;
+              responsive=&quot;automatic&quot; · current=&quot;Aktuellt&quot; · sticky · search=&quot;site-wide&quot;
             </code>
           </div>
           <div className="pattern-specimen__controls">
@@ -37,18 +37,20 @@ export function NavbarCatalog() {
           </div>
         </header>
 
-        <SiteNavbar
-          background={background}
-          foreground={foreground}
-          brand={{
-            src: jagersroWordmark,
-            alt: "Jägersro",
-            href: "#navbar",
-          }}
-          links={navbarLinks}
-          primaryAction={{ label: "Kontakta oss", href: "#navbar" }}
-          searchAction={{ label: "Sök", href: "#navbar" }}
-        />
+        <div className="site-navbar-shell">
+          <SiteNavbar
+            background={background}
+            foreground={foreground}
+            brand={{
+              src: jagersroWordmark,
+              alt: "Jägersro",
+              href: "#navbar",
+            }}
+            links={navbarLinks}
+            primaryAction={{ label: "Kontakta oss", href: "#navbar" }}
+            searchAction={{ label: "Sök" }}
+          />
+        </div>
       </article>
       <SectionMarkdownDocs
         fields={navbarMarkdownFields}

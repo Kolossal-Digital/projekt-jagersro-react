@@ -425,6 +425,8 @@ Katalogens egen innehållspresentation följer samma gridkontrakt som produkten:
 
 Katalogens `Examples` kombinerar färdiga komponenter och patterns till representativa sidor. Exempel får variera Light och Dark lokalt per sektion genom att sätta temats scope runt sektionen och därefter välja en av de fyra godkända bakgrundstokensen. De ska använda samma publika och CMS-vänliga kontrakt som en framtida produktionssida, inte kopiera komponenternas interna markup.
 
+Alla exempelsidor har ett kataloginternt fullskärmsläge för ostörd granskning. Läget döljer designsystemets toolbar och sidebar och låter exempelsidan använda hela viewportbredden, men aktiverar inte webbläsarens Fullscreen API. En halvtransparent, cirkulär kontroll ligger kvar i nedre högra hörnet för att växla läget. `Shift+F` växlar och `Escape` lämnar läget; tangentkommandot ska ignoreras när användaren skriver i ett formulärfält. Valet bevaras vid navigation mellan exempelsidor under samma webbläsarsession.
+
 Designsystemets verifieringskatalog är en del av implementationens kvalitetsgrind. Ändringar av foundations, tokens, komponenter, varianter, states, responsivt beteende, sektionskontrakt eller sammansatta exempel ska uppdatera motsvarande vy under `Foundations`, `Components`, `Sections` eller `Examples` i samma ändring. Föråldrade exempel och avslutade migrationslägen ska tas bort direkt.
 
 Landing page och Article page är isolerade sidexempel. Deras lokala `theme--light`- och `theme--dark`-scope har företräde framför designkatalogens globala testtema. Katalogens Light/Dark-toggle får därför inte ändra navbar, breadcrumb, artikelmetadata eller andra element inuti dessa exempel. Temaanknutna bildvarianter, inklusive monokrom logotyp, ska styras av en ärvd variabel från närmaste temascope och inte av en bred descendant-selector som kan träffa genom ett nästlat scope.
@@ -652,11 +654,13 @@ Sektionen följer Sidgrid för rubrik och listans yttre kanter. Den interna list
 
 Den återanvändbara `Image`-komponenten renderar CMS-bilder med obligatoriskt definierad alternativtext, valfria intrinsiska dimensioner, `cover` eller `contain`, responsiva `sizes` och lazy loading som standard. Sätt `priority` endast för bilder som verkligen ligger i sidans första synliga vy. Bildens layout, proportion och beskärningsyta ägs av den omgivande komponenten, inte av `Image`.
 
-`ImageSection` visar dokumentära och dekorativa bilder i tre layoutlägen. React-komponenten använder `layout="grid" | "full-width" | "full-width-scroll"`, medan serialiserbara Markdown-/CMS-poster använder det redaktionella fältet `variant` med samma värden; mappningslagret översätter `variant` till `layout`. `grid` följer hela den gemensamma sidgriden upp till 1792 px bildbredd, medan `full-width` låter bilden gå kant till kant utan yttre spacing. Båda använder proportionen 1792:813 och `object-fit: cover`, så redaktionen måste välja material som tål den breda beskärningen.
+`ImageSection` visar dokumentära och dekorativa bilder eller video i tre layoutlägen. React-komponenten använder `layout="grid" | "full-width" | "full-width-scroll"`, medan serialiserbara Markdown-/CMS-poster använder det redaktionella fältet `variant` med samma värden; mappningslagret översätter `variant` till `layout`. `grid` följer hela den gemensamma sidgriden upp till 1792 px mediebredd, medan `full-width` låter mediet gå kant till kant utan yttre spacing. Båda använder proportionen 1792:813 och `object-fit: cover`, så redaktionen måste välja material som tål den breda beskärningen.
 
 Alla tre layoutlägen har två plana semantiska bakgrundsytor: `backgroundTop` täcker den övre tredjedelen och `backgroundBottom` de undre två tredjedelarna. Samma token i båda fälten ger en enfärgad sektion. Fälten får valfria, oberoende `backgroundTopTheme` och `backgroundBottomTheme` när en bild ska överbrygga två lokala temalägen, exempelvis mörk introduktion ovanför och ljus innehållsyta nedanför. Implementera brytningen som två ytor, aldrig som en färggradient. Det äldre `background` stöds som enfärgad fallback för befintligt innehåll men nya Image Section-poster ska ange båda ytorna explicit.
 
-`full-width-scroll` är ett dekorativt fullbreddsläge med en responsiv beskärningsyta på högst 800 px. Bilden renderas med 20 procent vertikal överhöjd och panoreras långsamt genom beskärningen medan sektionen passerar viewporten. Rörelsen är kopplad direkt till scrollpositionen och stängs av vid `prefers-reduced-motion`; då visas en statisk `cover`-beskärning utan överhöjd. Rent dekorativa bilder ska ha tom alternativtext i bildbanken, medan informationsbärande motiv behåller en meningsfull alternativtext.
+`full-width-scroll` är ett dekorativt fullbreddsläge med en responsiv beskärningsyta på högst 800 px. Mediet renderas med 20 procent vertikal överhöjd och panoreras långsamt genom beskärningen medan sektionen passerar viewporten. Rörelsen är kopplad direkt till scrollpositionen och stängs av vid `prefers-reduced-motion`; då visas en statisk `cover`-beskärning utan överhöjd. Rent dekorativa bilder ska ha tom alternativtext i bildbanken, medan informationsbärande motiv behåller en meningsfull alternativtext.
+
+Video använder samma layout-, bakgrunds-, tema-, spacing- och captionkontrakt. `playback: background` är endast för dekorativt rörligt material: videon spelar automatiskt, loopar, är permanent mutad, saknar kontroller och tas ur tangentbordsordningen. Bakgrundsvideo finns både som vanlig `full-width` och som `full-width-scroll`; scrollvarianten använder samma högst 800 px höga beskärningsyta, 20 procents överhöjd och vertikala scroll-pan som bildvarianten. Vid `prefers-reduced-motion` pausas videon, scroll-pan tas bort och dess posterbild ligger kvar. `playback: controls` startar pausad och omutad med webbläsarens inbyggda kontroller för uppspelning, paus och ljud. Informationsbärande tal eller ljud kräver en textningsfil i videobanken; varje kontrollerad video måste dessutom ha ett tillgängligt namn och bör ha en posterbild.
 
 Gridläget har 64 px vertikal spacing på Small, 80 px på Medium, skalar mellan 80 och 112 px genom Large och använder 120 px på Max. En valfri `caption` innehåller en kort etikett och en beskrivning. På Small staplas de med 16 px mellanrum; från Medium ligger de på samma rad och beskrivningen har högst 733 px läsbredd. Etiketten använder `label-03` och beskrivningen `label-02`. Markdown-/CMS-kontraktet består av en registrerad `image`-nyckel, `variant` och valfri `caption`; bildbanken ansvarar för `src`, `alt` och om möjligt `width` och `height`. Rent dekorativa bilder använder uttryckligen tom alternativtext i bildbanken.
 
@@ -665,7 +669,7 @@ Gridläget har 64 px vertikal spacing på Small, 80 px på Medium, skalar mellan
 | Fält | Typ eller tillåtna värden | Krav | Standard och användning |
 | --- | --- | --- | --- |
 | `key` | unik sträng | Ja | Stabil nyckel för sektionen. |
-| `type` | `image` | Ja | Väljer Image Section-renderaren. |
+| `type` | `image` \| `video` | Ja | Väljer bild- eller videomedium i samma Section-renderare. |
 | `theme` | `light` \| `dark` | Ja | Sätter lokalt temaläge. |
 | `background` | `background` \| `background-accent-01` \| `background-accent-02` \| `background-accent-03` | Ja | Bakåtkompatibel enfärgad fallback om någon av de två ytorna saknas. |
 | `backgroundTop` | tillåten bakgrundstoken | Nej | Övre tredjedelens yta. Faller tillbaka till `background`. |
@@ -675,10 +679,12 @@ Gridläget har 64 px vertikal spacing på Small, 80 px på Medium, skalar mellan
 | `id` | sträng | Nej | Ankarmål utan `#`. |
 | `paddingTop` | `large` \| `medium` \| `small` | Nej | `large`. Fullbreddsvarianten visar ingen yttre padding. |
 | `paddingBottom` | `large` \| `medium` \| `small` | Nej | `large`. Fullbreddsvarianten visar ingen yttre padding. |
-| `variant` | `grid` \| `full-width` \| `full-width-scroll` | Nej | `grid`. `full-width-scroll` beskär bilden till högst 800 px och panorerar den vertikalt vid scroll. Detta är det redaktionella Markdownfältet; använd inte det äldre `layout`. |
-| `image` | registrerad bildnyckel | Ja | Måste finnas i den delade bildbanken, exempelvis `aerial`. |
+| `variant` | `grid` \| `full-width` \| `full-width-scroll` | Nej | `grid`. `full-width-scroll` beskär mediet till högst 800 px och panorerar det vertikalt vid scroll. Detta är det redaktionella Markdownfältet; använd inte det äldre `layout`. |
+| `image` | registrerad bildnyckel | Om `type: image` | Måste finnas i den delade bildbanken, exempelvis `aerial`. |
+| `video` | registrerad videonyckel | Om `type: video` | Måste finnas i videobanken. Banken äger `src`, tillgängligt namn och valfri poster/textningsfil. |
+| `playback` | `background` \| `controls` | Om `type: video` | `background` är autoplay, loopad, mutad och kontrollös. `controls` startar pausad och omutad med uppspelnings- och ljudkontroller. |
 | `priority` | boolean | Nej | `false`. Sätt endast `true` för en bild i första synliga vyn. |
-| `caption` | objekt | Nej | Valfri bildtext. |
+| `caption` | objekt | Nej | Valfri bild- eller videotext. |
 | `caption.label` | sträng | Ja, om `caption` finns | Kort etikett. |
 | `caption.description` | sträng | Ja, om `caption` finns | Beskrivande bildtext. |
 
@@ -823,7 +829,9 @@ Händelserna implementeras som tabs med en tillhörande tabpanel. Klick, föreg�
 
 `SiteNavbar` är den primära webbplatsnavigationen och tar serialiserbara site settings: `brand`, `links`, `searchAction` och en valfri `primaryAction`. Logotypen använder den godkända exporterade SVG-tillgången och får inte återskapas som text. Länkar och handlingar återanvänder Button-komponentens visuella varianter; sök-, meny- och stängikoner kommer från Phosphor Icons.
 
-Navbarens stängda rad har 24 px vertikal padding och en beräknad minsta höjd på 82 px i samtliga breakpoints. Den följer den gemensamma sidgriden. På Large och Max ligger logotypen från gridens första kolumn, huvudlänkarna centreras över kolumn 4–9 och sökknappen förankras i kolumn 11–12. På Small och Medium ersätts länkarna av en sekundär menyknapp med synlig etikett och Phosphor-ikon. Menyknappen använder `aria-expanded` och `aria-controls`, menyn stängs med Escape eller när en destination väljs och är stängd som standard.
+Sökåtgärden öppnar en kompakt panel från viewportens överkant över webbplatsens sidor, artiklar och redaktionella avsnitt. Sidan ligger kvar synlig med dimning och blur bakom panelen; söket har ingen separat resultatsida. Samma panel öppnas med `Cmd+K` på macOS och `Ctrl+K` på övriga plattformar. Frågan ger prefixmatchning, försiktig fuzzy-matchning för längre ord och viktar rubriker högre än brödtext. Panelen växer med träfflistan och får använda hela viewportens höjd; när innehållet inte längre ryms scrollar hela panelen native så att sökfält, typfilter och resultat följer samma flöde, frikopplat från katalogskalets Lenis-scroll. Headern har ingen nedre avdelare. Typfiltren `Alla`, `Sida`, `Artikel` och `Avsnitt` visar antal träffar, använder `aria-pressed` och filtrerar den befintliga träffmängden utan en ny sökning eller sidladdning. Resultatrubriker använder den definierade `fluid-heading-03`, beskrivningar och vägledande tomlägestexter `body-01`, metadata `code-01`; vägledning återges med `text-secondary`. Upp-/nedpil flyttar fokus mellan sökfält, filter, träffar och stängknapp, medan Escape stänger dialogen. Webbläsarens inbyggda rensningskontroll döljs för att aldrig konkurrera med panelens enda synliga stängknapp. Tom fråga, inga träffar, tom vald typ och markerade sökord har uttryckliga visuella lägen.
+
+Navbarens stängda rad har 24 px vertikal padding och en beräknad minsta höjd på 82 px i samtliga breakpoints. Den är sticky under designsystemets toolbar och fäster vid viewportens överkant i exempelsidornas fullskärmsläge. Bakgrundstoken återges med 86 procent opacitet, 30 px backdrop-blur och en diskret nedre avdelare; en öppen mobilmeny höjer bakgrundens täthet till 96 procent. Den följer den gemensamma sidgriden. På Large och Max ligger logotypen från gridens första kolumn, huvudlänkarna centreras över kolumn 4–9 och sökknappen förankras i kolumn 11–12. På Small och Medium ersätts länkarna av en sekundär menyknapp med synlig etikett och Phosphor-ikon. Menyknappen använder `aria-expanded` och `aria-controls`, menyn stängs med Escape eller när en destination väljs och är stängd som standard.
 
 På alla undersidor ska exakt en huvudlänk ha `current: true`, vilket renderar `aria-current="page"` och en synlig markerad yta med ram. Artikelsidor hör till Aktuellt och markerar därför Aktuellt. Landing page är navets överordnade startsida och lämnar alla huvudlänkar omarkerade. Markeringen måste fungera i både desktopnavigationen och den öppna mobilmenyn och får inte förlita sig enbart på färg.
 
@@ -845,7 +853,6 @@ Figma visar generiska knappetiketter längst ned i Mobile-menyn. Produktimplemen
 | `links[].current` | boolean | Nej | `false`. Sätter `aria-current="page"`; högst en länk ska vara aktuell. |
 | `searchAction` | objekt | Ja | Sökåtgärden i desktop- och mobilnavigationen. |
 | `searchAction.label` | sträng | Ja | Synlig knapptext. |
-| `searchAction.href` | sträng | Ja | Ankare eller URL. |
 | `primaryAction` | objekt | Nej | Extra primär handling i den öppna mobilmenyn. |
 | `primaryAction.label` | sträng | Ja, om objektet finns | Synlig knapptext. |
 | `primaryAction.href` | sträng | Ja, om objektet finns | Ankare eller URL. |

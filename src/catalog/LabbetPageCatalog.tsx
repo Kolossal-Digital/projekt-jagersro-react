@@ -38,7 +38,7 @@ export function LabbetPageCatalog() {
 
   return (
     <div className="labbet-page-demo" id="labbet-page">
-      <div className="theme--dark">
+      <div className="site-navbar-shell theme--dark">
         <SiteNavbar
           background={navigation.background}
           brand={{ src: jagersroWordmark, alt: "Jägersro", href: exampleRoutes.landing }}

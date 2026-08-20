@@ -6,6 +6,7 @@ import {
   demoImages,
   demoLatestArticles,
   demoTimelineItems,
+  demoVideos,
 } from "../content/demoContent";
 import {
   readLandingPageSections,
@@ -28,6 +29,12 @@ function resolveImage(key: string) {
   const image = demoImages[key as keyof typeof demoImages];
   if (!image) throw new Error(`Unknown demo image: ${key}`);
   return image;
+}
+
+function resolveVideo(key: string) {
+  const video = demoVideos[key as keyof typeof demoVideos];
+  if (!video) throw new Error(`Unknown demo video: ${key}`);
+  return video;
 }
 
 function resolveGalleryItem(id: string) {
@@ -98,6 +105,25 @@ function renderSection(section: LandingPageSection) {
           paddingBottom={section.paddingBottom}
           paddingTop={section.paddingTop}
           priority={section.priority}
+        />
+      );
+
+    case "video":
+      return (
+        <ImageSection
+          background={section.background}
+          backgroundBottom={section.backgroundBottom}
+          backgroundBottomTheme={section.backgroundBottomTheme}
+          backgroundTop={section.backgroundTop}
+          backgroundTopTheme={section.backgroundTopTheme}
+          foreground={section.headingColor}
+          caption={section.caption}
+          id={section.id}
+          layout={section.variant}
+          paddingBottom={section.paddingBottom}
+          paddingTop={section.paddingTop}
+          playback={section.playback}
+          video={resolveVideo(section.video)}
         />
       );
 
@@ -235,7 +261,7 @@ export function LandingPageCatalog() {
     <div className="landing-page-demo" id="landing-page">
       {sections.map((section) => (
         <div
-          className={`theme--${section.theme}`}
+          className={`theme--${section.theme}${section.type === "navbar" ? " site-navbar-shell" : ""}`}
           id={section.type === "footer" ? section.id : undefined}
           key={section.key}
         >

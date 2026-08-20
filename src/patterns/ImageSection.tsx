@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -16,9 +16,17 @@ export type ImageSectionCaption = {
   description: string;
 };
 
-export type ImageSectionProps = SectionSpacingProps & {
+export type VideoAsset = {
+  src: string;
+  label: string;
+  poster?: string;
+  captions?: string;
+};
+
+export type VideoPlaybackMode = "background" | "controls";
+
+type ImageSectionSharedProps = SectionSpacingProps & {
   id?: string;
-  image: ImageAsset;
   /** @deprecated Use backgroundTop and backgroundBottom for new content. */
   background?: BackgroundName;
   backgroundTop?: BackgroundName;
@@ -31,10 +39,17 @@ export type ImageSectionProps = SectionSpacingProps & {
   priority?: boolean;
 };
 
-/** Grid-aligned or full-width documentary image section prepared for CMS data. */
+export type ImageSectionProps = ImageSectionSharedProps & (
+  | { image: ImageAsset; video?: never; playback?: never }
+  | { image?: never; video: VideoAsset; playback: VideoPlaybackMode }
+);
+
+/** Grid-aligned or full-width image/video section prepared for CMS data. */
 export function ImageSection({
   id,
   image,
+  video,
+  playback,
   background = "background",
   backgroundTop,
   backgroundBottom,
@@ -48,7 +63,9 @@ export function ImageSection({
   paddingBottom,
 }: ImageSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const isScrollVariant = layout === "full-width-scroll";
+  const isBackgroundVideo = Boolean(video && playback === "background");
   const resolvedBackgroundTop = backgroundTop ?? background;
   const resolvedBackgroundBottom = backgroundBottom ?? background;
 
@@ -60,7 +77,7 @@ export function ImageSection({
 
       media.add("(prefers-reduced-motion: no-preference)", () => {
         gsap.fromTo(
-          ".image-section__media .image",
+          ".image-section__media-element",
           { yPercent: 0 },
           {
             yPercent: -16.667,
@@ -79,6 +96,24 @@ export function ImageSection({
     },
     { scope: sectionRef, dependencies: [isScrollVariant] },
   );
+
+  useEffect(() => {
+    const element = videoRef.current;
+    if (!element || !isBackgroundVideo) return;
+
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const syncPlayback = () => {
+      if (reducedMotion.matches) {
+        element.pause();
+      } else {
+        void element.play().catch(() => undefined);
+      }
+    };
+
+    syncPlayback();
+    reducedMotion.addEventListener("change", syncPlayback);
+    return () => reducedMotion.removeEventListener("change", syncPlayback);
+  }, [isBackgroundVideo, video?.src]);
 
   const classes = [
     "image-section",
@@ -101,16 +136,46 @@ export function ImageSection({
         className={`image-section__container${layout === "grid" ? " page-grid" : ""}`}
       >
         <div className="image-section__media">
-          <Image
-            asset={image}
-            fit="cover"
-            priority={priority}
-            sizes={
-              layout !== "grid"
-                ? "100vw"
-                : "(min-width: 1920px) 1792px, (min-width: 1200px) calc(100vw - 128px), (min-width: 768px) calc(100vw - 136px), calc(100vw - 32px)"
-            }
-          />
+          {image ? (
+            <div className="image-section__media-element">
+              <Image
+                asset={image}
+                fit="cover"
+                priority={priority}
+                sizes={
+                  layout !== "grid"
+                    ? "100vw"
+                    : "(min-width: 1920px) 1792px, (min-width: 1200px) calc(100vw - 128px), (min-width: 768px) calc(100vw - 136px), calc(100vw - 32px)"
+                }
+              />
+            </div>
+          ) : (
+            <video
+              aria-hidden={isBackgroundVideo ? "true" : undefined}
+              aria-label={isBackgroundVideo ? undefined : video.label}
+              autoPlay={isBackgroundVideo}
+              className="image-section__media-element image-section__video"
+              controls={playback === "controls"}
+              loop={isBackgroundVideo}
+              muted={isBackgroundVideo}
+              playsInline
+              poster={video.poster}
+              preload={isBackgroundVideo ? "auto" : "metadata"}
+              ref={videoRef}
+              src={video.src}
+              tabIndex={isBackgroundVideo ? -1 : undefined}
+            >
+              {video.captions && (
+                <track
+                  default
+                  kind="captions"
+                  label="Svenska"
+                  src={video.captions}
+                  srcLang="sv"
+                />
+              )}
+            </video>
+          )}
         </div>
 
         {caption && (

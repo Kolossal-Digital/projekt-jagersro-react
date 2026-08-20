@@ -8,6 +8,7 @@ export type FramtidenPageSection = Extract<
     type:
       | "hero"
       | "image"
+      | "video"
       | "feature"
       | "image-gallery"
       | "icon-list"
@@ -21,6 +22,7 @@ export function readFramtidenPageSections(): FramtidenPageSection[] {
   const supportedTypes = new Set([
     "hero",
     "image",
+    "video",
     "feature",
     "image-gallery",
     "icon-list",
@@ -29,7 +31,7 @@ export function readFramtidenPageSections(): FramtidenPageSection[] {
 
   if (sections.some((section) => !supportedTypes.has(section.type))) {
     throw new Error(
-      "Framtiden page supports hero, image, feature, image-gallery, icon-list and carousel sections.",
+      "Framtiden page supports hero, image, video, feature, image-gallery, icon-list and carousel sections.",
     );
   }
 

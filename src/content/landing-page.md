@@ -7,7 +7,7 @@ serialiserbara CMS-data. Bildfält använder nycklar från den lokala bildbanken
 ```yaml
 key: navigation
 type: navbar
-theme: light
+theme: dark
 background: background
 links:
   - { label: Aktuellt, href: "/aktuellt/" }
@@ -15,7 +15,7 @@ links:
   - { label: Platsen, href: "/platsen/" }
   - { label: Resan, href: "/resan/" }
   - { label: Framtiden, href: "/framtiden/" }
-searchAction: { label: Sök, href: "#landing-page" }
+searchAction: { label: Sök }
 primaryAction: { label: Kontakta oss, href: "#kontakt" }
 ```
 
@@ -24,7 +24,7 @@ primaryAction: { label: Kontakta oss, href: "#kontakt" }
 key: intro
 type: hero
 theme: light
-background: background-accent-01
+background: background
 headingColor: text-accent-01
 variant: split
 content:
@@ -35,16 +35,18 @@ content:
     - { label: Lär känna platsen, href: "#platsen", variant: outline }
 ```
 
-## Flygbild
+
+## Rörlig platsbild
 ```yaml
-key: aerial
-type: image
+key: landing-video-loop
+type: video
 theme: light
 background: background-accent-02
 backgroundTop: background-accent-02
 backgroundBottom: background-accent-02
 variant: full-width-scroll
-image: aerial
+video: greenMotion
+playback: background
 priority: true
 ```
 

@@ -1,7 +1,7 @@
 import jagersroWordmark from "../assets/jagersro-wordmark.svg";
 import { SiteFooter } from "../components/SiteFooter";
 import { SiteNavbar } from "../components/SiteNavbar";
-import { demoGalleryItems, demoImages } from "../content/demoContent";
+import { demoGalleryItems, demoImages, demoVideos } from "../content/demoContent";
 import { readFramtidenPageSections } from "../content/framtidenPageContent";
 import { readLandingPageSections } from "../content/landingPageContent";
 import { exampleRoutes } from "../exampleRoutes";
@@ -30,6 +30,12 @@ function resolveImage(key: string) {
   return image;
 }
 
+function resolveVideo(key: string) {
+  const video = demoVideos[key as keyof typeof demoVideos];
+  if (!video) throw new Error(`Unknown Framtiden video: ${key}`);
+  return video;
+}
+
 function resolveGalleryItem(id: string) {
   const item = demoGalleryItems.find((candidate) => candidate.id === id);
   if (!item) throw new Error(`Unknown Framtiden gallery item: ${id}`);
@@ -47,7 +53,7 @@ export function FramtidenPageCatalog() {
 
   return (
     <div className="framtiden-page-demo" id="framtiden-page">
-      <div className="theme--dark">
+      <div className="site-navbar-shell theme--dark">
         <SiteNavbar
           background={navigation.background}
           brand={{ src: jagersroWordmark, alt: "Jägersro", href: exampleRoutes.landing }}
@@ -91,6 +97,24 @@ export function FramtidenPageCatalog() {
                 paddingBottom={section.paddingBottom}
                 paddingTop={section.paddingTop}
                 priority={section.priority}
+              />
+            )}
+
+            {section.type === "video" && (
+              <ImageSection
+                background={section.background}
+                backgroundBottom={section.backgroundBottom}
+                backgroundBottomTheme={section.backgroundBottomTheme}
+                backgroundTop={section.backgroundTop}
+                backgroundTopTheme={section.backgroundTopTheme}
+                caption={section.caption}
+                foreground={section.headingColor}
+                id={section.id}
+                layout={section.variant}
+                paddingBottom={section.paddingBottom}
+                paddingTop={section.paddingTop}
+                playback={section.playback}
+                video={resolveVideo(section.video)}
               />
             )}
 

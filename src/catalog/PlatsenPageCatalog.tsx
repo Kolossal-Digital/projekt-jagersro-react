@@ -1,7 +1,7 @@
 import jagersroWordmark from "../assets/jagersro-wordmark.svg";
 import { SiteFooter } from "../components/SiteFooter";
 import { SiteNavbar } from "../components/SiteNavbar";
-import { demoImages } from "../content/demoContent";
+import { demoImages, demoVideos } from "../content/demoContent";
 import { readLandingPageSections } from "../content/landingPageContent";
 import { readPlatsenPageSections } from "../content/platsenPageContent";
 import { exampleRoutes } from "../exampleRoutes";
@@ -27,6 +27,12 @@ function resolveImage(key: string) {
   return image;
 }
 
+function resolveVideo(key: string) {
+  const video = demoVideos[key as keyof typeof demoVideos];
+  if (!video) throw new Error(`Unknown Platsen video: ${key}`);
+  return video;
+}
+
 const navigation = getSharedSection("navbar");
 const footer = getSharedSection("footer");
 
@@ -38,7 +44,7 @@ export function PlatsenPageCatalog() {
 
   return (
     <div className="platsen-page-demo" id="platsen-page">
-      <div className="theme--dark">
+      <div className="site-navbar-shell theme--dark">
         <SiteNavbar
           background={navigation.background}
           brand={{ src: jagersroWordmark, alt: "Jägersro", href: exampleRoutes.landing }}
@@ -82,6 +88,24 @@ export function PlatsenPageCatalog() {
                 paddingBottom={section.paddingBottom}
                 paddingTop={section.paddingTop}
                 priority={section.priority}
+              />
+            )}
+
+            {section.type === "video" && (
+              <ImageSection
+                background={section.background}
+                backgroundBottom={section.backgroundBottom}
+                backgroundBottomTheme={section.backgroundBottomTheme}
+                backgroundTop={section.backgroundTop}
+                backgroundTopTheme={section.backgroundTopTheme}
+                caption={section.caption}
+                foreground={section.headingColor}
+                id={section.id}
+                layout={section.variant}
+                paddingBottom={section.paddingBottom}
+                paddingTop={section.paddingTop}
+                playback={section.playback}
+                video={resolveVideo(section.video)}
               />
             )}
 

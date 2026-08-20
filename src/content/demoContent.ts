@@ -17,6 +17,7 @@ import type { ArticleSummary } from "../components/ArticleCard";
 import type { ImageCarouselSlide } from "../patterns/ImageCarousel";
 import type { ImageGalleryItem } from "../patterns/ImageGallery";
 import type { TimelineItem } from "../patterns/TimelineSection";
+import type { VideoAsset } from "../patterns/ImageSection";
 
 export const demoImages = {
   aerial: {
@@ -84,6 +85,13 @@ export const demoImages = {
     height: 1500,
   },
 } satisfies Record<string, ImageAsset>;
+
+export const demoVideos = {
+  greenMotion: {
+    src: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+    label: "Blommor som rör sig mjukt i vinden.",
+  },
+} satisfies Record<string, VideoAsset>;
 
 export const demoAerialImage = demoImages.aerial;
 export const demoMontageImage = demoImages.montage;
