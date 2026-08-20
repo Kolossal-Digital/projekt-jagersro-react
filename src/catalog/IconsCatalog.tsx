@@ -4,6 +4,11 @@ import { ListIcon } from "@phosphor-icons/react/dist/csr/List";
 import { MagnifyingGlassIcon } from "@phosphor-icons/react/dist/csr/MagnifyingGlass";
 import { MapPinIcon } from "@phosphor-icons/react/dist/csr/MapPin";
 import { XIcon } from "@phosphor-icons/react/dist/csr/X";
+import { BinocularsIcon } from "@phosphor-icons/react/dist/csr/Binoculars";
+import { BuildingsIcon } from "@phosphor-icons/react/dist/csr/Buildings";
+import { HandshakeIcon } from "@phosphor-icons/react/dist/csr/Handshake";
+import { HammerIcon } from "@phosphor-icons/react/dist/csr/Hammer";
+import { TreeIcon } from "@phosphor-icons/react/dist/csr/Tree";
 import { useState, type ReactNode } from "react";
 import { BackgroundPicker } from "../components/BackgroundPicker";
 import { Section } from "../components/Section";
@@ -16,6 +21,11 @@ const icons: Array<{ name: string; icon: ReactNode }> = [
   { name: "MapPin", icon: <MapPinIcon weight="light" /> },
   { name: "List", icon: <ListIcon weight="light" /> },
   { name: "X", icon: <XIcon weight="light" /> },
+  { name: "Hammer", icon: <HammerIcon weight="light" /> },
+  { name: "Buildings", icon: <BuildingsIcon weight="light" /> },
+  { name: "Tree", icon: <TreeIcon weight="light" /> },
+  { name: "Handshake", icon: <HandshakeIcon weight="light" /> },
+  { name: "Binoculars", icon: <BinocularsIcon weight="light" /> },
 ];
 
 export function IconsCatalog() {

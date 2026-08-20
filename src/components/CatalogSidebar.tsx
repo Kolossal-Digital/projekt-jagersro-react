@@ -9,6 +9,7 @@ export type CatalogPage =
   | "text-fields"
   | "text-areas"
   | "images"
+  | "article-cards"
   | "hero-sections"
   | "full-width-feature-sections"
   | "feature-sections"
@@ -16,10 +17,17 @@ export type CatalogPage =
   | "image-carousel"
   | "image-gallery"
   | "latest-articles"
+  | "article-listing"
+  | "icon-list"
   | "timeline"
   | "navbar"
   | "footer"
   | "landing-page"
+  | "aktuellt-page"
+  | "labbet-page"
+  | "platsen-page"
+  | "resan-page"
+  | "framtiden-page"
   | "article-page";
 
 type CatalogSidebarProps = {
@@ -53,6 +61,7 @@ const catalogGroups: CatalogGroup[] = [
       { id: "text-fields", label: "Text field" },
       { id: "text-areas", label: "Text area" },
       { id: "images", label: "Image" },
+      { id: "article-cards", label: "Article card" },
     ],
   },
   {
@@ -68,6 +77,8 @@ const catalogGroups: CatalogGroup[] = [
       { id: "image-carousel", label: "Image carousel" },
       { id: "image-gallery", label: "Image gallery" },
       { id: "latest-articles", label: "Latest articles" },
+      { id: "article-listing", label: "Article listing" },
+      { id: "icon-list", label: "Icon list" },
       { id: "timeline", label: "Timeline" },
       { id: "navbar", label: "Navbar" },
       { id: "footer", label: "Footer" },
@@ -77,6 +88,11 @@ const catalogGroups: CatalogGroup[] = [
     label: "Examples",
     items: [
       { id: "landing-page", label: "Landing page" },
+      { id: "aktuellt-page", label: "Aktuellt" },
+      { id: "labbet-page", label: "Labbet" },
+      { id: "platsen-page", label: "Platsen" },
+      { id: "resan-page", label: "Resan" },
+      { id: "framtiden-page", label: "Framtiden" },
       { id: "article-page", label: "Article page" },
     ],
   },

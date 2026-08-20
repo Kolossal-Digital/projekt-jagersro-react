@@ -10,11 +10,11 @@ type: navbar
 theme: light
 background: background
 links:
-  - { label: Aktuellt, href: "#aktuellt", current: true }
-  - { label: Labbet, href: "#labbet" }
-  - { label: Platsen, href: "#platsen" }
-  - { label: Galleri, href: "#galleri" }
-  - { label: Resan, href: "#resan" }
+  - { label: Aktuellt, href: "/aktuellt/" }
+  - { label: Labbet, href: "/labbet/" }
+  - { label: Platsen, href: "/platsen/" }
+  - { label: Resan, href: "/resan/" }
+  - { label: Framtiden, href: "/framtiden/" }
 searchAction: { label: Sök, href: "#landing-page" }
 primaryAction: { label: Kontakta oss, href: "#kontakt" }
 ```
@@ -41,6 +41,8 @@ key: aerial
 type: image
 theme: light
 background: background-accent-02
+backgroundTop: background-accent-02
+backgroundBottom: background-accent-02
 variant: full-width-scroll
 image: aerial
 priority: true
@@ -73,6 +75,7 @@ type: latest-articles
 id: aktuellt
 theme: light
 background: background-accent-01
+cardBackground: background-accent-01
 articleIds:
   - first-spadtaget
   - now-it-starts
@@ -186,7 +189,7 @@ content:
       text: Jägersro har länge varit en plats för rörelse, möten och förändring. Nu står området inför sin största omvandling hittills. Här växer en ny stadsdel fram – med bostäder, arbetsplatser, grönska och liv. Vi är inte där än. Men vi är på väg.
   actions:
     - { label: Läs mer om platsens bakgrund, href: "#resan", variant: primary, icon: arrow-right }
-    - { label: Framtiden, href: "#resan", variant: outline, icon: arrow-right }
+    - { label: Framtiden, href: "/framtiden/", variant: outline, icon: arrow-right }
 ```
 
 ## Resan introduktion
@@ -291,9 +294,9 @@ id: kontakt
 theme: dark
 background: background
 navigation:
-  - { label: Aktuellt, href: "#aktuellt" }
-  - { label: Labbet, href: "#labbet" }
-  - { label: Platsen, href: "#platsen" }
+  - { label: Aktuellt, href: "/aktuellt/" }
+  - { label: Labbet, href: "/labbet/" }
+  - { label: Platsen, href: "/platsen/" }
   - { label: Galleri, href: "#galleri" }
   - { label: Resan, href: "#resan" }
 legalLinks:

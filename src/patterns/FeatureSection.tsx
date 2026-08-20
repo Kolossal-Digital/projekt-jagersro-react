@@ -1,4 +1,5 @@
 import { ArrowDownRightIcon } from "@phosphor-icons/react/dist/csr/ArrowDownRight";
+import { ArrowDownIcon } from "@phosphor-icons/react/dist/csr/ArrowDown";
 import { ArrowRightIcon } from "@phosphor-icons/react/dist/csr/ArrowRight";
 import { ButtonLink } from "../components/Button";
 import { Image, type ImageAsset } from "../components/Image";
@@ -7,12 +8,22 @@ import type { BackgroundName, ForegroundName } from "../tokens";
 import type { FeatureAction } from "./FullWidthFeatureSection";
 import { getSectionSpacingClasses, type SectionSpacingProps } from "./sectionSpacing";
 
-export type FeatureSectionLayout = "split" | "media" | "cta" | "centered";
+export type FeatureSectionLayout =
+  | "split"
+  | "media"
+  | "cta"
+  | "centered";
 export type FeatureSectionMediaPosition = "left" | "right";
+export type FeatureSectionMediaFit = "contain" | "cover";
 
 export type FeatureRichTextBlock =
   | { type: "paragraph"; text: string }
   | { type: "bullet-list"; items: string[] }
+  | { type: "numbered-list"; items: string[] }
+  | {
+      type: "definition-list";
+      items: Array<{ heading: string; body: string }>;
+    }
   | {
       type: "columns";
       items: Array<{ heading: string; body: string }>;
@@ -30,6 +41,7 @@ export type FeatureSectionProps = SectionSpacingProps & {
   layout: FeatureSectionLayout;
   content: FeatureSectionContent;
   mediaPosition?: FeatureSectionMediaPosition;
+  mediaFit?: FeatureSectionMediaFit;
   image?: ImageAsset;
   background?: BackgroundName;
   foreground?: ForegroundName;
@@ -64,6 +76,31 @@ function FeatureRichText({ blocks }: { blocks: FeatureRichTextBlock[] }) {
           );
         }
 
+        if (block.type === "numbered-list") {
+          return (
+            <ol className="contained-feature__numbered-list" key={`${block.type}-${index}`}>
+              {block.items.map((item) => (
+                <li className="type-fluid-heading-03" key={item}>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ol>
+          );
+        }
+
+        if (block.type === "definition-list") {
+          return (
+            <dl className="contained-feature__definition-list" key={`${block.type}-${index}`}>
+              {block.items.map((item) => (
+                <div key={`${item.heading}-${item.body}`}>
+                  <dt className="type-fluid-heading-03">{item.heading}</dt>
+                  <dd className="type-body-02">{item.body}</dd>
+                </div>
+              ))}
+            </dl>
+          );
+        }
+
         return (
           <div className="contained-feature__columns" key={`${block.type}-${index}`}>
             {block.items.map((item) => (
@@ -91,7 +128,11 @@ function FeatureActions({ actions }: { actions?: FeatureAction[] }) {
           href={action.href}
           key={`${action.href}-${action.label}`}
           rightIcon={
-            action.icon === "arrow-right" ? <ArrowRightIcon /> : undefined
+            action.icon === "arrow-right" ? (
+              <ArrowRightIcon />
+            ) : action.icon === "arrow-down" ? (
+              <ArrowDownIcon />
+            ) : undefined
           }
           variant={action.variant}
         >
@@ -108,6 +149,7 @@ export function FeatureSection({
   layout,
   content,
   mediaPosition = "right",
+  mediaFit = "contain",
   image,
   background = "background",
   foreground = "text-primary",
@@ -123,6 +165,7 @@ export function FeatureSection({
     `contained-feature--${layout}`,
     `contained-feature--align-${align}`,
     layout === "media" ? `contained-feature--media-${mediaPosition}` : "",
+    layout === "media" ? `contained-feature--media-fit-${mediaFit}` : "",
     `surface--${background}`,
     `foreground--${foreground}`,
     balanceHeading ? "headings--balanced" : "",
@@ -187,7 +230,7 @@ export function FeatureSection({
             <div className="contained-feature__media">
               <Image
                 asset={image}
-                fit="contain"
+                fit={mediaFit}
                 sizes="(min-width: 768px) 50vw, 100vw"
               />
             </div>

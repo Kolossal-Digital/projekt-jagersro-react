@@ -5,6 +5,7 @@ import { readArticlePageContent } from "../content/articlePageContent";
 import { demoLatestArticles } from "../content/demoContent";
 import { readLandingPageSections } from "../content/landingPageContent";
 import { ArticlePage } from "../pages/ArticlePage";
+import { exampleRoutes } from "../exampleRoutes";
 
 const article = readArticlePageContent();
 const landingSections = readLandingPageSections();
@@ -33,21 +34,27 @@ const relatedArticles = article.relatedArticleIds.map((id) => {
 });
 
 export function ArticlePageCatalog() {
+  const navigationLinks = navigation.links.map((link) => ({
+    ...link,
+    current: link.label === "Aktuellt",
+    href: link.label === "Aktuellt" ? exampleRoutes.aktuellt : link.href,
+  }));
+
   return (
     <div className="article-page-demo" id="article-page">
       <div className="theme--light">
         <SiteNavbar
           background={navigation.background}
-          brand={{ src: jagersroWordmark, alt: "Jägersro", href: "#landing-page" }}
-          links={navigation.links}
+          brand={{ src: jagersroWordmark, alt: "Jägersro", href: exampleRoutes.landing }}
+          links={navigationLinks}
           primaryAction={navigation.primaryAction}
           searchAction={navigation.searchAction}
         />
         <ArticlePage
           article={article}
           breadcrumbs={[
-            { label: "Jägersro", href: "#landing-page" },
-            { label: "Aktuellt", href: "#latest-articles" },
+            { label: "Jägersro", href: exampleRoutes.landing },
+            { label: "Aktuellt", href: exampleRoutes.aktuellt },
             { label: article.title },
           ]}
           image={articleSummary.image}
@@ -57,7 +64,7 @@ export function ArticlePageCatalog() {
       <div className="theme--dark">
         <SiteFooter
           background={footer.background}
-          brand={{ src: jagersroWordmark, alt: "Jägersro", href: "#landing-page" }}
+          brand={{ src: jagersroWordmark, alt: "Jägersro", href: exampleRoutes.landing }}
           copyright={footer.copyright}
           legalLinks={footer.legalLinks}
           navigation={footer.navigation}

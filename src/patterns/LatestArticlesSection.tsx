@@ -1,88 +1,23 @@
-import { ArrowRightIcon } from "@phosphor-icons/react/dist/csr/ArrowRight";
-import { Image, type ImageAsset } from "../components/Image";
+import { ArticleCard, type ArticleSummary } from "../components/ArticleCard";
 import type { BackgroundName, ForegroundName } from "../tokens";
 import { getSectionSpacingClasses, type SectionSpacingProps } from "./sectionSpacing";
-
-export type ArticleSummary = {
-  id: string;
-  title: string;
-  href: string;
-  excerpt: string;
-  publishedAt: string;
-  displayDate: string;
-  image: ImageAsset;
-  imageFit?: "cover" | "contain";
-  category?: string;
-};
 
 export type LatestArticlesSectionProps = SectionSpacingProps & {
   id?: string;
   articles: ArticleSummary[];
   background?: BackgroundName;
+  cardBackground?: BackgroundName;
   foreground?: ForegroundName;
   balanceHeading?: boolean;
 };
 
-export type ArticleCardProps = {
-  article: ArticleSummary;
-  featured?: boolean;
-  position: number;
-};
-
-export function ArticleCard({ article, featured = false, position }: ArticleCardProps) {
-  return (
-    <article
-      className={[
-        "article-card",
-        featured ? "article-card--featured" : "",
-        `article-card--position-${position}`,
-      ]
-        .filter(Boolean)
-        .join(" ")}
-    >
-      <a className="article-card__link" href={article.href}>
-        <div className="article-card__media">
-          <Image
-            asset={article.image}
-            fit={article.imageFit}
-            priority={featured}
-            sizes={
-              featured
-                ? "(min-width: 1920px) 1792px, (min-width: 1200px) calc(100vw - 128px), (min-width: 768px) calc(100vw - 136px), calc(100vw - 32px)"
-                : "(min-width: 1200px) 33vw, (min-width: 768px) 50vw, calc(100vw - 32px)"
-            }
-          />
-        </div>
-
-        <div className="article-card__content">
-          <div className="article-card__meta type-label-03">
-            {article.category && <span>{article.category}</span>}
-            <time dateTime={article.publishedAt}>{article.displayDate}</time>
-          </div>
-          <h3
-            className={
-              featured
-                ? "type-fluid-heading-05"
-                : "type-fluid-heading-03"
-            }
-          >
-            {article.title}
-          </h3>
-          <p className="type-body-01">{article.excerpt}</p>
-          <span aria-hidden="true" className="article-card__arrow">
-            <ArrowRightIcon weight="regular" />
-          </span>
-        </div>
-      </a>
-    </article>
-  );
-}
 
 /** CMS-ready latest-articles composition with one featured story. */
 export function LatestArticlesSection({
   id,
   articles,
   background = "background",
+  cardBackground = "background-accent-01",
   foreground = "text-primary",
   balanceHeading = true,
   paddingTop,
@@ -99,6 +34,7 @@ export function LatestArticlesSection({
           {visibleArticles.map((article, index) => (
             <ArticleCard
               article={article}
+              contentBackground={cardBackground}
               featured={index === 0}
               key={article.id}
               position={index + 1}

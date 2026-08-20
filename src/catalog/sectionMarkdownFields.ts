@@ -72,6 +72,14 @@ const balanceHeadingField: MarkdownField = {
     "Standard: true. Sätt false för att stänga av text-wrap: balance på sektionens rubriker.",
 };
 
+const cardBackgroundField: MarkdownField = {
+  field: "cardBackground",
+  type: backgrounds,
+  required: "Nej",
+  description:
+    "Standard: background-accent-01. Används av både featured-panelen och standardkortens textytor.",
+};
+
 const actionFields: MarkdownField[] = [
   {
     field: "content.actions",
@@ -99,9 +107,9 @@ const actionFields: MarkdownField[] = [
   },
   {
     field: "content.actions[].icon",
-    type: "arrow-right",
+    type: "arrow-right | arrow-down",
     required: "Nej",
-    description: "Lägger till den godkända högerpilen.",
+    description: "Lägger till en godkänd riktningspil.",
   },
 ];
 
@@ -199,6 +207,12 @@ export const featureMarkdownFields: MarkdownField[] = [
     description: "Väljer sektionens komposition.",
   },
   {
+    field: "mediaFit",
+    type: "contain | cover",
+    required: "Nej",
+    description: "Standard: contain. Cover använder en beskuren 4:3-yta.",
+  },
+  {
     field: "mediaPosition",
     type: "left | right",
     required: "Nej",
@@ -238,11 +252,12 @@ export const featureMarkdownFields: MarkdownField[] = [
     field: "content.richText",
     type: "lista med block",
     required: "Ja",
-    description: "Ordnad lista av paragraph, bullet-list eller columns.",
+    description:
+      "Ordnad lista av paragraph, bullet-list, numbered-list, definition-list eller columns.",
   },
   {
     field: "content.richText[].type",
-    type: "paragraph | bullet-list | columns",
+    type: "paragraph | bullet-list | numbered-list | definition-list | columns",
     required: "Ja",
     description: "Väljer rich-text-blockets form.",
   },
@@ -256,25 +271,93 @@ export const featureMarkdownFields: MarkdownField[] = [
     field: "content.richText[].items",
     type: "sträng[]",
     required: "Villkorligt",
-    description: "Krävs för bullet-list.",
+    description: "Krävs för bullet-list eller numbered-list.",
   },
   {
     field: "content.richText[].items[].heading",
     type: "sträng",
     required: "Villkorligt",
-    description: "Krävs per objekt i columns.",
+    description: "Krävs per objekt i columns eller definition-list.",
   },
   {
     field: "content.richText[].items[].body",
     type: "sträng",
     required: "Villkorligt",
-    description: "Krävs per objekt i columns.",
+    description: "Krävs per objekt i columns eller definition-list.",
   },
   ...actionFields,
 ];
 
+export const iconListMarkdownFields: MarkdownField[] = [
+  ...baseFields("icon-list"),
+  headingColorField,
+  balanceHeadingField,
+  ...sectionFields,
+  {
+    field: "heading",
+    type: "sträng",
+    required: "Ja",
+    description: "Sektionens rubrik.",
+  },
+  {
+    field: "items",
+    type: "lista",
+    required: "Ja",
+    description: "Två till tio korta, tematiska objekt i läsordning.",
+  },
+  {
+    field: "items[].id",
+    type: "unik sträng",
+    required: "Ja",
+    description: "Stabil identitet för objektet.",
+  },
+  {
+    field: "items[].icon",
+    type: "hammer | buildings | tree | handshake | binoculars",
+    required: "Ja",
+    description: "Ikon från sektionens kontrollerade register.",
+  },
+  {
+    field: "items[].text",
+    type: "sträng",
+    required: "Ja",
+    description: "Kort, självständig beskrivning.",
+  },
+];
+
 export const imageSectionMarkdownFields: MarkdownField[] = [
-  ...baseFields("image"),
+  ...baseFields("image").filter(({ field }) => field !== "background"),
+  {
+    field: "background",
+    type: backgrounds,
+    required: "Ja",
+    description:
+      "Bakåtkompatibel enfärgad fallback om någon av de två ytorna saknas.",
+  },
+  {
+    field: "backgroundTop",
+    type: backgrounds,
+    required: "Nej",
+    description: "Övre tredjedelen. Standard: background.",
+  },
+  {
+    field: "backgroundBottom",
+    type: backgrounds,
+    required: "Nej",
+    description: "Undre två tredjedelarna. Standard: background.",
+  },
+  {
+    field: "backgroundTopTheme",
+    type: themes,
+    required: "Nej",
+    description: "Valfritt lokalt temaläge för den övre ytan.",
+  },
+  {
+    field: "backgroundBottomTheme",
+    type: themes,
+    required: "Nej",
+    description: "Valfritt lokalt temaläge för den undre ytan.",
+  },
   ...sectionFields,
   {
     field: "variant",
@@ -381,6 +464,7 @@ export const galleryMarkdownFields: MarkdownField[] = [
 
 export const latestArticlesMarkdownFields: MarkdownField[] = [
   ...baseFields("latest-articles"),
+  cardBackgroundField,
   headingColorField,
   balanceHeadingField,
   ...sectionFields,
@@ -390,6 +474,50 @@ export const latestArticlesMarkdownFields: MarkdownField[] = [
     required: "Ja",
     description:
       "Publiceringsordning; de fyra första visas och den första blir featured.",
+  },
+];
+
+export const articleListingMarkdownFields: MarkdownField[] = [
+  ...baseFields("article-listing"),
+  cardBackgroundField,
+  headingColorField,
+  balanceHeadingField,
+  ...sectionFields,
+  {
+    field: "source",
+    type: "all-articles",
+    required: "Ja",
+    description: "Hämtar alla publicerade artiklar i omvänd datumordning.",
+  },
+  {
+    field: "initialCount",
+    type: "positivt heltal",
+    required: "Nej",
+    description: "Standard: 7. En featured artikel och två rader med tre kort.",
+  },
+  {
+    field: "batchSize",
+    type: "positivt heltal",
+    required: "Nej",
+    description: "Standard: 6. Två nya rader på Large och Max.",
+  },
+  {
+    field: "loadMoreLabel",
+    type: "sträng",
+    required: "Nej",
+    description: "Standard: Ladda fler artiklar.",
+  },
+  {
+    field: "paginationPath",
+    type: "intern sökväg",
+    required: "Nej",
+    description: "Standard: /aktuellt/. Används för crawlbara ?page=N-länkar.",
+  },
+  {
+    field: "ariaLabel",
+    type: "sträng",
+    required: "Nej",
+    description: "Standard: Alla artiklar.",
   },
 ];
 
@@ -442,7 +570,8 @@ export const navbarMarkdownFields: MarkdownField[] = [
     field: "links[].current",
     type: "boolean",
     required: "Nej",
-    description: "Standard: false. Högst en länk ska vara aktuell.",
+    description:
+      "Standard: false. Högst en länk ska vara aktuell; visas visuellt och med aria-current=page.",
   },
   {
     field: "searchAction.label",

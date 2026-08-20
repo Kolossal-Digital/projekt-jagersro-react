@@ -1,4 +1,5 @@
 import { ArrowRightIcon } from "@phosphor-icons/react/dist/csr/ArrowRight";
+import { ArrowDownIcon } from "@phosphor-icons/react/dist/csr/ArrowDown";
 import type { BackgroundName, ForegroundName } from "../tokens";
 import { getSectionSpacingClasses, type SectionSpacingProps } from "./sectionSpacing";
 import { ButtonLink, type ButtonVariant } from "../components/Button";
@@ -10,7 +11,7 @@ export type HeroAction = {
   label: string;
   href: string;
   variant?: Extract<ButtonVariant, "primary" | "outline">;
-  icon?: "arrow-right";
+  icon?: "arrow-right" | "arrow-down";
 };
 
 export type HeroContent = {
@@ -75,6 +76,8 @@ export function HeroSection({
                   rightIcon={
                     action.icon === "arrow-right" ? (
                       <ArrowRightIcon weight="regular" />
+                    ) : action.icon === "arrow-down" ? (
+                      <ArrowDownIcon weight="regular" />
                     ) : undefined
                   }
                   variant={action.variant}

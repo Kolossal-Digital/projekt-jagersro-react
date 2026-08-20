@@ -1,17 +1,19 @@
 import { parse } from "yaml";
 import type { NavbarAction, NavbarLink } from "../components/SiteNavbar";
 import type { FooterLink, FooterNewsletter } from "../components/SiteFooter";
+import type { ArticleSummary } from "../components/ArticleCard";
 import type { BackgroundName, ForegroundName } from "../tokens";
 import type { HeroContent, HeroVariant } from "../patterns/HeroSection";
 import type {
   FeatureSectionContent,
   FeatureSectionLayout,
+  FeatureSectionMediaFit,
   FeatureSectionMediaPosition,
 } from "../patterns/FeatureSection";
+import type { IconListItem } from "../patterns/IconListSection";
 import type { FeatureContent } from "../patterns/FullWidthFeatureSection";
 import type { ImageCarouselCaption } from "../patterns/ImageCarousel";
 import type { ImageGalleryItem } from "../patterns/ImageGallery";
-import type { ArticleSummary } from "../patterns/LatestArticlesSection";
 import type {
   ImageSectionCaption,
   ImageSectionLayout,
@@ -50,6 +52,10 @@ export type LandingPageSection =
   | (SectionBase & {
       type: "image";
       image: string;
+      backgroundTop?: BackgroundName;
+      backgroundBottom?: BackgroundName;
+      backgroundTopTheme?: Theme;
+      backgroundBottomTheme?: Theme;
       caption?: ImageSectionCaption;
       variant?: ImageSectionLayout;
       /** @deprecated Use variant in Markdown/CMS content. */
@@ -62,8 +68,14 @@ export type LandingPageSection =
       content: FeatureSectionContent;
       image?: string;
       mediaPosition?: FeatureSectionMediaPosition;
+      mediaFit?: FeatureSectionMediaFit;
       headingVariant?: "fluid-heading-05" | "fluid-heading-06";
       align?: "start" | "end";
+    })
+  | (SectionBase & {
+      type: "icon-list";
+      heading: string;
+      items: IconListItem[];
     })
   | (SectionBase & {
       type: "full-width-feature";
@@ -90,6 +102,7 @@ export type LandingPageSection =
   | (SectionBase & {
       type: "latest-articles";
       articleIds: ArticleSummary["id"][];
+      cardBackground?: BackgroundName;
     })
   | (SectionBase & {
       type: "timeline";
@@ -109,11 +122,18 @@ const sectionPattern = /^##\s+.+\n```ya?ml\n([\s\S]*?)\n```/gm;
 
 /** Reads ordered, CMS-like section records from the local Markdown fixture. */
 export function readLandingPageSections(): LandingPageSection[] {
-  return Array.from(landingPageMarkdown.matchAll(sectionPattern), (match) => {
+  return parsePageSections(landingPageMarkdown, "landing page");
+}
+
+export function parsePageSections(
+  markdown: string,
+  pageName: string,
+): LandingPageSection[] {
+  return Array.from(markdown.matchAll(sectionPattern), (match) => {
     const section = parse(match[1]) as Partial<LandingPageSection>;
 
     if (!section.key || !section.type || !section.theme || !section.background) {
-      throw new Error("Every landing-page section needs key, type, theme and background.");
+      throw new Error(`Every ${pageName} section needs key, type, theme and background.`);
     }
 
     return section as LandingPageSection;

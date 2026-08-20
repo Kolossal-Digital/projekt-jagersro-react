@@ -19,7 +19,12 @@ export type ImageSectionCaption = {
 export type ImageSectionProps = SectionSpacingProps & {
   id?: string;
   image: ImageAsset;
+  /** @deprecated Use backgroundTop and backgroundBottom for new content. */
   background?: BackgroundName;
+  backgroundTop?: BackgroundName;
+  backgroundBottom?: BackgroundName;
+  backgroundTopTheme?: "light" | "dark";
+  backgroundBottomTheme?: "light" | "dark";
   foreground?: ForegroundName;
   caption?: ImageSectionCaption;
   layout?: ImageSectionLayout;
@@ -31,6 +36,10 @@ export function ImageSection({
   id,
   image,
   background = "background",
+  backgroundTop,
+  backgroundBottom,
+  backgroundTopTheme,
+  backgroundBottomTheme,
   foreground = "text-primary",
   caption,
   layout = "grid",
@@ -40,6 +49,8 @@ export function ImageSection({
 }: ImageSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const isScrollVariant = layout === "full-width-scroll";
+  const resolvedBackgroundTop = backgroundTop ?? background;
+  const resolvedBackgroundBottom = backgroundBottom ?? background;
 
   useGSAP(
     () => {
@@ -72,13 +83,20 @@ export function ImageSection({
   const classes = [
     "image-section",
     `image-section--${layout}`,
-    `surface--${background}`,
     `foreground--${foreground}`,
     getSectionSpacingClasses({ paddingTop, paddingBottom }),
   ].join(" ");
 
   return (
     <section className={classes} id={id} ref={sectionRef}>
+      <div
+        aria-hidden="true"
+        className={`image-section__background image-section__background--top${backgroundTopTheme ? ` theme--${backgroundTopTheme}` : ""} surface--${resolvedBackgroundTop}`}
+      />
+      <div
+        aria-hidden="true"
+        className={`image-section__background image-section__background--bottom${backgroundBottomTheme ? ` theme--${backgroundBottomTheme}` : ""} surface--${resolvedBackgroundBottom}`}
+      />
       <div
         className={`image-section__container${layout === "grid" ? " page-grid" : ""}`}
       >
@@ -96,7 +114,9 @@ export function ImageSection({
         </div>
 
         {caption && (
-          <div className="image-section__caption">
+          <div
+            className={`image-section__caption${backgroundBottomTheme ? ` theme--${backgroundBottomTheme}` : ""}`}
+          >
             <Typography variant="label-03">{caption.label}</Typography>
             <Typography variant="label-02">{caption.description}</Typography>
           </div>

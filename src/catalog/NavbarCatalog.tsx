@@ -27,7 +27,9 @@ export function NavbarCatalog() {
           <div>
             <p className="type-code-01">pattern / navigation</p>
             <h2 className="type-fluid-heading-04">Navbar</h2>
-            <code className="type-code-01">responsive=&quot;automatic&quot;</code>
+            <code className="type-code-01">
+              responsive=&quot;automatic&quot; · current=&quot;Aktuellt&quot;
+            </code>
           </div>
           <div className="pattern-specimen__controls">
             <BackgroundPicker value={background} onChange={setBackground} />

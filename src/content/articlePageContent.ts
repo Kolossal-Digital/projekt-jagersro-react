@@ -1,6 +1,6 @@
 import { parse } from "yaml";
 import articlePageMarkdown from "./article-page.md?raw";
-import type { ArticleSummary } from "../patterns/LatestArticlesSection";
+import type { ArticleSummary } from "../components/ArticleCard";
 
 export type ArticleBodyBlock =
   | { type: "paragraph"; text: string }

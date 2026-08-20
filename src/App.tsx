@@ -18,6 +18,14 @@ import { IconsCatalog } from "./catalog/IconsCatalog";
 import { NavbarCatalog } from "./catalog/NavbarCatalog";
 import { LandingPageCatalog } from "./catalog/LandingPageCatalog";
 import { ArticlePageCatalog } from "./catalog/ArticlePageCatalog";
+import { ArticleCardsCatalog } from "./catalog/ArticleCardsCatalog";
+import { ArticleListingCatalog } from "./catalog/ArticleListingCatalog";
+import { AktuelltPageCatalog } from "./catalog/AktuelltPageCatalog";
+import { LabbetPageCatalog } from "./catalog/LabbetPageCatalog";
+import { PlatsenPageCatalog } from "./catalog/PlatsenPageCatalog";
+import { ResanPageCatalog } from "./catalog/ResanPageCatalog";
+import { FramtidenPageCatalog } from "./catalog/FramtidenPageCatalog";
+import { IconListCatalog } from "./catalog/IconListCatalog";
 import { LatestArticlesCatalog } from "./catalog/LatestArticlesCatalog";
 import { SelectsCatalog } from "./catalog/SelectsCatalog";
 import { TextAreasCatalog } from "./catalog/TextAreasCatalog";
@@ -34,6 +42,7 @@ import { GridOverlay } from "./components/GridOverlay";
 import { Typography } from "./components/Typography";
 import { getBreakpointName as getLayoutBreakpointName } from "./layout";
 import type { BreakpointName, ThemeName } from "./tokens";
+import { exampleRoutes, getExampleRoute } from "./exampleRoutes";
 
 function getBreakpointName(): BreakpointName {
   if (typeof window === "undefined") return "Small";
@@ -43,6 +52,21 @@ function getBreakpointName(): BreakpointName {
 function getInitialMenuVisibility() {
   if (typeof window === "undefined") return true;
   return window.innerWidth >= 768;
+}
+
+function getInitialCatalogPage(): CatalogPage {
+  if (typeof window === "undefined") return "typography";
+  const exampleRoute = getExampleRoute(window.location.pathname);
+
+  if (exampleRoute === "landing") return "landing-page";
+  if (exampleRoute === "aktuellt") return "aktuellt-page";
+  if (exampleRoute === "labbet") return "labbet-page";
+  if (exampleRoute === "platsen") return "platsen-page";
+  if (exampleRoute === "resan") return "resan-page";
+  if (exampleRoute === "framtiden") return "framtiden-page";
+  if (exampleRoute === "article") return "article-page";
+
+  return "typography";
 }
 
 const pageContent: Record<
@@ -109,6 +133,12 @@ const pageContent: Record<
     description:
       "Gemensam bildrendering med responsiva storlekar, stabila dimensioner och tillgängliga alt-texter.",
   },
+  "article-cards": {
+    eyebrow: "Designsystem / components",
+    title: "Article card.",
+    description:
+      "Det gemensamma artikelkortet i standard- och featured-läge för redaktionella listningar.",
+  },
   "hero-sections": {
     eyebrow: "Designsystem / sections",
     title: "Hero sections.",
@@ -131,7 +161,7 @@ const pageContent: Record<
     eyebrow: "Designsystem / sections",
     title: "Image section.",
     description:
-      "Ett maxbreddsbegränsat, responsivt bildfält för dokumentära bilder från CMS.",
+      "Ett responsivt bildfält med oberoende övre och undre bakgrundsytor för dokumentära bilder från CMS.",
   },
   "image-carousel": {
     eyebrow: "Designsystem / sections",
@@ -150,6 +180,18 @@ const pageContent: Record<
     title: "Latest articles.",
     description:
       "En redaktionell artikellista med en framhävd huvudartikel och en levande, responsiv rytm för de senaste uppdateringarna.",
+  },
+  "article-listing": {
+    eyebrow: "Designsystem / sections",
+    title: "Article listing.",
+    description:
+      "Den fullständiga artikellistan med en framhävd berättelse, enhetliga kortrader och progressiv paginering.",
+  },
+  "icon-list": {
+    eyebrow: "Designsystem / sections",
+    title: "Icon list.",
+    description:
+      "En responsiv översikt över korta möjligheter eller teman med ikoner från det kontrollerade ikonregistret.",
   },
   timeline: {
     eyebrow: "Designsystem / sections",
@@ -175,6 +217,36 @@ const pageContent: Record<
     description:
       "Ett sammanhållet exempel som kombinerar våra återanvändbara komponenter, sektioner, bakgrunder och lokala teman.",
   },
+  "aktuellt-page": {
+    eyebrow: "Designsystem / examples",
+    title: "Aktuellt.",
+    description:
+      "En fullständig redaktionell arkivsida med sidintroduktion, featured artikel, artikelgrid och progressiv paginering.",
+  },
+  "labbet-page": {
+    eyebrow: "Designsystem / examples",
+    title: "Labbet.",
+    description:
+      "En sammanhållen presentationssida för aktörer som vill testa idéer och verksamheter under Jägersros utveckling.",
+  },
+  "platsen-page": {
+    eyebrow: "Designsystem / examples",
+    title: "Platsen.",
+    description:
+      "En sammanhållen berättelse om Jägersros omvandling, vardagsliv, grönska, hållbarhet och mobilitet.",
+  },
+  "resan-page": {
+    eyebrow: "Designsystem / examples",
+    title: "Resan.",
+    description:
+      "En kronologisk berättelse om Jägersros historia, pågående förändring och kommande utvecklingssteg.",
+  },
+  "framtiden-page": {
+    eyebrow: "Designsystem / examples",
+    title: "Framtiden.",
+    description:
+      "En visionär exempelsida om nästa generations Jägersro, uppbyggd av återanvändbara bild-, innehålls- och listsektioner.",
+  },
   "article-page": {
     eyebrow: "Designsystem / examples",
     title: "Article page.",
@@ -187,7 +259,7 @@ function App() {
   const lenisRef = useRef<Lenis | null>(null);
   const [theme, setTheme] = useState<ThemeName>("Light");
   const [breakpoint, setBreakpoint] = useState<BreakpointName>(getBreakpointName);
-  const [activePage, setActivePage] = useState<CatalogPage>("typography");
+  const [activePage, setActivePage] = useState<CatalogPage>(getInitialCatalogPage);
   const [isSidebarVisible, setIsSidebarVisible] = useState(
     getInitialMenuVisibility,
   );
@@ -225,6 +297,23 @@ function App() {
 
   function selectPage(page: CatalogPage) {
     setActivePage(page);
+    const nextPath =
+      page === "landing-page"
+        ? exampleRoutes.landing
+        : page === "aktuellt-page"
+          ? exampleRoutes.aktuellt
+          : page === "labbet-page"
+            ? exampleRoutes.labbet
+            : page === "platsen-page"
+              ? exampleRoutes.platsen
+              : page === "resan-page"
+                ? exampleRoutes.resan
+              : page === "framtiden-page"
+                ? exampleRoutes.framtiden
+              : page === "article-page"
+                ? exampleRoutes.article
+                : "/";
+    window.history.replaceState(window.history.state, "", nextPath);
     if (breakpoint === "Small") setIsSidebarVisible(false);
     if (lenisRef.current) {
       lenisRef.current.scrollTo(0);
@@ -288,7 +377,7 @@ function App() {
 
         <main className="catalog-content">
           {isGridVisible && <GridOverlay />}
-          {activePage !== "landing-page" && activePage !== "article-page" && (
+          {activePage !== "landing-page" && activePage !== "aktuellt-page" && activePage !== "labbet-page" && activePage !== "platsen-page" && activePage !== "resan-page" && activePage !== "framtiden-page" && activePage !== "article-page" && (
             <div className="page-intro page-grid">
               <Typography className="eyebrow" variant="code-01">
                 {intro.eyebrow}
@@ -312,6 +401,7 @@ function App() {
           {activePage === "text-fields" && <TextFieldsCatalog />}
           {activePage === "text-areas" && <TextAreasCatalog />}
           {activePage === "images" && <ImagesCatalog />}
+          {activePage === "article-cards" && <ArticleCardsCatalog />}
           {activePage === "hero-sections" && <HeroSectionsCatalog />}
           {activePage === "full-width-feature-sections" && (
             <FullWidthFeatureSectionsCatalog />
@@ -321,10 +411,17 @@ function App() {
           {activePage === "image-carousel" && <ImageCarouselCatalog />}
           {activePage === "image-gallery" && <ImageGalleryCatalog />}
           {activePage === "latest-articles" && <LatestArticlesCatalog />}
+          {activePage === "article-listing" && <ArticleListingCatalog />}
+          {activePage === "icon-list" && <IconListCatalog />}
           {activePage === "timeline" && <TimelineCatalog />}
           {activePage === "navbar" && <NavbarCatalog />}
           {activePage === "footer" && <FooterCatalog />}
           {activePage === "landing-page" && <LandingPageCatalog />}
+          {activePage === "aktuellt-page" && <AktuelltPageCatalog />}
+          {activePage === "labbet-page" && <LabbetPageCatalog />}
+          {activePage === "platsen-page" && <PlatsenPageCatalog />}
+          {activePage === "resan-page" && <ResanPageCatalog />}
+          {activePage === "framtiden-page" && <FramtidenPageCatalog />}
           {activePage === "article-page" && <ArticlePageCatalog />}
         </main>
       </div>

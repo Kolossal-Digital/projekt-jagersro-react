@@ -13,9 +13,9 @@ import articleMobility from "../assets/article-mobilitet.webp";
 import articleNewDistrict from "../assets/article-ny-stadsdel.webp";
 import articleNowItStarts from "../assets/article-nu-borjar-det.webp";
 import type { ImageAsset } from "../components/Image";
+import type { ArticleSummary } from "../components/ArticleCard";
 import type { ImageCarouselSlide } from "../patterns/ImageCarousel";
 import type { ImageGalleryItem } from "../patterns/ImageGallery";
-import type { ArticleSummary } from "../patterns/LatestArticlesSection";
 import type { TimelineItem } from "../patterns/TimelineSection";
 
 export const demoImages = {
@@ -58,6 +58,30 @@ export const demoImages = {
     alt: "Närbild av två hästar.",
     width: 2048,
     height: 1365,
+  },
+  futureAerial: {
+    src: articleNewDistrict,
+    alt: "Visualisering av den nya stadsdelen i Jägersro sedd ovanifrån.",
+    width: 2000,
+    height: 1334,
+  },
+  community: {
+    src: articleFirstSpadtaget,
+    alt: "Människor samlade vid starten för Jägersros nästa utvecklingsfas.",
+    width: 2000,
+    height: 1500,
+  },
+  greenPlan: {
+    src: articleGreenRule,
+    alt: "Illustrerad stadsplan med träd, gårdsrum och sammanhängande grönska.",
+    width: 1935,
+    height: 1139,
+  },
+  everydayMobility: {
+    src: articleMobility,
+    alt: "Workshop om hur vardagsresor och mobilitet kan utvecklas i Jägersro.",
+    width: 2000,
+    height: 1500,
   },
 } satisfies Record<string, ImageAsset>;
 
@@ -138,7 +162,7 @@ export const demoLatestArticles: ArticleSummary[] = [
   {
     id: "first-spadtaget",
     title: "Första spadtaget till hästarnas favoritbana",
-    href: "https://projektjagersro.se/forsta-spadtaget-till-hastarnas-favoritbana/",
+    href: "/aktuellt/forsta-spadtaget-till-hastarnas-favoritbana/",
     excerpt:
       "Det första spadtaget markerar starten för den nya travbanan på Husiefältet och samtidigt nästa fas för Projekt Jägersro.",
     publishedAt: "2025-03-18",
@@ -248,6 +272,76 @@ export const demoLatestArticles: ArticleSummary[] = [
       width: 2000,
       height: 1500,
     },
+  },
+];
+
+export const demoArticleArchive: ArticleSummary[] = [
+  ...demoLatestArticles,
+  {
+    ...demoLatestArticles[1],
+    id: "dialogue-shapes-jagersro",
+    title: "Dialogen som formar framtidens Jägersro",
+    href: "#article-page",
+    excerpt:
+      "Samtal med boende, föreningar och verksamheter ger fler perspektiv på hur den framtida stadsdelen kan utvecklas.",
+    publishedAt: "2022-11-24",
+    displayDate: "24 november 2022",
+    category: "På platsen",
+  },
+  {
+    ...demoLatestArticles[0],
+    id: "preserving-place-stories",
+    title: "Så tar vi vara på platsens berättelser",
+    href: "#article-page",
+    excerpt:
+      "Jägersros historia dokumenteras tillsammans med människorna som har arbetat, tävlat och mötts på platsen.",
+    publishedAt: "2022-09-15",
+    displayDate: "15 september 2022",
+    category: "Berättelser",
+  },
+  {
+    ...demoLatestArticles[4],
+    id: "green-links",
+    title: "Grönska som binder samman den nya stadsdelen",
+    href: "#article-page",
+    excerpt:
+      "Parker, gårdar och gröna stråk planeras som en sammanhängande struktur för vardagsliv, biologisk mångfald och bättre klimat.",
+    publishedAt: "2022-06-03",
+    displayDate: "3 juni 2022",
+    category: "Jägersromodellen",
+  },
+  {
+    ...demoLatestArticles[2],
+    id: "from-idea-to-plan",
+    title: "Från idé till fördjupad översiktsplan",
+    href: "#article-page",
+    excerpt:
+      "Den långsiktiga visionen blir stegvis mer konkret genom analyser, dialog och kommunal planering.",
+    publishedAt: "2022-03-18",
+    displayDate: "18 mars 2022",
+    category: "Planprocessen",
+  },
+  {
+    ...demoLatestArticles[6],
+    id: "jagersro-in-motion",
+    title: "Jägersro i rörelse – samtal om framtidens mobilitet",
+    href: "#article-page",
+    excerpt:
+      "Hur människor tar sig till, från och genom området är en central fråga när den nya stadsdelen formas.",
+    publishedAt: "2021-12-02",
+    displayDate: "2 december 2021",
+    category: "Labbet",
+  },
+  {
+    ...demoLatestArticles[5],
+    id: "shared-climate-work",
+    title: "Ett gemensamt klimatarbete för hela stadsdelen",
+    href: "#article-page",
+    excerpt:
+      "Projektets aktörer samlar mål och mätmetoder i ett gemensamt arbete för att minska stadsdelens totala klimatpåverkan.",
+    publishedAt: "2021-09-10",
+    displayDate: "10 september 2021",
+    category: "Jägersromodellen",
   },
 ];
 

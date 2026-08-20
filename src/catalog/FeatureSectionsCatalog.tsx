@@ -8,6 +8,7 @@ import {
   type FeatureSectionContent,
   type FeatureSectionLayout,
   type FeatureSectionMediaPosition,
+  type FeatureSectionMediaFit,
 } from "../patterns/FeatureSection";
 import type { BackgroundName, ForegroundName } from "../tokens";
 import { SectionMarkdownDocs } from "./SectionMarkdownDocs";
@@ -43,11 +44,31 @@ type Specimen = {
   layout: FeatureSectionLayout;
   content: FeatureSectionContent;
   mediaPosition?: FeatureSectionMediaPosition;
+  mediaFit?: FeatureSectionMediaFit;
   headingVariant?: "fluid-heading-05" | "fluid-heading-06";
   align?: "start" | "end";
 };
 
 const specimens: Specimen[] = [
+  {
+    id: "split-numbered",
+    label: "Split / numbered list",
+    layout: "split",
+    content: {
+      heading: "Så fungerar det",
+      richText: [
+        {
+          type: "numbered-list",
+          items: [
+            "Skicka in din idé eller intresseanmälan",
+            "Dialog kring möjligheter och upplägg",
+            "Genomförande på plats",
+            "Uppföljning och vidare utveckling",
+          ],
+        },
+      ],
+    },
+  },
   {
     id: "split-intro",
     label: "Split / intro",
@@ -185,6 +206,7 @@ export function FeatureSectionsCatalog() {
             image={specimen.layout === "media" ? image : undefined}
             layout={specimen.layout}
             mediaPosition={specimen.mediaPosition}
+            mediaFit={specimen.mediaFit}
           />
         </article>
       ))}

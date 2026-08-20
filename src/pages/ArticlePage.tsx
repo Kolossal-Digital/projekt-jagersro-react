@@ -1,10 +1,7 @@
 import { Breadcrumb, type BreadcrumbItem } from "../components/Breadcrumb";
+import { ArticleCard, type ArticleSummary } from "../components/ArticleCard";
 import { Image, type ImageAsset } from "../components/Image";
 import type { ArticlePageContent } from "../content/articlePageContent";
-import {
-  ArticleCard,
-  type ArticleSummary,
-} from "../patterns/LatestArticlesSection";
 
 export type ArticlePageProps = {
   article: ArticlePageContent;
@@ -85,6 +82,7 @@ export function ArticlePage({
               {relatedArticles.slice(0, 3).map((relatedArticle, index) => (
                 <ArticleCard
                   article={relatedArticle}
+                  contentBackground="background-accent-01"
                   key={relatedArticle.id}
                   position={index + 2}
                 />

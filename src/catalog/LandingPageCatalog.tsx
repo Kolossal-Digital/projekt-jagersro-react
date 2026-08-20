@@ -19,6 +19,8 @@ import { ImageGallery } from "../patterns/ImageGallery";
 import { ImageSection } from "../patterns/ImageSection";
 import { LatestArticlesSection } from "../patterns/LatestArticlesSection";
 import { TimelineSection } from "../patterns/TimelineSection";
+import { exampleRoutes } from "../exampleRoutes";
+import { IconListSection } from "../patterns/IconListSection";
 
 const sections = readLandingPageSections();
 
@@ -56,7 +58,7 @@ function renderSection(section: LandingPageSection) {
           brand={{
             src: jagersroWordmark,
             alt: "Jägersro",
-            href: "#landing-page",
+            href: exampleRoutes.landing,
           }}
           links={section.links}
           primaryAction={section.primaryAction}
@@ -84,6 +86,10 @@ function renderSection(section: LandingPageSection) {
       return (
         <ImageSection
           background={section.background}
+          backgroundBottom={section.backgroundBottom}
+          backgroundBottomTheme={section.backgroundBottomTheme}
+          backgroundTop={section.backgroundTop}
+          backgroundTopTheme={section.backgroundTopTheme}
           foreground={section.headingColor}
           caption={section.caption}
           id={section.id}
@@ -108,6 +114,21 @@ function renderSection(section: LandingPageSection) {
           image={section.image ? resolveImage(section.image) : undefined}
           layout={section.layout}
           mediaPosition={section.mediaPosition}
+          mediaFit={section.mediaFit}
+          paddingBottom={section.paddingBottom}
+          paddingTop={section.paddingTop}
+        />
+      );
+
+    case "icon-list":
+      return (
+        <IconListSection
+          background={section.background}
+          balanceHeading={section.balanceHeading}
+          foreground={section.headingColor}
+          heading={section.heading}
+          id={section.id}
+          items={section.items}
           paddingBottom={section.paddingBottom}
           paddingTop={section.paddingTop}
         />
@@ -166,6 +187,7 @@ function renderSection(section: LandingPageSection) {
           articles={section.articleIds.map(resolveArticle)}
           background={section.background}
           balanceHeading={section.balanceHeading}
+          cardBackground={section.cardBackground}
           foreground={section.headingColor}
           id={section.id}
           paddingBottom={section.paddingBottom}
@@ -197,7 +219,7 @@ function renderSection(section: LandingPageSection) {
           brand={{
             src: jagersroWordmark,
             alt: "Jägersro",
-            href: "#landing-page",
+            href: exampleRoutes.landing,
           }}
           copyright={section.copyright}
           legalLinks={section.legalLinks}

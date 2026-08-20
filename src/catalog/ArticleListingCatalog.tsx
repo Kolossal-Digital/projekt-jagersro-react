@@ -2,13 +2,13 @@ import { useState } from "react";
 import { BackgroundPicker } from "../components/BackgroundPicker";
 import { ForegroundPicker } from "../components/ForegroundPicker";
 import { HeadingBalancePicker } from "../components/HeadingBalancePicker";
-import { demoLatestArticles } from "../content/demoContent";
-import { LatestArticlesSection } from "../patterns/LatestArticlesSection";
+import { demoArticleArchive } from "../content/demoContent";
+import { ArticleListingSection } from "../patterns/ArticleListingSection";
 import type { BackgroundName, ForegroundName } from "../tokens";
 import { SectionMarkdownDocs } from "./SectionMarkdownDocs";
-import { latestArticlesMarkdownFields } from "./sectionMarkdownFields";
+import { articleListingMarkdownFields } from "./sectionMarkdownFields";
 
-export function LatestArticlesCatalog() {
+export function ArticleListingCatalog() {
   const [background, setBackground] =
     useState<BackgroundName>("background-accent-01");
   const [foreground, setForeground] = useState<ForegroundName>("text-primary");
@@ -17,13 +17,13 @@ export function LatestArticlesCatalog() {
   const [balanceHeading, setBalanceHeading] = useState(true);
 
   return (
-    <div className="pattern-catalog" id="latest-articles">
+    <div className="pattern-catalog" id="article-listing">
       <article className="pattern-specimen">
         <header className="pattern-specimen__header page-grid">
           <div>
-            <p className="type-code-01">pattern / latest articles</p>
-            <h2 className="type-fluid-heading-04">Featured story and latest updates</h2>
-            <code className="type-code-01">articles=&quot;ordered&quot;</code>
+            <p className="type-code-01">pattern / article listing</p>
+            <h2 className="type-fluid-heading-04">Featured story and full archive</h2>
+            <code className="type-code-01">initialCount=7 · batchSize=6</code>
           </div>
           <div className="pattern-specimen__controls">
             <BackgroundPicker value={background} onChange={setBackground} />
@@ -40,17 +40,19 @@ export function LatestArticlesCatalog() {
           </div>
         </header>
 
-        <LatestArticlesSection
-          articles={demoLatestArticles}
+        <ArticleListingSection
+          articles={demoArticleArchive}
           background={background}
           cardBackground={cardBackground}
           balanceHeading={balanceHeading}
           foreground={foreground}
         />
       </article>
+
       <SectionMarkdownDocs
-        fields={latestArticlesMarkdownFields}
-        sectionName="Latest articles"
+        fields={articleListingMarkdownFields}
+        sectionName="Article listing"
+        sourceLabel="content / aktuellt-page.md"
       />
     </div>
   );

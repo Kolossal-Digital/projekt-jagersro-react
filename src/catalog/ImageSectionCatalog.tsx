@@ -48,7 +48,12 @@ const specimens: Specimen[] = [
 ];
 
 export function ImageSectionCatalog() {
-  const [backgrounds, setBackgrounds] = useState<Record<string, BackgroundName>>(
+  const [topBackgrounds, setTopBackgrounds] = useState<Record<string, BackgroundName>>(
+    Object.fromEntries(
+      specimens.map(({ id }) => [id, "background-accent-02"]),
+    ) as Record<string, BackgroundName>,
+  );
+  const [bottomBackgrounds, setBottomBackgrounds] = useState<Record<string, BackgroundName>>(
     Object.fromEntries(
       specimens.map(({ id }) => [id, "background-accent-01"]),
     ) as Record<string, BackgroundName>,
@@ -57,8 +62,12 @@ export function ImageSectionCatalog() {
     Object.fromEntries(specimens.map(({ id }) => [id, "text-primary"])) as Record<string, ForegroundName>,
   );
 
-  function setBackground(id: string, background: BackgroundName) {
-    setBackgrounds((current) => ({ ...current, [id]: background }));
+  function setTopBackground(id: string, background: BackgroundName) {
+    setTopBackgrounds((current) => ({ ...current, [id]: background }));
+  }
+
+  function setBottomBackground(id: string, background: BackgroundName) {
+    setBottomBackgrounds((current) => ({ ...current, [id]: background }));
   }
 
   function setForeground(id: string, foreground: ForegroundName) {
@@ -80,8 +89,14 @@ export function ImageSectionCatalog() {
             </div>
             <div className="pattern-specimen__controls">
               <BackgroundPicker
-                value={backgrounds[specimen.id]}
-                onChange={(background) => setBackground(specimen.id, background)}
+                label="Övre bakgrund"
+                value={topBackgrounds[specimen.id]}
+                onChange={(background) => setTopBackground(specimen.id, background)}
+              />
+              <BackgroundPicker
+                label="Undre bakgrund"
+                value={bottomBackgrounds[specimen.id]}
+                onChange={(background) => setBottomBackground(specimen.id, background)}
               />
               <ForegroundPicker
                 value={foregrounds[specimen.id]}
@@ -91,7 +106,8 @@ export function ImageSectionCatalog() {
           </header>
 
           <ImageSection
-            background={backgrounds[specimen.id]}
+            backgroundBottom={bottomBackgrounds[specimen.id]}
+            backgroundTop={topBackgrounds[specimen.id]}
             foreground={foregrounds[specimen.id]}
             caption={specimen.caption}
             image={image}

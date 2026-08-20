@@ -10,12 +10,14 @@ export type MarkdownField = {
 type SectionMarkdownDocsProps = {
   fields: MarkdownField[];
   sectionName: string;
+  sourceLabel?: string;
 };
 
 /** Editorial field reference shared by every Markdown-configurable section page. */
 export function SectionMarkdownDocs({
   fields,
   sectionName,
+  sourceLabel = "content / landing-page.md",
 }: SectionMarkdownDocsProps) {
   const titleId = useId();
 
@@ -25,7 +27,7 @@ export function SectionMarkdownDocs({
       className="section-markdown-docs page-grid"
     >
       <header className="section-markdown-docs__header">
-        <p className="type-code-01">content / landing-page.md</p>
+        <p className="type-code-01">{sourceLabel}</p>
         <h2 className="type-fluid-heading-04" id={titleId}>
           Markdownfält
         </h2>

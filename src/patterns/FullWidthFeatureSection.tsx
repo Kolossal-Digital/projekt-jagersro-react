@@ -1,4 +1,5 @@
 import { ArrowRightIcon } from "@phosphor-icons/react/dist/csr/ArrowRight";
+import { ArrowDownIcon } from "@phosphor-icons/react/dist/csr/ArrowDown";
 import { ButtonLink, type ButtonVariant } from "../components/Button";
 import { Image, type ImageAsset } from "../components/Image";
 import { Typography } from "../components/Typography";
@@ -9,7 +10,7 @@ export type FeatureAction = {
   label: string;
   href: string;
   variant?: Extract<ButtonVariant, "primary" | "outline">;
-  icon?: "arrow-right";
+  icon?: "arrow-right" | "arrow-down";
 };
 
 export type FeatureContent = {
@@ -75,6 +76,8 @@ export function FullWidthFeatureSection({
                       rightIcon={
                         action.icon === "arrow-right" ? (
                           <ArrowRightIcon weight="regular" />
+                        ) : action.icon === "arrow-down" ? (
+                          <ArrowDownIcon weight="regular" />
                         ) : undefined
                       }
                       variant={action.variant}
