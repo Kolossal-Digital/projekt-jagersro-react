@@ -104,10 +104,7 @@ type PageDefinition = {
 };
 
 function pageDocuments(page: PageDefinition): SearchDocument[] {
-  const searchableSections = page.sections.filter(
-    (section) => section.type !== "navbar" && section.type !== "footer",
-  );
-  const sectionDocuments = searchableSections.flatMap<SearchDocument>((section) => {
+  const sectionDocuments = page.sections.flatMap<SearchDocument>((section) => {
     const title = sectionTitle(section);
     const body = sectionBody(section);
     if (!title || !body) return [];

@@ -39,6 +39,7 @@ type Specimen = {
   caption?: ImageSectionCaption;
   media?: "image" | "video";
   playback?: VideoPlaybackMode;
+  videoKey?: keyof typeof demoVideos;
 };
 
 const specimens: Specimen[] = [
@@ -76,6 +77,14 @@ const specimens: Specimen[] = [
     media: "video",
     playback: "controls",
     caption: videoCaption,
+  },
+  {
+    id: "video-vimeo-background-scroll",
+    label: "Video / Vimeo / background loop / scroll",
+    layout: "full-width-scroll",
+    media: "video",
+    playback: "background",
+    videoKey: "jagersroDroneVertical",
   },
 ];
 
@@ -146,7 +155,7 @@ export function ImageSectionCatalog() {
               caption={specimen.caption}
               layout={specimen.layout}
               playback={specimen.playback ?? "controls"}
-              video={demoVideos.greenMotion}
+              video={demoVideos[specimen.videoKey ?? "greenMotion"]}
             />
           ) : (
             <ImageSection

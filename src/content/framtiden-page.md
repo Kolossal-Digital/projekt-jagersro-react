@@ -1,5 +1,15 @@
 # Exempel: Framtiden
 
+## Sidinställningar
+```yaml
+key: framtiden-page
+type: page
+navbarTheme: light
+navbarBackground: background
+footerTheme: dark
+footerBackground: background
+```
+
 ## Introduktion
 ```yaml
 key: future-intro
@@ -42,7 +52,7 @@ theme: light
 background: background-accent-01
 layout: media
 mediaPosition: right
-mediaFit: cover
+mediaFit: contain
 image: greenPlan
 content:
   heading: En plats på väg att bli något nytt
@@ -110,7 +120,7 @@ theme: light
 background: background-accent-01
 layout: media
 mediaPosition: right
-mediaFit: cover
+mediaFit: contain
 image: futureAerial
 content:
   heading: En plats som knyter ihop staden

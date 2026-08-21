@@ -1,6 +1,4 @@
-import jagersroWordmark from "../assets/jagersro-wordmark.svg";
-import { SiteFooter } from "../components/SiteFooter";
-import { SiteNavbar } from "../components/SiteNavbar";
+import { ExampleSiteFooter, ExampleSiteNavbar } from "../components/ExampleSiteChrome";
 import {
   demoGalleryItems,
   demoImages,
@@ -10,6 +8,7 @@ import {
 } from "../content/demoContent";
 import {
   readLandingPageSections,
+  readLandingPageSettings,
   type LandingPageSection,
 } from "../content/landingPageContent";
 import { FeatureSection } from "../patterns/FeatureSection";
@@ -20,10 +19,10 @@ import { ImageGallery } from "../patterns/ImageGallery";
 import { ImageSection } from "../patterns/ImageSection";
 import { LatestArticlesSection } from "../patterns/LatestArticlesSection";
 import { TimelineSection } from "../patterns/TimelineSection";
-import { exampleRoutes } from "../exampleRoutes";
 import { IconListSection } from "../patterns/IconListSection";
 
 const sections = readLandingPageSections();
+const page = readLandingPageSettings();
 
 function resolveImage(key: string) {
   const image = demoImages[key as keyof typeof demoImages];
@@ -57,22 +56,6 @@ function resolveTimelineItem(id: string) {
 
 function renderSection(section: LandingPageSection) {
   switch (section.type) {
-    case "navbar":
-      return (
-        <SiteNavbar
-          background={section.background}
-          foreground={section.headingColor}
-          brand={{
-            src: jagersroWordmark,
-            alt: "Jägersro",
-            href: exampleRoutes.landing,
-          }}
-          links={section.links}
-          primaryAction={section.primaryAction}
-          searchAction={section.searchAction}
-        />
-      );
-
     case "hero":
       return (
         <HeroSection
@@ -236,38 +219,22 @@ function renderSection(section: LandingPageSection) {
         />
       );
 
-    case "footer":
-      return (
-        <SiteFooter
-          background={section.background}
-          balanceHeading={section.balanceHeading}
-          foreground={section.headingColor}
-          brand={{
-            src: jagersroWordmark,
-            alt: "Jägersro",
-            href: exampleRoutes.landing,
-          }}
-          copyright={section.copyright}
-          legalLinks={section.legalLinks}
-          navigation={section.navigation}
-          newsletter={section.newsletter}
-        />
-      );
   }
 }
 
 export function LandingPageCatalog() {
   return (
     <div className="landing-page-demo" id="landing-page">
+      <ExampleSiteNavbar page={page} />
       {sections.map((section) => (
         <div
-          className={`theme--${section.theme}${section.type === "navbar" ? " site-navbar-shell" : ""}`}
-          id={section.type === "footer" ? section.id : undefined}
+          className={`theme--${section.theme}`}
           key={section.key}
         >
           {renderSection(section)}
         </div>
       ))}
+      <ExampleSiteFooter page={page} />
     </div>
   );
 }

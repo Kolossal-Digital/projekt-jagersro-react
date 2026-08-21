@@ -1,6 +1,7 @@
 import type { LandingPageSection } from "./landingPageContent";
 import { parsePageSections } from "./landingPageContent";
 import platsenPageMarkdown from "./platsen-page.md?raw";
+import { parsePageSettings } from "./pageSettings";
 
 export type PlatsenPageSection = Extract<
   LandingPageSection,
@@ -24,4 +25,8 @@ export function readPlatsenPageSections(): PlatsenPageSection[] {
   }
 
   return sections as PlatsenPageSection[];
+}
+
+export function readPlatsenPageSettings() {
+  return parsePageSettings(platsenPageMarkdown, "Platsen page");
 }

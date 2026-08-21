@@ -1,6 +1,7 @@
 import type { LandingPageSection } from "./landingPageContent";
 import { parsePageSections } from "./landingPageContent";
 import resanPageMarkdown from "./resan-page.md?raw";
+import { parsePageSettings } from "./pageSettings";
 
 export type ResanPageSection = Extract<
   LandingPageSection,
@@ -25,4 +26,8 @@ export function readResanPageSections(): ResanPageSection[] {
   }
 
   return sections as ResanPageSection[];
+}
+
+export function readResanPageSettings() {
+  return parsePageSettings(resanPageMarkdown, "Resan page");
 }

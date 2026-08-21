@@ -1,6 +1,7 @@
 import type { LandingPageSection } from "./landingPageContent";
 import { parsePageSections } from "./landingPageContent";
 import labbetPageMarkdown from "./labbet-page.md?raw";
+import { parsePageSettings } from "./pageSettings";
 
 export type LabbetPageSection = Extract<
   LandingPageSection,
@@ -23,4 +24,8 @@ export function readLabbetPageSections(): LabbetPageSection[] {
   }
 
   return sections as LabbetPageSection[];
+}
+
+export function readLabbetPageSettings() {
+  return parsePageSettings(labbetPageMarkdown, "Labbet page");
 }

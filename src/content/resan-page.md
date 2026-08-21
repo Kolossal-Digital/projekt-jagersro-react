@@ -1,12 +1,23 @@
 # Exempel: Resan
 
+## Sidinställningar
+```yaml
+key: resan-page
+type: page
+navbarTheme: light
+navbarBackground: background
+footerTheme: dark
+footerBackground: background
+```
+
 ## Introduktion
 ```yaml
 key: journey-intro
 type: hero
 id: resan-intro
-theme: dark
-background: background
+theme: light
+background: background-accent-02
+headingColor: text-accent-01
 variant: split
 paddingTop: large
 paddingBottom: large
@@ -24,6 +35,7 @@ type: feature
 id: forandring
 theme: light
 background: background-accent-01
+headingColor: text-accent-01
 layout: cta
 content:
   tagline: Resan
@@ -42,6 +54,7 @@ type: timeline
 id: tidslinje
 theme: light
 background: background-accent-01
+headingColor: text-accent-01
 paddingTop: small
 paddingBottom: large
 ariaLabel: Projekt Jägersros resa över tid
@@ -62,7 +75,8 @@ key: happening-now
 type: feature
 id: just-nu
 theme: dark
-background: background
+background: background-accent-03
+headingColor: text-accent-02
 layout: split
 content:
   heading: Det händer nu
@@ -76,12 +90,13 @@ content:
 key: journey-lab
 type: feature
 id: labbet
-theme: light
+theme: dark
 background: background-accent-02
+headingColor: text-accent-01
 layout: media
 mediaPosition: right
-mediaFit: cover
-image: futureAerial
+mediaFit: contain
+image: collageGardening
 content:
   tagline: Labbet
   heading: En del av resan – redan idag
@@ -101,11 +116,12 @@ key: model-image
 type: image
 id: jagersromodellen-bild
 theme: dark
-background: background
-backgroundTop: background
+headingColor: text-accent-01
+background: background-accent-02
+backgroundTop: background-accent-02
 backgroundBottom: background
 variant: grid
-image: everydayMobility
+image: statues
 paddingTop: large
 paddingBottom: small
 ```
@@ -117,6 +133,7 @@ type: feature
 id: sa-byggs-jagersro
 theme: dark
 background: background
+headingColor: text-accent-01
 layout: split
 paddingTop: medium
 content:
@@ -137,9 +154,10 @@ type: feature
 id: vagen-vidare
 theme: light
 background: background-accent-01
+headingColor: text-accent-01
 layout: media
 mediaPosition: right
-mediaFit: cover
+mediaFit: contain
 image: greenPlan
 content:
   heading: Hur går vi vidare?
@@ -156,7 +174,8 @@ key: participate
 type: feature
 id: delta
 theme: dark
-background: background
+background: background-accent-03
+headingColor: text-accent-02
 layout: centered
 content:
   tagline: Delta

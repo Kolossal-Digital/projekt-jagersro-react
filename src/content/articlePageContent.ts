@@ -1,6 +1,7 @@
 import { parse } from "yaml";
 import articlePageMarkdown from "./article-page.md?raw";
 import type { ArticleSummary } from "../components/ArticleCard";
+import { parsePageSettings } from "./pageSettings";
 
 export type ArticleBodyBlock =
   | { type: "paragraph"; text: string }
@@ -19,16 +20,20 @@ export type ArticlePageContent = {
   relatedArticleIds: ArticleSummary["id"][];
 };
 
-const yamlBlockPattern = /```ya?ml\n([\s\S]*?)\n```/;
+const yamlBlockPattern = /```ya?ml\n([\s\S]*?)\n```/g;
 
 export function readArticlePageContent(): ArticlePageContent {
-  const match = articlePageMarkdown.match(yamlBlockPattern);
-  if (!match) throw new Error("Article-page fixture needs a YAML block.");
-
-  const article = parse(match[1]) as Partial<ArticlePageContent>;
+  const article = Array.from(articlePageMarkdown.matchAll(yamlBlockPattern), (match) =>
+    parse(match[1]) as Partial<ArticlePageContent> & { type?: string },
+  ).find((record) => record.type !== "page");
+  if (!article) throw new Error("Article-page fixture needs a content YAML block.");
   if (!article.id || !article.title || !article.image || !article.blocks) {
     throw new Error("Article page needs id, title, image and body blocks.");
   }
 
   return article as ArticlePageContent;
+}
+
+export function readArticlePageSettings() {
+  return parsePageSettings(articlePageMarkdown, "Article page");
 }

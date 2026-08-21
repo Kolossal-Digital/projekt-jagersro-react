@@ -376,7 +376,7 @@ export const imageSectionMarkdownFields: MarkdownField[] = [
     field: "video",
     type: "registrerad videonyckel",
     required: "Villkorligt",
-    description: "Exempel: greenMotion. Videoposten innehåller src, tillgängligt namn och valfri poster/textningsfil.",
+    description: "Exempel: greenMotion eller jagersroDroneVertical. Videoposten kan vara en lokal fil eller Vimeo-resurs och innehåller tillgängligt namn samt valfri poster/textningsfil.",
   },
   {
     field: "playback",
@@ -560,7 +560,30 @@ export const timelineMarkdownFields: MarkdownField[] = [
 ];
 
 export const navbarMarkdownFields: MarkdownField[] = [
-  ...baseFields("navbar"),
+  {
+    field: "key",
+    type: "unik sträng",
+    required: "Ja",
+    description: "Stabil nyckel i site-shell.md.",
+  },
+  {
+    field: "type",
+    type: "navbar",
+    required: "Ja",
+    description: "Väljer den gemensamma Navbar-posten i site-shell.md.",
+  },
+  {
+    field: "navbarTheme",
+    type: "light | dark",
+    required: "Ja",
+    description: "Sidunik inställning i sidfilens type: page-post.",
+  },
+  {
+    field: "navbarBackground",
+    type: "tillåten bakgrundstoken",
+    required: "Ja",
+    description: "Sidunik inställning i sidfilens type: page-post.",
+  },
   {
     field: "links",
     type: "lista",
@@ -607,9 +630,30 @@ export const navbarMarkdownFields: MarkdownField[] = [
 ];
 
 export const footerMarkdownFields: MarkdownField[] = [
-  ...baseFields("footer"),
-  headingColorField,
-  balanceHeadingField,
+  {
+    field: "key",
+    type: "unik sträng",
+    required: "Ja",
+    description: "Stabil nyckel i site-shell.md.",
+  },
+  {
+    field: "type",
+    type: "footer",
+    required: "Ja",
+    description: "Väljer den gemensamma Footer-posten i site-shell.md.",
+  },
+  {
+    field: "footerTheme",
+    type: "light | dark",
+    required: "Ja",
+    description: "Sidunik inställning i sidfilens type: page-post.",
+  },
+  {
+    field: "footerBackground",
+    type: "tillåten bakgrundstoken",
+    required: "Ja",
+    description: "Sidunik inställning i sidfilens type: page-post.",
+  },
   {
     field: "id",
     type: "sträng",

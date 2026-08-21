@@ -12,6 +12,12 @@ import articleClimateStandard from "../assets/article-klimatstandard.webp";
 import articleMobility from "../assets/article-mobilitet.webp";
 import articleNewDistrict from "../assets/article-ny-stadsdel.webp";
 import articleNowItStarts from "../assets/article-nu-borjar-det.webp";
+import collageGardening from "../assets/collage-gardening.png";
+import collageGraphicBlue from "../assets/collage-graphic-blue.png";
+import collageMarket from "../assets/collage-market.png";
+import collageMaterialRed from "../assets/collage-material-red.png";
+import collageMaterialSand from "../assets/collage-material-sand.png";
+import jagersroDroneVimeoPoster from "../assets/jagersro-drone-vimeo-poster.jpg";
 import type { ImageAsset } from "../components/Image";
 import type { ArticleSummary } from "../components/ArticleCard";
 import type { ImageCarouselSlide } from "../patterns/ImageCarousel";
@@ -84,12 +90,53 @@ export const demoImages = {
     width: 2000,
     height: 1500,
   },
+  collageGraphicBlue: {
+    src: collageGraphicBlue,
+    alt: "Grafiskt kollage med mörkgröna penseldrag och en ljusblå cirkelform.",
+    width: 1080,
+    height: 1080,
+  },
+  collageMarket: {
+    src: collageMarket,
+    alt: "Kollage med perforerad grön metall, tomater och sandfärgade penseldrag.",
+    width: 1080,
+    height: 1080,
+  },
+  collageMaterialRed: {
+    src: collageMaterialRed,
+    alt: "Kollage med brun trästruktur och röda penseldrag.",
+    width: 1080,
+    height: 1080,
+  },
+  collageMaterialSand: {
+    src: collageMaterialSand,
+    alt: "Kollage med brun trästruktur och sandfärgade penseldrag.",
+    width: 1080,
+    height: 1080,
+  },
+  collageGardening: {
+    src: collageGardening,
+    alt: "Kollage med två personer som arbetar i en odling och ljusblå penseldrag.",
+    width: 1080,
+    height: 1080,
+  },
 } satisfies Record<string, ImageAsset>;
 
 export const demoVideos = {
   greenMotion: {
     src: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
     label: "Blommor som rör sig mjukt i vinden.",
+  },
+  jagersroDroneVertical: {
+    provider: "vimeo",
+    videoId: "1208161067",
+    hash: "899d102041",
+    width: 1080,
+    height: 1920,
+    sourceUrl:
+      "https://vimeo.com/reviews/f0e92c77-e733-4333-aa42-5d64ad0625de/videos/1208161067",
+    poster: jagersroDroneVimeoPoster,
+    label: "Vertikal drönarfilm från Projekt Jägersro.",
   },
 } satisfies Record<string, VideoAsset>;
 

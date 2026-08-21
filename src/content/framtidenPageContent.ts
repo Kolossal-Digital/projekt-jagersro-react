@@ -1,6 +1,7 @@
 import type { LandingPageSection } from "./landingPageContent";
 import { parsePageSections } from "./landingPageContent";
 import framtidenPageMarkdown from "./framtiden-page.md?raw";
+import { parsePageSettings } from "./pageSettings";
 
 export type FramtidenPageSection = Extract<
   LandingPageSection,
@@ -36,4 +37,8 @@ export function readFramtidenPageSections(): FramtidenPageSection[] {
   }
 
   return sections as FramtidenPageSection[];
+}
+
+export function readFramtidenPageSettings() {
+  return parsePageSettings(framtidenPageMarkdown, "Framtiden page");
 }

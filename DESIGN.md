@@ -654,13 +654,15 @@ Sektionen följer Sidgrid för rubrik och listans yttre kanter. Den interna list
 
 Den återanvändbara `Image`-komponenten renderar CMS-bilder med obligatoriskt definierad alternativtext, valfria intrinsiska dimensioner, `cover` eller `contain`, responsiva `sizes` och lazy loading som standard. Sätt `priority` endast för bilder som verkligen ligger i sidans första synliga vy. Bildens layout, proportion och beskärningsyta ägs av den omgivande komponenten, inte av `Image`.
 
+Den gemensamma bildbanken innehåller även de kvadratiska kollageresurserna `collageGraphicBlue`, `collageMarket`, `collageMaterialRed`, `collageMaterialSand` och `collageGardening`. De kan användas i alla bildfält som accepterar en registrerad bildnyckel. Resursernas original är 1080 × 1080 px och visas samlat i Components-vyn Image; nyckel, alternativtext och intrinsiska dimensioner ska alltid hållas synkroniserade mellan bildbanken och den katalogvyn.
+
 `ImageSection` visar dokumentära och dekorativa bilder eller video i tre layoutlägen. React-komponenten använder `layout="grid" | "full-width" | "full-width-scroll"`, medan serialiserbara Markdown-/CMS-poster använder det redaktionella fältet `variant` med samma värden; mappningslagret översätter `variant` till `layout`. `grid` följer hela den gemensamma sidgriden upp till 1792 px mediebredd, medan `full-width` låter mediet gå kant till kant utan yttre spacing. Båda använder proportionen 1792:813 och `object-fit: cover`, så redaktionen måste välja material som tål den breda beskärningen.
 
 Alla tre layoutlägen har två plana semantiska bakgrundsytor: `backgroundTop` täcker den övre tredjedelen och `backgroundBottom` de undre två tredjedelarna. Samma token i båda fälten ger en enfärgad sektion. Fälten får valfria, oberoende `backgroundTopTheme` och `backgroundBottomTheme` när en bild ska överbrygga två lokala temalägen, exempelvis mörk introduktion ovanför och ljus innehållsyta nedanför. Implementera brytningen som två ytor, aldrig som en färggradient. Det äldre `background` stöds som enfärgad fallback för befintligt innehåll men nya Image Section-poster ska ange båda ytorna explicit.
 
 `full-width-scroll` är ett dekorativt fullbreddsläge med en responsiv beskärningsyta på högst 800 px. Mediet renderas med 20 procent vertikal överhöjd och panoreras långsamt genom beskärningen medan sektionen passerar viewporten. Rörelsen är kopplad direkt till scrollpositionen och stängs av vid `prefers-reduced-motion`; då visas en statisk `cover`-beskärning utan överhöjd. Rent dekorativa bilder ska ha tom alternativtext i bildbanken, medan informationsbärande motiv behåller en meningsfull alternativtext.
 
-Video använder samma layout-, bakgrunds-, tema-, spacing- och captionkontrakt. `playback: background` är endast för dekorativt rörligt material: videon spelar automatiskt, loopar, är permanent mutad, saknar kontroller och tas ur tangentbordsordningen. Bakgrundsvideo finns både som vanlig `full-width` och som `full-width-scroll`; scrollvarianten använder samma högst 800 px höga beskärningsyta, 20 procents överhöjd och vertikala scroll-pan som bildvarianten. Vid `prefers-reduced-motion` pausas videon, scroll-pan tas bort och dess posterbild ligger kvar. `playback: controls` startar pausad och omutad med webbläsarens inbyggda kontroller för uppspelning, paus och ljud. Informationsbärande tal eller ljud kräver en textningsfil i videobanken; varje kontrollerad video måste dessutom ha ett tillgängligt namn och bör ha en posterbild.
+Video använder samma layout-, bakgrunds-, tema-, spacing- och captionkontrakt. Videobanken accepterar både direkta native-filer och registrerade Vimeo-resurser med stabilt video-id, eventuell privacy-hash, källänk, intrinsisk bredd/höjd och lokal posterbild; en Vimeo review-URL får inte användas direkt som `src`. Dimensionerna används för att skala en inbäddad bakgrundsspelare med verklig `cover`-beskärning i stället för att centrera ett stående klipp med tomma sidoytor. Vimeo-spelarens layoutviewport hålls samtidigt vid källans intrinsiska storlek och GPU-skalas visuellt, så ett stående klipp inte skapar en flera tusen pixlar hög iframe under scroll. Spelaren pausas när sektionen lämnar viewportens närzon. `jagersroDroneVertical` är den registrerade Vimeo-resursen för Projekt Jägersros vertikala drönarfilm. `playback: background` är endast för dekorativt rörligt material: videon spelar automatiskt, loopar, är permanent mutad, saknar kontroller och tas ur tangentbordsordningen. Bakgrundsvideo finns både som vanlig `full-width` och som `full-width-scroll`; scrollvarianten använder samma högst 800 px höga beskärningsyta, 20 procents överhöjd och vertikala scroll-pan som bildvarianten. Vid `prefers-reduced-motion` pausas native-video, Vimeo-spelaren ersätts av postern, scroll-pan tas bort och posterbilden ligger kvar. `playback: controls` startar pausad och omutad med respektive spelares kontroller för uppspelning, paus och ljud. Informationsbärande tal eller ljud kräver textning; varje kontrollerad video måste dessutom ha ett tillgängligt namn och bör ha en posterbild.
 
 Gridläget har 64 px vertikal spacing på Small, 80 px på Medium, skalar mellan 80 och 112 px genom Large och använder 120 px på Max. En valfri `caption` innehåller en kort etikett och en beskrivning. På Small staplas de med 16 px mellanrum; från Medium ligger de på samma rad och beskrivningen har högst 733 px läsbredd. Etiketten använder `label-03` och beskrivningen `label-02`. Markdown-/CMS-kontraktet består av en registrerad `image`-nyckel, `variant` och valfri `caption`; bildbanken ansvarar för `src`, `alt` och om möjligt `width` och `height`. Rent dekorativa bilder använder uttryckligen tom alternativtext i bildbanken.
 
@@ -681,7 +683,7 @@ Gridläget har 64 px vertikal spacing på Small, 80 px på Medium, skalar mellan
 | `paddingBottom` | `large` \| `medium` \| `small` | Nej | `large`. Fullbreddsvarianten visar ingen yttre padding. |
 | `variant` | `grid` \| `full-width` \| `full-width-scroll` | Nej | `grid`. `full-width-scroll` beskär mediet till högst 800 px och panorerar det vertikalt vid scroll. Detta är det redaktionella Markdownfältet; använd inte det äldre `layout`. |
 | `image` | registrerad bildnyckel | Om `type: image` | Måste finnas i den delade bildbanken, exempelvis `aerial`. |
-| `video` | registrerad videonyckel | Om `type: video` | Måste finnas i videobanken. Banken äger `src`, tillgängligt namn och valfri poster/textningsfil. |
+| `video` | registrerad videonyckel | Om `type: video` | Måste finnas i videobanken, exempelvis `greenMotion` eller `jagersroDroneVertical`. Banken äger native-`src` eller Vimeo-id/privacy-hash, tillgängligt namn och valfri poster/textningsfil. |
 | `playback` | `background` \| `controls` | Om `type: video` | `background` är autoplay, loopad, mutad och kontrollös. `controls` startar pausad och omutad med uppspelnings- och ljudkontroller. |
 | `priority` | boolean | Nej | `false`. Sätt endast `true` för en bild i första synliga vyn. |
 | `caption` | objekt | Nej | Valfri bild- eller videotext. |
@@ -839,18 +841,20 @@ Den öppna Small-menyn fyller minst återstående viewport under navbarens 82 px
 
 Figma visar generiska knappetiketter längst ned i Mobile-menyn. Produktimplementationen får inte använda platshållaren “Button”; etiketterna hämtas från `searchAction` och den valfria `primaryAction`. Den gamla `fixed-heading/heading-compact-01` som förekommer i Figma-referensen används inte, eftersom projektet uttryckligen har tagit bort fixed heading-stilar.
 
+Navbarens länkar, sökhandling och valfria primärhandling finns en gång i `site-shell.md`. Varje exempelsida har samtidigt en egen `type: page`-post som väljer `navbarTheme` och `navbarBackground`; den gemensamma page template kombinerar de två källorna och sätter aktuell huvudlänk. Landing page använder exakt samma mall och får inte äga en separat kopia av navigationen.
+
 #### Markdownfält — Navbar
 
 | Fält | Typ eller tillåtna värden | Krav | Standard och användning |
 | --- | --- | --- | --- |
 | `key` | unik sträng | Ja | Stabil nyckel för sektionen. |
 | `type` | `navbar` | Ja | Väljer Navbar-renderaren. |
-| `theme` | `light` \| `dark` | Ja | Sätter lokalt temaläge. |
-| `background` | `background` \| `background-accent-01` \| `background-accent-02` \| `background-accent-03` | Ja | Navigationens semantiska bakgrund. |
+| `navbarTheme` | `light` \| `dark` | Ja | Sidunik inställning i sidfilens `type: page`-post. |
+| `navbarBackground` | `background` \| `background-accent-01` \| `background-accent-02` \| `background-accent-03` | Ja | Sidunik inställning i sidfilens `type: page`-post. |
 | `links` | lista | Ja | Ordnad lista av huvudlänkar. |
 | `links[].label` | sträng | Ja, per länk | Synlig länktext. |
 | `links[].href` | sträng | Ja, per länk | Ankare eller URL. |
-| `links[].current` | boolean | Nej | `false`. Sätter `aria-current="page"`; högst en länk ska vara aktuell. |
+| `links[].current` | boolean | Nej | Sätts av page template utifrån aktiv sida och lagras inte i `site-shell.md`. |
 | `searchAction` | objekt | Ja | Sökåtgärden i desktop- och mobilnavigationen. |
 | `searchAction.label` | sträng | Ja | Synlig knapptext. |
 | `primaryAction` | objekt | Nej | Extra primär handling i den öppna mobilmenyn. |
@@ -871,16 +875,16 @@ Yttre vertikal padding är 64 px på Small, 80 px på Medium, fluid 80–112 px 
 
 Figma-referensens mobila copyright “© 2026 KODL” normaliseras till Projekt Jägersro. CaretDown-ikonen som ligger i e-postfältet på Small betraktas som ett designfel och används inte. `fixed-heading/heading-compact-02` ersätts av den stödda `body-01`.
 
+Navigation, nyhetsbrev, juridiska länkar och copyright finns en gång i `site-shell.md`. Varje exempelsidas `type: page`-post väljer `footerTheme` och `footerBackground`; den gemensamma page template kombinerar sidinställningarna med innehållet i sidskalet.
+
 #### Markdownfält — Footer
 
 | Fält | Typ eller tillåtna värden | Krav | Standard och användning |
 | --- | --- | --- | --- |
 | `key` | unik sträng | Ja | Stabil nyckel för sektionen. |
 | `type` | `footer` | Ja | Väljer Footer-renderaren. |
-| `theme` | `light` \| `dark` | Ja | Sätter lokalt temaläge. |
-| `background` | `background` \| `background-accent-01` \| `background-accent-02` \| `background-accent-03` | Ja | Sidfotens semantiska bakgrund. |
-| `headingColor` | `text-primary` \| `text-secondary` \| `text-accent-01` \| `text-accent-02` \| `text-placeholder` | Nej | `text-primary`. Påverkar nyhetsbrevsrubriken. |
-| `balanceHeading` | boolean | Nej | `true`. Sätt `false` för att stänga av `text-wrap: balance` på nyhetsbrevsrubriken. |
+| `footerTheme` | `light` \| `dark` | Ja | Sidunik inställning i sidfilens `type: page`-post. |
+| `footerBackground` | `background` \| `background-accent-01` \| `background-accent-02` \| `background-accent-03` | Ja | Sidunik inställning i sidfilens `type: page`-post. |
 | `id` | sträng | Nej | Ankarmål utan `#`; sätts på footerns yttre temascope. |
 | `navigation` | lista | Ja | Sidfotens huvudnavigation. |
 | `navigation[].label` | sträng | Ja, per länk | Synlig länktext. |
@@ -905,11 +909,15 @@ Figma-referensens mobila copyright “© 2026 KODL” normaliseras till Projekt 
 
 Katalogen under Components visar både standard- och featured-läget. Nya artikelmoduler ska komponera `ArticleCard` i stället för att duplicera dess metadata, bild, rubrik, ingress eller pilhandling.
 
+### Gemensam page template
+
+Alla fullständiga exempel, inklusive Landing page, renderas med `ExampleSiteChrome`. Globalt innehåll för Navbar och Footer läses endast från `site-shell.md`. Varje sidfil innehåller exakt en `type: page`-post med `key`, `navbarTheme`, `navbarBackground`, `footerTheme` och `footerBackground`; därefter följer sidans egna sektions- eller innehållsposter. Aktuell huvudlänk härleds från aktiv route och lagras inte i det globala sidskalet. En exempelsida får aldrig läsa site settings från Landing page eller hårdkoda ett `theme--light`/`theme--dark`-scope runt Navbar eller Footer i React.
+
 ### Aktuellt page
 
 Aktuellt är den fullständiga redaktionella arkivsidan under Examples. Ordningen är Navbar, en `HeroSection` med `variant="split"`, `ArticleListingSection` och Footer. Hero placerar sidans enda `h1`, “Aktuellt”, till vänster och den redaktionella beskrivningen till höger. Artikelarkivet börjar direkt efter introduktionsytan utan en duplicerad sektionsrubrik.
 
-Sidans eget serialiserbara innehåll finns i `aktuellt-page.md` och omfattar bara Hero och Article listing. Navbar och Footer hämtas från samma gemensamma inställningar som Landing page och Article page; Aktuellt-länken markeras som aktuell i sidkompositionen. Artiklarna kommer från den delade artikelkällan och ska inte dupliceras i sidans Markdown. Verifieringskatalogens arkiv innehåller tretton poster: de sju aktuella demosammanfattningarna och sex illustrativa äldre poster. Därför kan “Ladda fler artiklar” testas direkt efter den första gruppen om sju.
+Sidans eget serialiserbara innehåll finns i `aktuellt-page.md` och omfattar page settings, Hero och Article listing. Navbar och Footer hämtas från `site-shell.md`; Aktuellt-länken markeras som aktuell i sidkompositionen. Artiklarna kommer från den delade artikelkällan och ska inte dupliceras i sidans Markdown. Verifieringskatalogens arkiv innehåller tretton poster: de sju aktuella demosammanfattningarna och sex illustrativa äldre poster. Därför kan “Ladda fler artiklar” testas direkt efter den första gruppen om sju.
 
 Exempelsidorna bildar ett riktigt navigerbart flöde med stabila URL:er. Landing page finns på `/examples/landing/`, Aktuellt på `/aktuellt/`, Labbet på `/labbet/`, Platsen på `/platsen/`, Resan på `/resan/`, Framtiden på `/framtiden/` och den demonstrerade artikeln på `/aktuellt/forsta-spadtaget-till-hastarnas-favoritbana/`. Navbarens logotyp leder till Landing page, de namngivna huvudlänkarna leder till respektive exempelsida och arkivets featured-kort leder vidare till Article page. Undersidor markerar sin aktuella huvudnivå. Använd aldrig lokala kataloghashar för denna navigation.
 
@@ -919,23 +927,23 @@ Introduktionsytan använder `background-accent-01` och arkivytan `background`, s
 
 ### Labbet page
 
-Labbet är en serialiserbar exempelsida under Examples och finns på `/labbet/`. Sidans innehåll kommer från `labbet-page.md`; Navbar och Footer återanvänds från de gemensamma sidinställningarna. Labbet markeras som aktuell huvudlänk. Kompositionen är Navbar, mörk Split Hero, Media Feature höger, Icon List, Media Feature vänster, mörk Split Feature med definitionslista, Split Feature med numrerad process, mörk Centered Feature CTA och Footer.
+Labbet är en serialiserbar exempelsida under Examples och finns på `/labbet/`. Sidans innehåll och skaltema kommer från `labbet-page.md`; Navbar och Footer återanvänder innehållet i `site-shell.md`. Labbet markeras som aktuell huvudlänk. Kompositionen är Navbar, mörk Split Hero, Media Feature höger, Icon List, Media Feature vänster, mörk Split Feature med definitionslista, Split Feature med numrerad process, mörk Centered Feature CTA och Footer.
 
 Sidan introducerar ingen sidunik layoutmarkup. Varje block renderas genom ett publikt sektionskontrakt, alla bilder löses via den gemensamma bildbanken och sektionernas lokala Light/Dark-teman äger sina semantiska färger. Det gör Labbet till integrationsyta för `IconListSection`, Feature Sections nya listblock och `mediaFit="cover"`.
 
 ### Platsen page
 
-Platsen är en serialiserbar exempelsida under Examples och finns på `/platsen/`. Sidans innehåll kommer från `platsen-page.md`; Navbar och Footer återanvänds från de gemensamma sidinställningarna och Platsen markeras som aktuell huvudlänk. Kompositionen använder Split Hero, Grid Image, Split Feature och Media Feature i en redaktionell följd om omvandling, vardagsliv, grönska, hållbarhet och mobilitet.
+Platsen är en serialiserbar exempelsida under Examples och finns på `/platsen/`. Sidans innehåll och skaltema kommer från `platsen-page.md`; Navbar och Footer återanvänder innehållet i `site-shell.md` och Platsen markeras som aktuell huvudlänk. Kompositionen använder Split Hero, Grid Image, Split Feature och Media Feature i en redaktionell följd om omvandling, vardagsliv, grönska, hållbarhet och mobilitet.
 
 Sidan introducerar ingen egen layoutmarkup. Den första Grid Image överbryggar en mörk introduktion och en ljus innehållsyta med `backgroundTopTheme: dark` och `backgroundBottomTheme: light`. En senare bild använder motsatt temariktning före den avslutande mörka kommunikationssektionen. Bildnycklarna `futureAerial`, `community`, `greenPlan` och `everydayMobility` är utbytbara poster i den gemensamma bildbanken; slutliga redaktionella assets får ersätta dem utan förändring av sidkompositionen.
 
 ### Resan page
 
-Resan är en serialiserbar exempelsida under Examples och finns på `/resan/`. Sidans innehåll kommer från `resan-page.md`; Navbar och Footer återanvänds från gemensamma sidinställningar och Resan markeras som aktuell huvudlänk. Kompositionen är mörk Split Hero, ljus CTA Feature, Timeline, mörk Split Feature, ljus Media Feature för Labbet, mörk Grid Image följd av Split Feature, ljus Media Feature och mörk Centered CTA.
+Resan är en serialiserbar exempelsida under Examples och finns på `/resan/`. Sidans innehåll och skaltema kommer från `resan-page.md`; Navbar och Footer återanvänder innehållet i `site-shell.md` och Resan markeras som aktuell huvudlänk. Kompositionen är mörk Split Hero, ljus CTA Feature, Timeline, mörk Split Feature, ljus Media Feature för Labbet, mörk Grid Image följd av Split Feature, ljus Media Feature och mörk Centered CTA.
 
 ### Framtiden page
 
-Framtiden är en serialiserbar exempelsida under Examples och finns på `/framtiden/`. Sidans innehåll kommer från `framtiden-page.md`; Navbar och Footer återanvänds från gemensamma sidinställningar och Framtiden markeras som aktuell huvudlänk. Kompositionen återbrukar Hero, Image Section med delad bakgrund, Media- och Split Feature, Image Gallery, Icon List, Image Carousel och Centered Feature CTA. Bild- och galleri-ID:n löses via de gemensamma innehållsregistren så att sidan inte duplicerar komponentmarkup eller bilddata.
+Framtiden är en serialiserbar exempelsida under Examples och finns på `/framtiden/`. Sidans innehåll och skaltema kommer från `framtiden-page.md`; Navbar och Footer återanvänder innehållet i `site-shell.md` och Framtiden markeras som aktuell huvudlänk. Kompositionen återbrukar Hero, Image Section med delad bakgrund, Media- och Split Feature, Image Gallery, Icon List, Image Carousel och Centered Feature CTA. Bild- och galleri-ID:n löses via de gemensamma innehållsregistren så att sidan inte duplicerar komponentmarkup eller bilddata.
 
 Tidslinjen återanvänder den gemensamma `TimelineSection` och väljer ett kuraterat urval av registrerade milstolpar genom `itemIds`; sidan får inte duplicera tidslinjens interna markup eller lagra presentationskolumner i Markdown. Hero-handlingen “Följ utvecklingen” använder `arrow-down` eftersom den leder till det lokala ankaret `#tidslinje`. Övriga handlingar använder `arrow-right`. Bilder löses från den gemensamma bildbanken och kan bytas utan att sidkompositionen ändras.
 
@@ -943,7 +951,7 @@ Tidslinjen återanvänder den gemensamma `TimelineSection` och väljer ett kurat
 
 `ArticlePage` är den redaktionella undersidan under Aktuellt. Ordningen är Navbar, Breadcrumb, metadata, huvudbild, rubrik och ingress, artikelns rich text, relaterade artiklar och Footer. Huvudbilden följer hela sidgridden medan rubrik och löptext begränsas till en läsbredd på sex kolumner på Large och Max. På Medium används sex av åtta kolumner och på Small hela gridden. Relaterade artiklar återanvänder samma `ArticleCard` som `LatestArticlesSection`.
 
-Sidinnehållet är serialiserbart och kommer i demoimplementationen från `article-page.md`. Kontraktet innehåller metadata, stabil bildreferens, rubrik, ingress, ordnade rich-text-block och stabila ID:n för relaterade artiklar. Navbar och Footer hämtas från samma gemensamma sidinställningar som landningssidan och dupliceras inte i artikeldatan.
+Sidinnehållet är serialiserbart och kommer i demoimplementationen från `article-page.md`. Kontraktet innehåller page settings, metadata, stabil bildreferens, rubrik, ingress, ordnade rich-text-block och stabila ID:n för relaterade artiklar. Navbar och Footer hämtas från `site-shell.md` och dupliceras inte i artikeldatan.
 
 #### Markdownfält — Article page
 

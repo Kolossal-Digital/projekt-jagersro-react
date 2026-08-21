@@ -1,12 +1,22 @@
 # Exempel: Labbet
 
+## Sidinställningar
+```yaml
+key: labbet-page
+type: page
+navbarTheme: light
+navbarBackground: background
+footerTheme: dark
+footerBackground: background
+```
+
 ## Introduktion
 ```yaml
 key: labbet-intro
 type: hero
 id: labbet-intro
-theme: dark
-background: background
+theme: light
+background: background-accent-01
 variant: split
 paddingTop: large
 paddingBottom: large
@@ -23,12 +33,13 @@ content:
 key: about-labbet
 type: feature
 id: vad-ar-labbet
-theme: light
-background: background-accent-01
+theme: dark
+background: background-accent-03
+headingColor: text-accent-02
 layout: media
 mediaPosition: right
-mediaFit: cover
-image: aerial
+mediaFit: contain
+image: collageMarket
 content:
   tagline: Vad är Labbet?
   heading: En plats i rörelse
@@ -64,8 +75,8 @@ theme: light
 background: background-accent-01
 layout: media
 mediaPosition: left
-mediaFit: cover
-image: aerial
+mediaFit: contain
+image: collageMaterialSand
 content:
   tagline: För vem
   heading: För dig som vill vara med tidigt
@@ -79,8 +90,8 @@ content:
 key: labbet-benefits
 type: feature
 id: varfor-labbet
-theme: dark
-background: background
+theme: light
+background: background-accent-02
 layout: split
 content:
   heading: Varför labbet?
@@ -117,8 +128,8 @@ content:
 key: labbet-cta
 type: feature
 id: intresse
-theme: dark
-background: background
+theme: light
+background: background-accent-02
 layout: centered
 content:
   heading: Vill du vara med?

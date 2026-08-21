@@ -1,5 +1,16 @@
 # Exempel: Artikelsida
 
+## Sidinställningar
+```yaml
+key: article-page
+type: page
+navbarTheme: light
+navbarBackground: background-accent-01
+footerTheme: dark
+footerBackground: background
+```
+
+## Artikelinnehåll
 ```yaml
 id: first-spadtaget
 category: Aktuellt

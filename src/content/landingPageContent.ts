@@ -1,10 +1,4 @@
 import { parse } from "yaml";
-import type {
-  NavbarAction,
-  NavbarLink,
-  NavbarSearchAction,
-} from "../components/SiteNavbar";
-import type { FooterLink, FooterNewsletter } from "../components/SiteFooter";
 import type { ArticleSummary } from "../components/ArticleCard";
 import type { BackgroundName, ForegroundName } from "../tokens";
 import type { HeroContent, HeroVariant } from "../patterns/HeroSection";
@@ -26,6 +20,7 @@ import type {
 import type { TimelineItem } from "../patterns/TimelineSection";
 import type { SectionPaddingSize } from "../patterns/sectionSpacing";
 import landingPageMarkdown from "./landing-page.md?raw";
+import { parsePageSettings } from "./pageSettings";
 
 type Theme = "light" | "dark";
 
@@ -41,12 +36,6 @@ type SectionBase = {
 };
 
 export type LandingPageSection =
-  | (SectionBase & {
-      type: "navbar";
-      links: NavbarLink[];
-      searchAction: NavbarSearchAction;
-      primaryAction?: NavbarAction;
-    })
   | (SectionBase & {
       type: "hero";
       variant: HeroVariant;
@@ -125,13 +114,6 @@ export type LandingPageSection =
       ariaLabel?: string;
       initialIndex?: number;
       itemIds: TimelineItem["id"][];
-    })
-  | (SectionBase & {
-      type: "footer";
-      navigation: FooterLink[];
-      legalLinks: FooterLink[];
-      newsletter: FooterNewsletter;
-      copyright: string;
     });
 
 const sectionPattern = /^##\s+.+\n```ya?ml\n([\s\S]*?)\n```/gm;
@@ -141,17 +123,25 @@ export function readLandingPageSections(): LandingPageSection[] {
   return parsePageSections(landingPageMarkdown, "landing page");
 }
 
+export function readLandingPageSettings() {
+  return parsePageSettings(landingPageMarkdown, "Landing page");
+}
+
 export function parsePageSections(
   markdown: string,
   pageName: string,
 ): LandingPageSection[] {
   return Array.from(markdown.matchAll(sectionPattern), (match) => {
-    const section = parse(match[1]) as Partial<LandingPageSection>;
+    const record = parse(match[1]) as { type?: string };
+
+    if (record.type === "page") return undefined;
+
+    const section = record as Partial<LandingPageSection>;
 
     if (!section.key || !section.type || !section.theme || !section.background) {
       throw new Error(`Every ${pageName} section needs key, type, theme and background.`);
     }
 
     return section as LandingPageSection;
-  });
+  }).filter((section): section is LandingPageSection => section !== undefined);
 }

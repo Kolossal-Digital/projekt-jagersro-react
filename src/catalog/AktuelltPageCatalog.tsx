@@ -1,27 +1,14 @@
-import jagersroWordmark from "../assets/jagersro-wordmark.svg";
-import { SiteFooter } from "../components/SiteFooter";
-import { SiteNavbar } from "../components/SiteNavbar";
-import { readAktuelltPageContent } from "../content/aktuelltPageContent";
+import { ExampleSiteFooter, ExampleSiteNavbar } from "../components/ExampleSiteChrome";
+import {
+  readAktuelltPageContent,
+  readAktuelltPageSettings,
+} from "../content/aktuelltPageContent";
 import { demoArticleArchive } from "../content/demoContent";
-import { readLandingPageSections } from "../content/landingPageContent";
 import { ArticleListingSection } from "../patterns/ArticleListingSection";
 import { HeroSection } from "../patterns/HeroSection";
-import { exampleRoutes } from "../exampleRoutes";
 
 const page = readAktuelltPageContent();
-const sharedSections = readLandingPageSections();
-
-function getSharedSection<Type extends "navbar" | "footer">(type: Type) {
-  const section = sharedSections.find(
-    (candidate): candidate is Extract<(typeof sharedSections)[number], { type: Type }> =>
-      candidate.type === type,
-  );
-  if (!section) throw new Error(`Aktuellt-page example needs a shared ${type}.`);
-  return section;
-}
-
-const navigation = getSharedSection("navbar");
-const footer = getSharedSection("footer");
+const pageSettings = readAktuelltPageSettings();
 
 function getRequestedPage() {
   if (typeof window === "undefined") return 1;
@@ -30,24 +17,9 @@ function getRequestedPage() {
 }
 
 export function AktuelltPageCatalog() {
-  const navigationLinks = navigation.links.map((link) => ({
-    ...link,
-    current: link.label === "Aktuellt",
-    href: link.label === "Aktuellt" ? exampleRoutes.aktuellt : link.href,
-  }));
-
   return (
     <div className="aktuellt-page-demo" id="aktuellt-page">
-      <div className={`site-navbar-shell theme--${page.theme}`}>
-        <SiteNavbar
-          background={navigation.background}
-          brand={{ src: jagersroWordmark, alt: "Jägersro", href: exampleRoutes.landing }}
-          foreground={navigation.headingColor}
-          links={navigationLinks}
-          primaryAction={navigation.primaryAction}
-          searchAction={navigation.searchAction}
-        />
-      </div>
+      <ExampleSiteNavbar currentLabel="Aktuellt" page={pageSettings} />
 
       <div className={`theme--${page.theme}`}>
         <main>
@@ -82,18 +54,7 @@ export function AktuelltPageCatalog() {
         </main>
       </div>
 
-      <div className="theme--dark">
-        <SiteFooter
-          background={footer.background}
-          balanceHeading={footer.balanceHeading}
-          brand={{ src: jagersroWordmark, alt: "Jägersro", href: exampleRoutes.landing }}
-          copyright={footer.copyright}
-          foreground={footer.headingColor}
-          legalLinks={footer.legalLinks}
-          navigation={footer.navigation}
-          newsletter={footer.newsletter}
-        />
-      </div>
+      <ExampleSiteFooter page={pageSettings} />
     </div>
   );
 }

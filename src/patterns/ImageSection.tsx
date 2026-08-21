@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -16,12 +16,26 @@ export type ImageSectionCaption = {
   description: string;
 };
 
-export type VideoAsset = {
+type NativeVideoAsset = {
+  provider?: "native";
   src: string;
   label: string;
   poster?: string;
   captions?: string;
 };
+
+type VimeoVideoAsset = {
+  provider: "vimeo";
+  videoId: string;
+  hash?: string;
+  width: number;
+  height: number;
+  label: string;
+  poster?: string;
+  sourceUrl?: string;
+};
+
+export type VideoAsset = NativeVideoAsset | VimeoVideoAsset;
 
 export type VideoPlaybackMode = "background" | "controls";
 
@@ -44,6 +58,30 @@ export type ImageSectionProps = ImageSectionSharedProps & (
   | { image?: never; video: VideoAsset; playback: VideoPlaybackMode }
 );
 
+function getVimeoPlayerUrl(
+  video: VimeoVideoAsset,
+  playback: VideoPlaybackMode,
+) {
+  const parameters = new URLSearchParams({
+    dnt: "1",
+    title: "0",
+    byline: "0",
+    portrait: "0",
+  });
+
+  if (video.hash) parameters.set("h", video.hash);
+
+  if (playback === "background") {
+    parameters.set("background", "1");
+    parameters.set("autoplay", "1");
+    parameters.set("loop", "1");
+    parameters.set("muted", "1");
+    parameters.set("autopause", "0");
+  }
+
+  return `https://player.vimeo.com/video/${video.videoId}?${parameters.toString()}`;
+}
+
 /** Grid-aligned or full-width image/video section prepared for CMS data. */
 export function ImageSection({
   id,
@@ -64,8 +102,19 @@ export function ImageSection({
 }: ImageSectionProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const vimeoCoverRef = useRef<HTMLDivElement>(null);
+  const vimeoIframeRef = useRef<HTMLIFrameElement>(null);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const isScrollVariant = layout === "full-width-scroll";
   const isBackgroundVideo = Boolean(video && playback === "background");
+  const isVimeoVideo = video?.provider === "vimeo";
+  const nativeVideoSrc = video && video.provider !== "vimeo" ? video.src : undefined;
+  const vimeoCoverStyle = isVimeoVideo
+    ? ({
+        "--video-source-width": `${video.width}px`,
+        "--video-source-height": `${video.height}px`,
+      } as CSSProperties)
+    : undefined;
   const resolvedBackgroundTop = backgroundTop ?? background;
   const resolvedBackgroundBottom = backgroundBottom ?? background;
 
@@ -98,6 +147,15 @@ export function ImageSection({
   );
 
   useEffect(() => {
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const syncPreference = () => setPrefersReducedMotion(reducedMotion.matches);
+
+    syncPreference();
+    reducedMotion.addEventListener("change", syncPreference);
+    return () => reducedMotion.removeEventListener("change", syncPreference);
+  }, []);
+
+  useEffect(() => {
     const element = videoRef.current;
     if (!element || !isBackgroundVideo) return;
 
@@ -113,7 +171,43 @@ export function ImageSection({
     syncPlayback();
     reducedMotion.addEventListener("change", syncPlayback);
     return () => reducedMotion.removeEventListener("change", syncPlayback);
-  }, [isBackgroundVideo, video?.src]);
+  }, [isBackgroundVideo, nativeVideoSrc]);
+
+  useEffect(() => {
+    const cover = vimeoCoverRef.current;
+    if (!cover || !isVimeoVideo || !isBackgroundVideo) return;
+
+    const syncScale = () => {
+      const { width, height } = cover.getBoundingClientRect();
+      const scale = Math.max(width / video.width, height / video.height);
+      cover.style.setProperty("--video-cover-scale", String(scale));
+    };
+
+    syncScale();
+    const resizeObserver = new ResizeObserver(syncScale);
+    resizeObserver.observe(cover);
+    return () => resizeObserver.disconnect();
+  }, [isBackgroundVideo, isVimeoVideo, video]);
+
+  useEffect(() => {
+    const iframe = vimeoIframeRef.current;
+    if (!iframe || !isVimeoVideo || !isBackgroundVideo) return;
+
+    const setPlayback = (shouldPlay: boolean) => {
+      iframe.contentWindow?.postMessage(
+        JSON.stringify({ method: shouldPlay ? "play" : "pause" }),
+        "https://player.vimeo.com",
+      );
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setPlayback(entry.isIntersecting && !prefersReducedMotion),
+      { rootMargin: "200px 0px" },
+    );
+
+    observer.observe(iframe);
+    return () => observer.disconnect();
+  }, [isBackgroundVideo, isVimeoVideo, prefersReducedMotion]);
 
   const classes = [
     "image-section",
@@ -149,6 +243,41 @@ export function ImageSection({
                 }
               />
             </div>
+          ) : isVimeoVideo ? (
+            isBackgroundVideo && prefersReducedMotion && video.poster ? (
+              <img
+                alt=""
+                aria-hidden="true"
+                className="image-section__media-element image-section__video"
+                src={video.poster}
+              />
+            ) : isBackgroundVideo ? (
+              <div
+                className="image-section__media-element image-section__vimeo-cover"
+                ref={vimeoCoverRef}
+                style={vimeoCoverStyle}
+              >
+                <iframe
+                  allow="autoplay; fullscreen; picture-in-picture"
+                  aria-hidden="true"
+                  className="image-section__video image-section__video--vimeo"
+                  loading={priority ? "eager" : "lazy"}
+                  ref={vimeoIframeRef}
+                  src={getVimeoPlayerUrl(video, playback ?? "background")}
+                  tabIndex={-1}
+                  title={video.label}
+                />
+              </div>
+            ) : (
+              <iframe
+                allow="autoplay; fullscreen; picture-in-picture"
+                allowFullScreen
+                className="image-section__media-element image-section__video image-section__video--vimeo"
+                loading={priority ? "eager" : "lazy"}
+                src={getVimeoPlayerUrl(video, playback ?? "controls")}
+                title={video.label}
+              />
+            )
           ) : (
             <video
               aria-hidden={isBackgroundVideo ? "true" : undefined}

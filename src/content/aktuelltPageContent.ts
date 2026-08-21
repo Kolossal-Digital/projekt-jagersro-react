@@ -3,6 +3,7 @@ import type { BackgroundName, ForegroundName } from "../tokens";
 import type { HeroContent, HeroVariant } from "../patterns/HeroSection";
 import type { SectionPaddingSize } from "../patterns/sectionSpacing";
 import aktuelltPageMarkdown from "./aktuellt-page.md?raw";
+import { parsePageSettings } from "./pageSettings";
 
 type Theme = "light" | "dark";
 
@@ -32,14 +33,14 @@ export type AktuelltPageContent = {
   };
 };
 
-const yamlBlockPattern = /```ya?ml\n([\s\S]*?)\n```/;
+const yamlBlockPattern = /```ya?ml\n([\s\S]*?)\n```/g;
 
 /** Reads the serializable page-level composition for the Aktuellt example. */
 export function readAktuelltPageContent(): AktuelltPageContent {
-  const match = aktuelltPageMarkdown.match(yamlBlockPattern);
-  if (!match) throw new Error("Aktuellt-page fixture needs a YAML block.");
-
-  const page = parse(match[1]) as Partial<AktuelltPageContent>;
+  const page = Array.from(aktuelltPageMarkdown.matchAll(yamlBlockPattern), (match) =>
+    parse(match[1]) as Partial<AktuelltPageContent> & { type?: string },
+  ).find((record) => record.type !== "page");
+  if (!page) throw new Error("Aktuellt-page fixture needs a content YAML block.");
   if (
     !page.theme ||
     !page.hero?.content?.heading ||
@@ -52,4 +53,8 @@ export function readAktuelltPageContent(): AktuelltPageContent {
   }
 
   return page as AktuelltPageContent;
+}
+
+export function readAktuelltPageSettings() {
+  return parsePageSettings(aktuelltPageMarkdown, "Aktuellt page");
 }

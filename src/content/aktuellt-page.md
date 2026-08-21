@@ -3,6 +3,17 @@
 Sidans eget redaktionella innehåll. Navigation och Footer hämtas från de gemensamma
 sidinställningarna så att de inte behöver dupliceras här.
 
+## Sidinställningar
+```yaml
+key: aktuellt-page
+type: page
+navbarTheme: light
+navbarBackground: background-accent-01
+footerTheme: dark
+footerBackground: background
+```
+
+## Sidinnehåll
 ```yaml
 theme: light
 hero:

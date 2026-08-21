@@ -1,12 +1,23 @@
 # Exempel: Platsen
 
+## Sidinställningar
+```yaml
+key: platsen-page
+type: page
+navbarTheme: light
+navbarBackground: background
+footerTheme: dark
+footerBackground: background
+```
+
 ## Introduktion
 ```yaml
 key: platsen-intro
 type: hero
 id: platsen-intro
 theme: dark
-background: background
+background: background-accent-02
+headingColor: text-accent-01
 variant: split
 paddingTop: large
 paddingBottom: large
@@ -22,7 +33,7 @@ type: image
 id: framtidsbild
 theme: dark
 background: background-accent-01
-backgroundTop: background
+backgroundTop: background-accent-02
 backgroundBottom: background-accent-01
 backgroundTopTheme: dark
 backgroundBottomTheme: light
@@ -40,6 +51,7 @@ type: feature
 id: bykansla
 theme: light
 background: background-accent-01
+headingColor: text-accent-01
 layout: split
 content:
   heading: En stadsdel med bykänsla
@@ -57,10 +69,11 @@ type: feature
 id: narmare-liv
 theme: light
 background: background-accent-02
+headingColor: text-accent-01
 layout: media
 mediaPosition: left
 mediaFit: cover
-image: community
+image: collageMaterialRed
 content:
   heading: Ett bättre, enklare och närmare liv
   richText:
@@ -77,6 +90,7 @@ type: feature
 id: gronomraden
 theme: light
 background: background-accent-01
+headingColor: text-accent-01
 layout: media
 mediaPosition: right
 mediaFit: cover
@@ -94,7 +108,8 @@ key: sustainable-district
 type: feature
 id: hallbarhet
 theme: dark
-background: background
+background: background-accent-03
+headingColor: text-accent-02
 layout: split
 content:
   heading: En hållbar stadsdel för generationer framåt
@@ -112,10 +127,11 @@ type: feature
 id: mobilitet
 theme: light
 background: background-accent-01
+headingColor: text-accent-01
 layout: media
 mediaPosition: left
 mediaFit: cover
-image: everydayMobility
+image: collageGardening
 content:
   heading: Enklare och närmare i vardagen
   richText:
@@ -147,6 +163,7 @@ type: feature
 id: kommunikationer
 theme: dark
 background: background
+headingColor: text-accent-01
 layout: split
 content:
   heading: Goda kommunikationer

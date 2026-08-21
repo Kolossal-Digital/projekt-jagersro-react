@@ -1,10 +1,9 @@
-import jagersroWordmark from "../assets/jagersro-wordmark.svg";
-import { SiteFooter } from "../components/SiteFooter";
-import { SiteNavbar } from "../components/SiteNavbar";
+import { ExampleSiteFooter, ExampleSiteNavbar } from "../components/ExampleSiteChrome";
 import { demoGalleryItems, demoImages, demoVideos } from "../content/demoContent";
-import { readFramtidenPageSections } from "../content/framtidenPageContent";
-import { readLandingPageSections } from "../content/landingPageContent";
-import { exampleRoutes } from "../exampleRoutes";
+import {
+  readFramtidenPageSections,
+  readFramtidenPageSettings,
+} from "../content/framtidenPageContent";
 import { FeatureSection } from "../patterns/FeatureSection";
 import { HeroSection } from "../patterns/HeroSection";
 import { IconListSection } from "../patterns/IconListSection";
@@ -13,16 +12,7 @@ import { ImageGallery } from "../patterns/ImageGallery";
 import { ImageSection } from "../patterns/ImageSection";
 
 const sections = readFramtidenPageSections();
-const sharedSections = readLandingPageSections();
-
-function getSharedSection<Type extends "navbar" | "footer">(type: Type) {
-  const section = sharedSections.find(
-    (candidate): candidate is Extract<(typeof sharedSections)[number], { type: Type }> =>
-      candidate.type === type,
-  );
-  if (!section) throw new Error(`Framtiden-page example needs a shared ${type}.`);
-  return section;
-}
+const page = readFramtidenPageSettings();
 
 function resolveImage(key: string) {
   const image = demoImages[key as keyof typeof demoImages];
@@ -42,27 +32,10 @@ function resolveGalleryItem(id: string) {
   return item;
 }
 
-const navigation = getSharedSection("navbar");
-const footer = getSharedSection("footer");
-
 export function FramtidenPageCatalog() {
-  const navigationLinks = navigation.links.map((link) => ({
-    ...link,
-    current: link.label === "Framtiden",
-  }));
-
   return (
     <div className="framtiden-page-demo" id="framtiden-page">
-      <div className="site-navbar-shell theme--dark">
-        <SiteNavbar
-          background={navigation.background}
-          brand={{ src: jagersroWordmark, alt: "Jägersro", href: exampleRoutes.landing }}
-          foreground={navigation.headingColor}
-          links={navigationLinks}
-          primaryAction={navigation.primaryAction}
-          searchAction={navigation.searchAction}
-        />
-      </div>
+      <ExampleSiteNavbar currentLabel="Framtiden" page={page} />
 
       <main>
         {sections.map((section) => (
@@ -181,18 +154,7 @@ export function FramtidenPageCatalog() {
         ))}
       </main>
 
-      <div className="theme--dark">
-        <SiteFooter
-          background={footer.background}
-          balanceHeading={footer.balanceHeading}
-          brand={{ src: jagersroWordmark, alt: "Jägersro", href: exampleRoutes.landing }}
-          copyright={footer.copyright}
-          foreground={footer.headingColor}
-          legalLinks={footer.legalLinks}
-          navigation={footer.navigation}
-          newsletter={footer.newsletter}
-        />
-      </div>
+      <ExampleSiteFooter page={page} />
     </div>
   );
 }

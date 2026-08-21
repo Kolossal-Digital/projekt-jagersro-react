@@ -3,20 +3,14 @@
 Varje H2-rubrik är en modul i sidans ordning. YAML-blocket innehåller modulens
 serialiserbara CMS-data. Bildfält använder nycklar från den lokala bildbanken.
 
-## Navigation
+## Sidinställningar
 ```yaml
-key: navigation
-type: navbar
-theme: dark
-background: background
-links:
-  - { label: Aktuellt, href: "/aktuellt/" }
-  - { label: Labbet, href: "/labbet/" }
-  - { label: Platsen, href: "/platsen/" }
-  - { label: Resan, href: "/resan/" }
-  - { label: Framtiden, href: "/framtiden/" }
-searchAction: { label: Sök }
-primaryAction: { label: Kontakta oss, href: "#kontakt" }
+key: landing-page
+type: page
+navbarTheme: light
+navbarBackground: background-accent-01
+footerTheme: dark
+footerBackground: background
 ```
 
 ## Sidintroduktion
@@ -24,7 +18,7 @@ primaryAction: { label: Kontakta oss, href: "#kontakt" }
 key: intro
 type: hero
 theme: light
-background: background
+background: background-accent-01
 headingColor: text-accent-01
 variant: split
 content:
@@ -45,7 +39,7 @@ background: background-accent-02
 backgroundTop: background-accent-02
 backgroundBottom: background-accent-02
 variant: full-width-scroll
-video: greenMotion
+video: jagersroDroneVertical
 playback: background
 priority: true
 ```
@@ -55,8 +49,8 @@ priority: true
 key: ongoing
 type: feature
 id: just-nu
-theme: light
-background: background-accent-01
+theme: dark
+background: background-accent-02
 headingColor: text-accent-01
 paddingBottom: small
 layout: cta
@@ -75,9 +69,10 @@ content:
 key: latest-articles
 type: latest-articles
 id: aktuellt
-theme: light
-background: background-accent-01
+theme: dark
+background: background-accent-02
 cardBackground: background-accent-01
+headingColor: text-accent-01
 articleIds:
   - first-spadtaget
   - now-it-starts
@@ -94,8 +89,8 @@ key: place
 type: feature
 id: platsen
 theme: light
-background: background-accent-02
-headingColor: text-accent-01
+background: background
+headingColor: text-accent-02
 layout: split
 content:
   tagline: Projekt Jägersro
@@ -113,7 +108,7 @@ content:
 key: lab
 type: full-width-feature
 id: labbet
-theme: dark
+theme: light
 background: background-accent-01
 image: featureDummy
 imagePosition: right
@@ -131,7 +126,8 @@ content:
 key: journey
 type: feature
 theme: light
-background: background-accent-01
+background: background-accent-03
+headingColor: text-accent-02
 paddingBottom: medium
 layout: cta
 content:
@@ -149,7 +145,7 @@ content:
 key: journey-timeline
 type: timeline
 id: resan
-theme: light
+theme: dark
 background: background-accent-01
 paddingTop: medium
 ariaLabel: Projekt Jägersros tidslinje
@@ -177,8 +173,8 @@ itemIds:
 key: history
 type: feature
 theme: light
-background: background-accent-03
-headingColor: text-accent-02
+background: background-accent-02
+headingColor: text-accent-01
 paddingBottom: medium
 layout: media
 mediaPosition: left
@@ -286,31 +282,4 @@ content:
   actions:
      - { label: Se vad som händer på platsen, href: "#resan", variant: primary, icon: arrow-right }
      - { label: Kontakta oss, href: "#platsen", variant: outline }
-```
-
-## Footer
-```yaml
-key: footer
-type: footer
-id: kontakt
-theme: dark
-background: background
-navigation:
-  - { label: Aktuellt, href: "/aktuellt/" }
-  - { label: Labbet, href: "/labbet/" }
-  - { label: Platsen, href: "/platsen/" }
-  - { label: Galleri, href: "#galleri" }
-  - { label: Resan, href: "#resan" }
-legalLinks:
-  - { label: Integritetspolicy, href: "#kontakt" }
-  - { label: Användarvillkor, href: "#kontakt" }
-  - { label: Cookie-inställningar, href: "#kontakt" }
-newsletter:
-  title: Följ berättelsen om Jägersro
-  inputLabel: E-postadress
-  placeholder: Ange din e-postadress
-  submitLabel: Prenumerera
-  consentText: Genom att prenumerera godkänner du vår
-  privacyLink: { label: integritetspolicy, href: "#kontakt" }
-copyright: © 2026 Projekt Jägersro. Alla rättigheter förbehållna.
 ```

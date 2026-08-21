@@ -1632,6 +1632,28 @@ textarea {
   object-fit: cover;
 }
 
+.image-section__video--vimeo {
+  border: 0;
+}
+
+.image-section__vimeo-cover {
+  position: relative;
+  overflow: hidden;
+  contain: layout paint;
+}
+
+.image-section__vimeo-cover > .image-section__video--vimeo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--video-source-width);
+  height: var(--video-source-height);
+  transform: translate(-50%, -50%) scale(var(--video-cover-scale, 1));
+  transform-origin: center;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
 .image-section__caption {
   display: grid;
   grid-column: 1 / -1;
@@ -2816,6 +2838,45 @@ textarea {
   margin: var(--spacing-24) 0 var(--spacing-12);
   overflow: hidden;
   background: color-mix(in srgb, currentColor 6%, transparent);
+}
+
+.image-resource-library {
+  display: grid;
+  grid-template-columns: subgrid;
+  row-gap: var(--spacing-12);
+  padding-top: 64px;
+}
+
+.image-resource-library > h3,
+.image-resource-library > p {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+
+.image-resource-grid {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+  column-gap: var(--page-grid-gutter);
+  row-gap: var(--spacing-24);
+  padding-top: var(--spacing-24);
+}
+
+.image-resource-card {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+.image-resource-card__frame {
+  width: 100%;
+  aspect-ratio: 1;
+  margin-bottom: var(--spacing-12);
+  overflow: hidden;
+  background: var(--background);
+}
+
+.image-resource-card code {
+  margin: 0;
 }
 
 .contained-feature {
@@ -4430,6 +4491,14 @@ textarea {
     grid-column: 5 / span 4;
   }
 
+  .image-resource-card:nth-child(odd) {
+    grid-column: 1 / span 4;
+  }
+
+  .image-resource-card:nth-child(even) {
+    grid-column: 5 / span 4;
+  }
+
   .token-meta {
     grid-column: 1 / span 2;
   }
@@ -4487,6 +4556,10 @@ textarea {
   .page-grid-composition-card:nth-child(even),
   .image-specimen:nth-child(even) {
     grid-column: 7 / span 6;
+  }
+
+  .image-resource-card:nth-child(n) {
+    grid-column: span 4;
   }
 
   .swatch:nth-child(n),
