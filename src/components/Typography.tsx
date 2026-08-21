@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-type TypographyElement = "h1" | "h2" | "h3" | "p" | "span";
+type TypographyElement = "h1" | "h2" | "h3" | "h4" | "p" | "span";
 
 type TypographyProps = {
   as?: TypographyElement;

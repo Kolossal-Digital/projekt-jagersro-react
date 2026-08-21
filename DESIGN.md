@@ -1099,6 +1099,117 @@ unsupported:
 
 Nya tokens, komponentvarianter eller grafiska uttryck ska läggas till först när ett konkret innehålls- eller användarbehov finns. Varje komponent ska kontrolleras i Light och Dark, relevanta surfaces och aktuella responsiva lägen.
 
+### Visuellt beslutsregister
+
+Posterna nedan är ett maskinläsbart urval av förankrade regler som visualiseras under `Foundations / DESIGN.md-regler`. Den fullständiga förklaringen finns kvar i respektive avsnitt ovan. Ändra beslut och källa här i `DESIGN.md`; katalogen är endast en skrivskyddad presentation.
+
+```yaml
+key: decision-source-order
+type: design-rule
+category: Beslutslogik
+title: Förankrade källor avgör vad som får implementeras
+summary: Produktdefinition, visuell guide, tokens och godkänd Figma styr lösningen. Om ingen källa ger stöd ska beslutet efterfrågas i stället för att hittas på.
+scope: Foundations, styles, komponenter, sektioner och exempelsidor.
+origin: Projektregel och produktunderlag
+source: DESIGN.md / Implementation och styrning samt Explicit don'ts
+visual:
+  kind: source-order
+  items:
+    - { label: Produkt och källmaterial, detail: Behov, målgrupper och förankrade krav }
+    - { label: DESIGN.md och tokens, detail: Visuella regler, semantik och layout }
+    - { label: Godkänd Figma, detail: Exakta visuella referenser när de finns }
+    - { label: Befintligt system, detail: Etablerade komponent- och sektionskontrakt }
+    - { label: Efterfråga beslut, detail: När ingen godkänd källa ger stöd }
+```
+
+```yaml
+key: editorial-priority
+type: design-rule
+category: Designprinciper
+title: Platsen och berättelsen har högst visuell vikt
+summary: Verkliga miljöer, människor och förändring ska dominera. Gränssnittet ramar in innehållet och hjälper besökaren vidare utan att konkurrera med berättelsen.
+scope: Alla redaktionella sidor, sektioner och mediaurval.
+origin: Produktbrief och designprinciper
+source: DESIGN.md / Produktbrief och Designprinciper
+visual:
+  kind: source-order
+  items:
+    - { label: Platsen, detail: Verkliga miljöer och dokumentärt material }
+    - { label: Berättelsen, detail: Trovärdig förändring, fakta och sammanhang }
+    - { label: Nästa steg, detail: En tydlig väg till fördjupning eller kontakt }
+    - { label: Gränssnittet, detail: Lugn inramning med låg egen visuell tyngd }
+```
+
+```yaml
+key: catalog-heading-hierarchy
+type: design-rule
+category: Hierarki
+title: Katalogens rubriknivåer följer sidans struktur
+summary: Sidtiteln är h1, sektionsrubriken är h2 och specimen använder h3 eller h4. Typografitoken väljs efter semantisk nivå, inte bara önskad storlek.
+scope: Designsystemets verifieringskatalog.
+origin: Befintlig katalogimplementation
+source: App, Section och katalogspecimen
+visual:
+  kind: hierarchy
+  items:
+    - { label: Sidtitel, element: h1, token: fluid-display-04 }
+    - { label: Sektionsrubrik, element: h2, token: fluid-heading-05 }
+    - { label: Specimenrubrik, element: h3/h4, token: fluid-heading-03 }
+    - { label: Metadata, element: p/code, token: code-01 }
+```
+
+```yaml
+key: radius-by-function
+type: design-rule
+category: Form
+title: Radier används sparsamt och efter funktion
+summary: Fullbreddsytor och dokumentära bilder är raka. Rundning reserveras för kontroller, standardkort och pill-formade små element; stora innehållskort blir inte runda av vana.
+scope: Media, kontroller, kort, formulärfält och tags.
+origin: Tokenregler och visuell karaktär
+source: DESIGN.md / Radier, linjer och djup
+visual:
+  kind: radius
+  items:
+    - { label: Fullbredd och dokumentärt media, token: radius-00 }
+    - { label: Kompakta kontroller, token: radius-08 }
+    - { label: Standardkort och formulärfält, token: radius-12 }
+    - { label: Pill-formade små kontroller, token: radius-99 }
+```
+
+```yaml
+key: phosphor-icon-style
+type: design-rule
+category: Ikoner
+title: Phosphor är det enda generella ikonbiblioteket
+summary: Ikoner väljs efter betydelse och ärver currentColor. Light är standardvikt; 24 px används för fristående handlingar och tydliga visuella ledtrådar.
+scope: Generella UI-ikoner i komponenter, sektioner och katalog.
+origin: Visuell identitet och systemregel
+source: DESIGN.md / Ikoner och illustration
+visual:
+  kind: icons
+  items:
+    - { label: Fil, icon: file-text }
+    - { label: Källa, icon: folder-open }
+    - { label: Verifierat, icon: check-circle }
+```
+
+```yaml
+key: section-boundaries
+type: design-rule
+category: Layout
+title: Sektionens surface går full bredd
+summary: Bakgrund och sektionsgränser ägs av det yttre section-elementet. Innehållet ligger i en inre page-grid som styr marginaler, gutters och kolumnlinjer.
+scope: Alla återanvändbara sidsektioner och katalogens Intro-sektioner.
+origin: Gemensamt gridkontrakt
+source: DESIGN.md / Responsiv layout
+visual:
+  kind: section
+  items:
+    - { label: Yttre section, detail: Full bredd och surface }
+    - { label: Inre page-grid, detail: Marginaler, gutter och kolumner }
+    - { label: Innehåll, detail: Placeras på godkända kolumnspann }
+```
+
 ---
 
 ## 18. Öppna designbeslut
@@ -1142,4 +1253,5 @@ open-decisions:
 - Blanda inte Phosphor Icons med andra generella ikonbibliotek eller egenritade standardikoner.
 - Använd inte enbart en ikon för en kritisk eller ovanlig handling.
 - Skapa inte nya komponentvarianter när en befintlig komponent eller fullbreddssektion löser behovet.
+- Ta inga egna designbeslut gällande foundations eller styles, saknas instruktioner så får du be om detta istället för att hitta på egna designbeslut.
 ```

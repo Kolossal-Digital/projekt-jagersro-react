@@ -1,8 +1,10 @@
 export type CatalogPage =
+  | "intro"
   | "typography"
   | "colors"
   | "grid-spacing"
   | "icons"
+  | "design-rules"
   | "buttons"
   | "breadcrumbs"
   | "selects"
@@ -44,12 +46,17 @@ type CatalogGroup = {
 
 const catalogGroups: CatalogGroup[] = [
   {
+    label: "Kom igång",
+    items: [{ id: "intro", label: "Intro" }],
+  },
+  {
     label: "Foundations",
     items: [
       { id: "typography", label: "Typografi" },
       { id: "colors", label: "Färger" },
       { id: "grid-spacing", label: "Grid & spacing" },
       { id: "icons", label: "Ikoner" },
+      { id: "design-rules", label: "DESIGN.md-regler" },
     ],
   },
   {

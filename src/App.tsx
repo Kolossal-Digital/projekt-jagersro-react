@@ -7,12 +7,14 @@ import { CornersOutIcon } from "@phosphor-icons/react/dist/csr/CornersOut";
 import { ButtonsCatalog } from "./catalog/ButtonsCatalog";
 import { BreadcrumbCatalog } from "./catalog/BreadcrumbCatalog";
 import { ColorsCatalog } from "./catalog/ColorsCatalog";
+import { DesignRulesCatalog } from "./catalog/DesignRulesCatalog";
 import { FooterCatalog } from "./catalog/FooterCatalog";
 import { FeatureSectionsCatalog } from "./catalog/FeatureSectionsCatalog";
 import { GridSpacingCatalog } from "./catalog/GridSpacingCatalog";
 import { FullWidthFeatureSectionsCatalog } from "./catalog/FullWidthFeatureSectionsCatalog";
 import { HeroSectionsCatalog } from "./catalog/HeroSectionsCatalog";
 import { ImageSectionCatalog } from "./catalog/ImageSectionCatalog";
+import { IntroCatalog } from "./catalog/IntroCatalog";
 import { ImageCarouselCatalog } from "./catalog/ImageCarouselCatalog";
 import { ImageGalleryCatalog } from "./catalog/ImageGalleryCatalog";
 import { ImagesCatalog } from "./catalog/ImagesCatalog";
@@ -58,7 +60,7 @@ function getInitialMenuVisibility() {
 }
 
 function getInitialCatalogPage(): CatalogPage {
-  if (typeof window === "undefined") return "typography";
+  if (typeof window === "undefined") return "intro";
   const exampleRoute = getExampleRoute(window.location.pathname);
 
   if (exampleRoute === "landing") return "landing-page";
@@ -69,7 +71,7 @@ function getInitialCatalogPage(): CatalogPage {
   if (exampleRoute === "framtiden") return "framtiden-page";
   if (exampleRoute === "article") return "article-page";
 
-  return "typography";
+  return "intro";
 }
 
 const examplePages = new Set<CatalogPage>([
@@ -96,6 +98,12 @@ const pageContent: Record<
   CatalogPage,
   { eyebrow: string; title: string; description: string }
 > = {
+  intro: {
+    eyebrow: "Projekt Jägersro / guide",
+    title: "Så arbetar ni i projektet.",
+    description:
+      "En praktisk guide från skrivskyddat källmaterial och produktbeslut till designregler, implementation och verifiering i katalogen.",
+  },
   typography: {
     eyebrow: "Designsystem / foundations",
     title: "Typografi.",
@@ -119,6 +127,12 @@ const pageContent: Record<
     title: "Ikoner.",
     description:
       "Ett kontrollerat urval från Phosphor Icons med gemensamma vikter, storlekar och betydelser.",
+  },
+  "design-rules": {
+    eyebrow: "Designsystem / foundations",
+    title: "DESIGN.md-regler.",
+    description:
+      "En visuell sammanställning av dokumenterade designbeslut, deras användning, avgränsning och källa.",
   },
   buttons: {
     eyebrow: "Designsystem / components",
@@ -458,9 +472,11 @@ function App() {
           {activePage === "typography" && (
             <TypographyCatalog breakpoint={breakpoint} />
           )}
+          {activePage === "intro" && <IntroCatalog />}
           {activePage === "colors" && <ColorsCatalog theme={theme} />}
           {activePage === "grid-spacing" && <GridSpacingCatalog />}
           {activePage === "icons" && <IconsCatalog />}
+          {activePage === "design-rules" && <DesignRulesCatalog />}
           {activePage === "buttons" && <ButtonsCatalog />}
           {activePage === "breadcrumbs" && <BreadcrumbCatalog />}
           {activePage === "selects" && <SelectsCatalog />}
